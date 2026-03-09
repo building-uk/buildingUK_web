@@ -1,0 +1,84 @@
+/* ===========================================
+   Button Component Styles
+   =========================================== */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-body);
+  font-weight: var(--font-medium);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all var(--transition-base);
+  white-space: nowrap;
+}
+
+/* ========== SIZES ========== */
+.btn--sm {
+  padding: 12px 24px;
+  font-size: var(--text-xs);
+}
+
+.btn--md {
+  padding: 17px 27px;
+  font-size: var(--text-sm);
+  min-width: 185px;
+  height: 52px;
+}
+
+.btn--lg {
+  padding: 23px 50px;
+  font-size: var(--text-md);
+  min-width: 363px;
+  height: 70px;
+}
+
+/* ========== VARIANTS ========== */
+
+/* Primary - Gold background */
+.btn--primary {
+  background-color: var(--color-primary);
+  color: var(--color-button-text);
+}
+
+.btn--primary:hover {
+  background-color: var(--color-primary-hover);
+  transform: translateY(-2px);
+}
+
+.btn--primary:active {
+  transform: translateY(0);
+}
+
+/* Secondary - Dark background */
+.btn--secondary {
+  background-color: var(--color-text-heading);
+  color: var(--color-text-white);
+}
+
+.btn--secondary:hover {
+  background-color: var(--color-text-dark);
+  transform: translateY(-2px);
+}
+
+/* Ghost - Transparent with border */
+.btn--ghost {
+  background-color: transparent;
+  color: var(--color-text-heading);
+  border: 1px solid var(--color-text-heading);
+}
+
+.btn--ghost:hover {
+  background-color: var(--color-text-heading);
+  color: var(--color-text-white);
+}
+
+/* ========== RESPONSIVE ========== */
+@media (max-width: 768px) {
+  .btn--lg {
+    min-width: 280px;
+    padding: 20px 40px;
+  }
+}

@@ -1,0 +1,80 @@
+export const landingPage = {
+    name: 'landingPage',
+    title: 'Landing Page',
+    type: 'document',
+    fields: [
+        {
+            name: 'title',
+            title: 'Page Title',
+            type: 'string',
+            initialValue: 'Home',
+        },
+        {
+            name: 'hero',
+            title: 'Hero Section',
+            type: 'object',
+            fields: [
+                { name: 'title', title: 'Title', type: 'string' },
+                { name: 'subtitle', title: 'Subtitle', type: 'string' },
+                {
+                    name: 'slideshowImages',
+                    title: 'Slideshow Images',
+                    type: 'array',
+                    of: [{ type: 'image', options: { hotspot: true } }],
+                    validation: (Rule) => Rule.min(4).error('Please add at least 4 images for the hero slideshow.'),
+                },
+                { name: 'buttonText', title: 'Button Text', type: 'string' },
+                { name: 'buttonLink', title: 'Button Link', type: 'string', initialValue: '/contact' },
+            ],
+        },
+        {
+            name: 'aboutSnippet',
+            title: 'About Snippet',
+            type: 'object',
+            fields: [
+                { name: 'subtitle', title: 'Subtitle', type: 'string', initialValue: 'About Us' },
+                { name: 'title', title: 'Title', type: 'string' },
+                { name: 'text', title: 'Description', type: 'text' },
+                { name: 'images', title: 'Images', type: 'array', of: [{ type: 'image' }] },
+                { name: 'buttonText', title: 'Button Text', type: 'string', initialValue: 'Learn More' },
+                { name: 'buttonLink', title: 'Button Link', type: 'string', initialValue: '/about' },
+            ],
+        },
+        {
+            name: 'featuredServices',
+            title: 'Featured Services',
+            type: 'array',
+            of: [{ type: 'reference', to: { type: 'service' } }],
+            description: 'Select services to showcase on the home page.',
+        },
+        {
+            name: 'featuredProjects',
+            title: 'Featured Case Studies',
+            type: 'array',
+            of: [{ type: 'reference', to: { type: 'projects' } }],
+            description: 'Select project case studies to showcase.',
+        },
+        {
+            name: 'processSnippet',
+            title: 'Process Section',
+            type: 'object',
+            fields: [
+                { name: 'title', title: 'Section Title', type: 'string' },
+                { name: 'image', title: 'Illustration/Image', type: 'image' },
+            ],
+            description: 'Process steps are managed in the Services Page settings.',
+        },
+        {
+            name: 'latestArticlesTitle',
+            title: 'Latest Articles Section Title',
+            type: 'string',
+            initialValue: 'Latest Articles & Updates',
+        },
+        {
+            name: 'featuredTestimonials',
+            title: 'Featured Testimonials',
+            type: 'array',
+            of: [{ type: 'reference', to: { type: 'testimonial' } }],
+        },
+    ],
+}

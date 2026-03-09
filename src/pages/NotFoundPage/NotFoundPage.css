@@ -1,0 +1,28 @@
+.not-found-page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.not-found__content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: var(--space-3xl) var(--space-md);
+  gap: var(--space-lg);
+}
+
+.not-found__title {
+  font-size: 8rem;
+  color: var(--color-primary);
+  line-height: 1;
+  opacity: 0.2;
+}
+
+.not-found__text {
+  max-width: 500px;
+  margin-bottom: var(--space-md);
+}

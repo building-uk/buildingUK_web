@@ -1,0 +1,43 @@
+/* ===========================================
+   ServiceCardAlt Component Styles
+   =========================================== */
+
+.service-card-alt {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--color-bg-white);
+}
+
+.service-card-alt__image {
+  height: 250px;
+  overflow: hidden;
+}
+
+.service-card-alt__content {
+  padding: var(--space-lg);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  text-align: center;
+}
+
+.service-card-alt__content .heading {
+  font-size: var(--text-md);
+  text-transform: none;
+}
+
+.service-card-alt__content .text {
+  flex: 1;
+  margin-bottom: var(--space-sm);
+}
+
+.service-card-alt__content .btn {
+  align-self: center;
+}
+
+/* ========== RESPONSIVE ========== */
+@media (max-width: 768px) {
+  .service-card-alt__image {
+    height: 200px;
+  }
+}

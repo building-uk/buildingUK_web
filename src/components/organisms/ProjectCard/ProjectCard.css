@@ -1,0 +1,50 @@
+/* ===========================================
+   ProjectCard Component Styles
+   =========================================== */
+
+.project-card {
+  display: block;
+  position: relative;
+  height: 400px;
+  overflow: hidden;
+  transition: transform var(--transition-base);
+}
+
+.project-card:hover {
+  transform: scale(1.02);
+}
+
+.project-card__image {
+  width: 100%;
+  height: 100%;
+}
+
+.project-card__content {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: var(--space-lg);
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.project-card__content .heading {
+  font-size: var(--text-md);
+  line-height: 1.3;
+}
+
+.project-card__location {
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  color: var(--color-text-light);
+}
+
+/* ========== RESPONSIVE ========== */
+@media (max-width: 768px) {
+  .project-card {
+    height: 300px;
+  }
+}

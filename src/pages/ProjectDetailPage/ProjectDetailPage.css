@@ -1,0 +1,209 @@
+/* ===========================================
+   ProjectDetailPage Redesign Styles
+   =========================================== */
+
+.project-detail-page {
+  min-height: 100vh;
+  background-color: var(--color-bg-white);
+}
+
+.project-detail {
+  padding-top: 0;
+}
+
+/* ========== HERO SECTION (Dark) ========== */
+.project-detail__hero {
+  background-color: var(--color-bg-dark);
+  padding-top: var(--space-4xl);
+  padding-bottom: var(--space-2xl);
+}
+
+/* ========== BACK LINK ========== */
+.project-detail__back {
+  display: inline-block;
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  color: var(--color-text-light);
+  margin-bottom: var(--space-lg);
+  transition: color var(--transition-base);
+}
+
+.project-detail__back:hover {
+  color: var(--color-primary);
+}
+
+/* ========== HEADER ========== */
+.project-detail__header {
+  margin-bottom: 0;
+}
+
+.project-detail__header .heading {
+  color: var(--color-primary);
+  margin-bottom: var(--space-md);
+  font-family: var(--font-display);
+}
+
+.project-detail__short-desc {
+  color: var(--color-text-footer);
+  max-width: 800px;
+  font-family: var(--font-body);
+}
+
+/* ========== CONTENT GRID ========== */
+.project-detail__content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-3xl);
+  margin-bottom: var(--space-3xl);
+  align-items: flex-start;
+}
+
+/* ========== MAIN CONTENT (Left) ========== */
+.project-detail__main {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2xl);
+  position: sticky;
+  top: 40px;
+  /* Reduced since hero is gone */
+}
+
+.project-detail__description {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.project-detail__description .text,
+.project-detail__description p {
+  color: var(--color-text-dark);
+}
+
+.project-detail__description ul {
+  list-style-type: disc;
+  padding-left: var(--space-lg);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.project-detail__description ol {
+  list-style-type: decimal;
+  padding-left: var(--space-lg);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.project-detail__description li {
+  color: var(--color-text-dark);
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+}
+
+.project-detail__description strong,
+.project-detail__description b {
+  font-weight: var(--font-semibold);
+}
+
+.project-detail__description a {
+  color: var(--color-primary);
+  text-decoration: underline;
+}
+
+/* Project Info Box */
+.project-detail__info-box {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+  padding: var(--space-xl);
+  background-color: #f9f9f9;
+  border-radius: 8px;
+}
+
+.project-detail__info {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.project-detail__info-item {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.project-detail__info-label {
+  font-family: var(--font-display);
+  font-size: var(--text-xs);
+  font-weight: var(--font-semibold);
+  color: var(--color-primary);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-wide);
+}
+
+.project-detail__info-value {
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  color: var(--color-text-dark);
+}
+
+/* ========== GALLERY (Right) ========== */
+.project-detail__sidebar {
+  display: flex;
+  flex-direction: column;
+}
+
+.project-detail__gallery {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xl);
+}
+
+.project-detail__gallery-item {
+  width: 100%;
+}
+
+.project-detail__gallery-item .image {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+/* ========== NEXT PROJECT ========== */
+.project-detail__next {
+  display: flex;
+  justify-content: flex-end;
+  padding-top: var(--space-xl);
+  border-top: 1px solid var(--color-bg-light);
+}
+
+.project-detail__next-link {
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  color: var(--color-primary);
+  letter-spacing: var(--tracking-wide);
+  transition: opacity var(--transition-base);
+}
+
+.project-detail__next-link:hover {
+  opacity: 0.8;
+}
+
+/* ========== RESPONSIVE ========== */
+@media (max-width: 1024px) {
+  .project-detail__content {
+    grid-template-columns: 1fr;
+    gap: var(--space-xl);
+  }
+
+  .project-detail__main {
+    position: static;
+  }
+}
+
+@media (max-width: 768px) {
+  .project-detail {
+    padding-top: var(--space-2xl);
+  }
+}

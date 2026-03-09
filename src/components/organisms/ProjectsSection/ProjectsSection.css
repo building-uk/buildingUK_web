@@ -1,0 +1,112 @@
+/* ===========================================
+   ProjectsSection Component Styles
+   =========================================== */
+
+.projects__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: var(--space-md);
+  margin-bottom: var(--space-xl);
+}
+
+.projects__header .section-header {
+  margin-bottom: 0;
+}
+
+.projects__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-lg);
+}
+
+.projects__item {
+  position: relative;
+  height: 523px;
+  overflow: hidden;
+  display: block;
+}
+
+.projects__item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.projects__overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: var(--space-xl);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 1;
+}
+
+.projects__title {
+  color: var(--color-white);
+  font-size: var(--text-lg);
+  font-weight: 600;
+  transform: translateY(10px);
+  transition: transform 0.3s ease, color 0.3s ease, font-family 0.3s ease;
+}
+
+.projects__location {
+  color: var(--color-gray-300);
+  font-size: var(--font-size-sm);
+  transform: translateY(10px);
+  transition: transform 0.3s ease 0.1s, color 0.3s ease;
+}
+
+.projects__item:hover img {
+  transform: scale(1.1);
+}
+
+.projects__item:hover .projects__overlay {
+  opacity: 1;
+}
+
+.projects__item:hover .projects__title {
+  transform: translateY(0);
+  font-family: var(--font-display);
+  color: var(--color-text-white);
+}
+
+.projects__item:hover .projects__location {
+  transform: translateY(0);
+  color: var(--color-text-white);
+}
+
+/* ========== RESPONSIVE ========== */
+@media (max-width: 1024px) {
+  .projects__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .projects__item {
+    height: 350px;
+  }
+}
+
+@media (max-width: 768px) {
+  .projects__header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .projects__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .projects__item {
+    height: 300px;
+  }
+}

@@ -1,0 +1,47 @@
+/* ===========================================
+   Text Component Styles
+   =========================================== */
+
+.text {
+  font-family: var(--font-body);
+  font-weight: var(--font-regular);
+  line-height: var(--leading-relaxed);
+  margin: 0;
+  white-space: pre-line;
+}
+
+/* ========== SIZES ========== */
+.text--sm {
+  font-size: var(--text-sm);
+  line-height: var(--leading-loose);
+}
+
+.text--base {
+  font-size: var(--text-base);
+  line-height: var(--leading-relaxed);
+}
+
+.text--lg {
+  font-size: var(--text-md);
+}
+
+/* ========== COLORS ========== */
+.text--dark {
+  color: var(--color-text-dark);
+}
+
+.text--muted {
+  color: var(--color-text-muted);
+}
+
+.text--light {
+  color: var(--color-text-light);
+}
+
+.text--white {
+  color: var(--color-text-white);
+}
+
+.text--footer {
+  color: var(--color-text-footer);
+}

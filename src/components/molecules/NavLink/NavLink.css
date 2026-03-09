@@ -1,0 +1,45 @@
+/* ===========================================
+   NavLink Component Styles
+   =========================================== */
+
+.nav-link {
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  font-weight: var(--font-semibold);
+  text-transform: uppercase;
+  transition: color var(--transition-base);
+  position: relative;
+}
+
+/* ========== VARIANTS ========== */
+.nav-link--light {
+  color: var(--color-text-white);
+  text-shadow: var(--shadow-text);
+}
+
+.nav-link--light:hover {
+  color: var(--color-primary);
+}
+
+.nav-link--dark {
+  color: var(--color-text-dark);
+}
+
+.nav-link--dark:hover {
+  color: var(--color-primary);
+}
+
+/* ========== ACTIVE STATE ========== */
+.nav-link--active {
+  color: var(--color-primary);
+}
+
+.nav-link--active::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background-color: var(--color-primary);
+}

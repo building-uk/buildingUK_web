@@ -1,0 +1,103 @@
+/* ===========================================
+   TestimonialsSection Component Styles
+   =========================================== */
+
+.testimonials__slider {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  position: relative;
+}
+
+.testimonials__nav {
+  width: 35px;
+  height: 35px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-primary);
+  color: var(--color-text-dark);
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: all var(--transition-base);
+  flex-shrink: 0;
+}
+
+.testimonials__nav:hover {
+  background-color: var(--color-primary-hover);
+}
+
+.testimonials__cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-lg);
+  flex: 1;
+}
+
+/* ========== TESTIMONIAL CARD ========== */
+.testimonial-card {
+  background-color: var(--color-bg-input);
+  padding: var(--space-xl) var(--space-lg);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+  min-height: 442px;
+}
+
+.testimonial-card__quote {
+  font-size: 6rem;
+  line-height: 1;
+  color: var(--color-text-muted);
+  opacity: 0.3;
+  margin-bottom: var(--space-lg);
+}
+
+.testimonial-card .heading {
+  font-family: var(--font-display);
+  letter-spacing: var(--tracking-wide);
+}
+
+/* ========== DOTS ========== */
+.testimonials__dots {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-sm);
+  margin-top: var(--space-xl);
+}
+
+.testimonials__dot {
+  width: 33px;
+  height: 5px;
+  background-color: var(--color-bg-input);
+  cursor: pointer;
+  transition: background-color var(--transition-base);
+}
+
+.testimonials__dot--active {
+  background-color: var(--color-primary);
+}
+
+/* ========== RESPONSIVE ========== */
+@media (max-width: 1024px) {
+  .testimonials__cards {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .testimonials__cards .testimonial-card:last-child {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .testimonials__cards {
+    grid-template-columns: 1fr;
+  }
+  
+  .testimonials__cards .testimonial-card:nth-child(2) {
+    display: none;
+  }
+  
+  .testimonial-card {
+    min-height: 300px;
+  }
+}

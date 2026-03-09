@@ -1,0 +1,54 @@
+/* ===========================================
+   ServiceCard Component Styles
+   =========================================== */
+
+.service-card {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: var(--space-xl);
+  align-items: center;
+}
+
+.service-card--right {
+  direction: rtl;
+}
+
+.service-card--right>* {
+  direction: ltr;
+}
+
+/* ========== IMAGE ========== */
+.service-card__image {
+  height: 316px;
+  overflow: hidden;
+}
+
+/* ========== CONTENT ========== */
+.service-card__content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.service-card__content .heading {
+  text-transform: uppercase;
+}
+
+.service-card__content .text {
+  margin-bottom: var(--space-md);
+}
+
+/* ========== RESPONSIVE ========== */
+@media (max-width: 1024px) {
+  .service-card {
+    grid-template-columns: 1fr;
+  }
+
+  .service-card--right {
+    direction: ltr;
+  }
+
+  .service-card__image {
+    height: 250px;
+  }
+}

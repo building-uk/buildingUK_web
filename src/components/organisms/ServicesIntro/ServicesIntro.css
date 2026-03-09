@@ -1,0 +1,38 @@
+/* ===========================================
+   ServicesIntro Component Styles
+   =========================================== */
+
+.services-intro__header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-xl);
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.services-intro__description {
+  margin-top: var(--space-sm);
+}
+
+.services-intro__cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-lg);
+}
+
+/* ========== RESPONSIVE ========== */
+@media (max-width: 1024px) {
+  .services-intro__cards {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .services-intro__cards {
+    grid-template-columns: 1fr;
+  }
+}

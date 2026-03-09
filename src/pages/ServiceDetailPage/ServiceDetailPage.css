@@ -1,0 +1,113 @@
+/* ===========================================
+   ServiceDetailPage Styles
+   =========================================== */
+
+.service-detail-page {
+  min-height: 100vh;
+  background-color: var(--color-bg-dark);
+}
+
+.service-detail {
+  padding-top: var(--space-4xl);
+}
+
+/* ========== BACK LINK ========== */
+.service-detail__back {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-sm);
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  color: var(--color-text-light);
+  margin-bottom: var(--space-lg);
+  padding: var(--space-xs) var(--space-sm);
+  background-color: rgba(255, 255, 255, 0.1);
+  transition: all var(--transition-base);
+}
+
+.service-detail__back:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+  color: var(--color-text-white);
+}
+
+/* ========== HEADER ========== */
+.service-detail__header {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: var(--space-3xl);
+  margin-bottom: var(--space-3xl);
+  align-items: start;
+}
+
+.service-detail__intro {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.service-detail__intro .heading {
+  color: var(--color-primary);
+}
+
+.service-detail__intro .text {
+  color: var(--color-text-footer);
+}
+
+.service-detail__hero-image {
+  height: 400px;
+}
+
+/* ========== CONTENT ========== */
+.service-detail__content {
+  background-color: var(--color-bg-white);
+  padding: var(--space-3xl);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xl);
+}
+
+.service-detail__description,
+.service-detail__section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.service-detail__content .heading {
+  color: var(--color-text-dark);
+  margin-bottom: var(--space-xs);
+}
+
+/* ========== LIST ========== */
+.service-detail__list {
+  list-style: disc;
+  padding-left: var(--space-lg);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.service-detail__list li {
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  color: var(--color-text-dark);
+  line-height: var(--leading-relaxed);
+}
+
+/* ========== RESPONSIVE ========== */
+@media (max-width: 1024px) {
+  .service-detail__header {
+    grid-template-columns: 1fr;
+    gap: var(--space-xl);
+  }
+
+  .service-detail__hero-image {
+    height: 300px;
+  }
+}
+
+@media (max-width: 768px) {
+  .service-detail__content {
+    padding: var(--space-xl);
+  }
+}

@@ -1,0 +1,120 @@
+/* ===========================================
+   ProjectGallery Component Styles
+   =========================================== */
+
+/* ========== HEADER ========== */
+.project-gallery__header {
+  margin-bottom: var(--space-2xl);
+}
+
+.project-gallery__layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: var(--space-2xl);
+}
+
+.project-gallery__image-container {
+  height: 450px;
+  overflow: hidden;
+}
+
+.project-gallery__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.project-gallery__intro {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.project-gallery__intro .label {
+  margin-bottom: var(--space-xs);
+}
+
+.project-gallery__cta-text {
+  font-style: italic;
+  margin-top: var(--space-sm);
+}
+
+/* ========== FILTERS ========== */
+.project-gallery__filters {
+  display: flex;
+  gap: var(--space-md);
+  margin-bottom: var(--space-xl);
+  flex-wrap: wrap;
+}
+
+.project-gallery__filter {
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: var(--font-medium);
+  color: var(--color-text-muted);
+  padding: var(--space-xs) var(--space-md);
+  border: 1px solid transparent;
+  background: transparent;
+  cursor: pointer;
+  transition: all var(--transition-base);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-wide);
+}
+
+.project-gallery__filter:hover {
+  color: var(--color-text-dark);
+}
+
+.project-gallery__filter--active {
+  color: var(--color-primary);
+  border-bottom: 2px solid var(--color-primary);
+}
+
+/* ========== GRID ========== */
+.project-gallery__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-md);
+}
+
+/* ========== LOAD MORE ========== */
+.project-gallery__load-more {
+  display: flex;
+  justify-content: center;
+  margin-top: var(--space-xl);
+}
+
+/* ========== RESPONSIVE ========== */
+@media (max-width: 1024px) {
+  .project-gallery__layout {
+    gap: var(--space-xl);
+  }
+
+  .project-gallery__image-container {
+    height: 400px;
+  }
+
+  .project-gallery__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .project-gallery__layout {
+    grid-template-columns: 1fr;
+    gap: var(--space-lg);
+  }
+
+  .project-gallery__image-container {
+    height: 300px;
+  }
+
+  .project-gallery__filters {
+    justify-content: center;
+  }
+
+  .project-gallery__grid {
+    grid-template-columns: 1fr;
+  }
+}

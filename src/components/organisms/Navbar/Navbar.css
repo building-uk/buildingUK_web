@@ -1,0 +1,101 @@
+/* ===========================================
+   Navbar Component Styles
+   =========================================== */
+
+.navbar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: var(--z-navbar);
+  padding: var(--space-sm) 0;
+}
+
+.navbar--transparent {
+  background: transparent;
+}
+
+.navbar__container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 100%;
+  padding: 0 var(--space-2xl);
+}
+
+.navbar__logo {
+  display: flex;
+  align-items: center;
+}
+
+.navbar__logo img {
+  height: 50px;
+  width: auto;
+}
+
+/* ========== NAVIGATION ========== */
+.navbar__nav {
+  display: flex;
+  align-items: center;
+  gap: var(--space-lg);
+}
+
+.navbar__links {
+  display: flex;
+  align-items: center;
+  gap: var(--space-lg);
+}
+
+/* ========== MOBILE TOGGLE ========== */
+.navbar__toggle {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  padding: 8px;
+  cursor: pointer;
+}
+
+.navbar__toggle-bar {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background-color: var(--color-text-white);
+  transition: all var(--transition-base);
+}
+
+/* ========== RESPONSIVE ========== */
+@media (max-width: 1024px) {
+  .navbar__toggle {
+    display: flex;
+  }
+
+  .navbar__nav {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 80%;
+    max-width: 320px;
+    height: 100vh;
+    background-color: var(--color-bg-dark);
+    flex-direction: column;
+    align-items: flex-start;
+    padding: var(--space-3xl) var(--space-lg);
+    transition: right var(--transition-base);
+  }
+
+  .navbar__nav--open {
+    right: 0;
+  }
+
+  .navbar__links {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-md);
+    width: 100%;
+  }
+
+  .navbar__nav .btn {
+    width: 100%;
+    margin-top: var(--space-lg);
+  }
+}

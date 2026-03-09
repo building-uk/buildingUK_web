@@ -1,0 +1,33 @@
+/* ===========================================
+   StatsBar Component Styles
+   =========================================== */
+
+.stats-bar {
+  background-color: var(--color-bg-light);
+  padding: var(--space-xl) 0;
+}
+
+.stats-bar__container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-xl);
+  text-align: center;
+}
+
+.stats-bar .stat-card {
+  align-items: center;
+}
+
+/* ========== RESPONSIVE ========== */
+@media (max-width: 1024px) {
+  .stats-bar__container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .stats-bar__container {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-lg);
+  }
+}

@@ -1,0 +1,73 @@
+/* ===========================================
+   ContactSection Component Styles
+   =========================================== */
+
+.contact__container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-xl);
+}
+
+/* ========== LEFT SIDE ========== */
+.contact__left {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.contact__left .heading {
+  color: var(--color-text-dark);
+}
+
+/* ========== FORM ========== */
+.contact__form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  margin-top: var(--space-md);
+}
+
+.contact__form .btn {
+  align-self: flex-end;
+}
+
+/* ========== RIGHT SIDE ========== */
+.contact__right {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.contact__image {
+  height: 300px;
+  flex-shrink: 0;
+}
+
+.contact__info {
+  background-color: var(--color-bg-input);
+  padding: var(--space-lg);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+}
+
+/* ========== RESPONSIVE ========== */
+@media (max-width: 1024px) {
+  .contact__container {
+    grid-template-columns: 1fr;
+  }
+  
+  .contact__right {
+    order: -1;
+  }
+  
+  .contact__image {
+    height: 250px;
+  }
+}
+
+@media (max-width: 768px) {
+  .contact__form .btn {
+    align-self: stretch;
+  }
+}

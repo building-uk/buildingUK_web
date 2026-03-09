@@ -1,0 +1,51 @@
+/* ===========================================
+   WhyChooseUs Component Styles
+   =========================================== */
+
+.why-choose-us.section {
+  padding-top: var(--space-xl);
+  padding-bottom: var(--space-xl);
+}
+
+.why-choose-us__container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* ========== CONTENT ========== */
+.why-choose-us__content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: var(--space-md);
+  max-width: 1200px;
+  width: 100%;
+}
+
+.why-choose-us__content .label {
+  margin-bottom: var(--space-xs);
+}
+
+.why-choose-us__content .heading {
+  margin-bottom: var(--space-sm);
+}
+
+/* ========== STATS ========== */
+.why-choose-us__stats {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-2xl) var(--space-4xl);
+  margin-top: var(--space-2xl);
+  width: 100%;
+}
+
+/* ========== RESPONSIVE ========== */
+@media (max-width: 768px) {
+  .why-choose-us__stats {
+    flex-direction: column;
+    gap: var(--space-xl);
+  }
+}

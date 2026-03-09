@@ -1,0 +1,62 @@
+/* ===========================================
+   Heading Component Styles
+   =========================================== */
+
+.heading {
+  font-family: var(--font-display);
+  font-weight: var(--font-semibold);
+  line-height: var(--leading-tight);
+  margin: 0;
+}
+
+/* ========== VARIANTS ========== */
+
+/* Hero - Large display heading */
+.heading--hero {
+  font-size: clamp(2.5rem, 5vw, var(--text-3xl));
+  font-weight: var(--font-regular);
+  line-height: 1.21;
+  text-shadow: var(--shadow-text-strong);
+}
+
+/* Section - Main section titles */
+.heading--section {
+  font-size: clamp(1.5rem, 3vw, var(--text-xl));
+  font-weight: var(--font-semibold);
+}
+
+/* Card - Card/component titles */
+.heading--card {
+  font-size: var(--text-lg);
+  font-weight: var(--font-semibold);
+}
+
+/* Default - Standard heading */
+.heading--default {
+  font-size: var(--text-md);
+  font-weight: var(--font-medium);
+}
+
+/* ========== COLORS ========== */
+.heading--dark {
+  color: var(--color-text-heading);
+}
+
+.heading--light {
+  color: var(--color-text-white);
+}
+
+.heading--muted {
+  color: var(--color-text-muted);
+}
+
+/* ========== RESPONSIVE ========== */
+@media (max-width: 768px) {
+  .heading--hero {
+    font-size: 2rem;
+  }
+  
+  .heading--section {
+    font-size: 1.5rem;
+  }
+}

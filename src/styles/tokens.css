@@ -1,0 +1,97 @@
+/* ===========================================
+   Design Tokens - BuildingUK Design System
+   =========================================== */
+
+:root {
+  /* ========== COLORS ========== */
+  
+  /* Primary / Accent */
+  --color-primary: #C5A46D;
+  --color-primary-hover: #b8964f;
+  
+  /* Text Colors */
+  --color-text-dark: #3E3E3E;
+  --color-text-heading: #615D5D;
+  --color-text-muted: #7E8283;
+  --color-text-light: #C7BEBE;
+  --color-text-footer: #BFC4C6;
+  --color-text-white: #FFFFFF;
+  --color-text-black: #1E1E1E;
+  
+  /* Backgrounds */
+  --color-bg-white: #FFFFFF;
+  --color-bg-light: rgba(191, 196, 198, 0.3);
+  --color-bg-dark: #3E3E3E;
+  --color-bg-input: #D9D9D9;
+  
+  /* Button */
+  --color-button-text: #565353;
+  
+  /* Gradients */
+  --gradient-hero: linear-gradient(180deg, rgba(131, 129, 129, 0.7) 10.1%, rgba(217, 217, 217, 0.1) 32.21%, #2C2A2A 100%);
+  --gradient-card: linear-gradient(180deg, rgba(132, 132, 132, 0.05) 45.67%, rgba(87, 83, 83, 0.7) 68.27%);
+  
+  /* ========== TYPOGRAPHY ========== */
+  
+  /* Font Families */
+  --font-display: 'Zalando Sans Expanded', sans-serif;
+  --font-body: 'Inter', sans-serif;
+  
+  /* Font Sizes */
+  --text-xs: 0.875rem;    /* 14px */
+  --text-sm: 1rem;        /* 16px */
+  --text-base: 1.125rem;  /* 18px */
+  --text-md: 1.25rem;     /* 20px */
+  --text-lg: 1.5rem;      /* 24px */
+  --text-xl: 2rem;        /* 32px */
+  --text-2xl: 2.5rem;     /* 40px */
+  --text-3xl: 5rem;       /* 80px */
+  --text-4xl: 8rem;       /* 128px */
+  
+  /* Font Weights */
+  --font-regular: 400;
+  --font-medium: 500;
+  --font-semibold: 600;
+  
+  /* Line Heights */
+  --leading-tight: 1.2;
+  --leading-normal: 1.5;
+  --leading-relaxed: 1.67;
+  --leading-loose: 1.875;
+  
+  /* Letter Spacing */
+  --tracking-normal: 0;
+  --tracking-wide: 0.2em;
+  
+  /* ========== SPACING ========== */
+  --space-xs: 0.5rem;     /* 8px */
+  --space-sm: 1rem;       /* 16px */
+  --space-md: 1.5rem;     /* 24px */
+  --space-lg: 2rem;       /* 32px */
+  --space-xl: 3rem;       /* 48px */
+  --space-2xl: 4.25rem;   /* 68px */
+  --space-3xl: 6rem;      /* 96px */
+  --space-4xl: 8rem;      /* 128px */
+  
+  /* ========== LAYOUT ========== */
+  --max-width: 1280px;
+  --container-padding: 68px;
+  --container-padding-mobile: 24px;
+  
+  /* ========== BORDERS ========== */
+  --border-color: #615D5D;
+  
+  /* ========== SHADOWS ========== */
+  --shadow-text: 0px 4px 4px rgba(0, 0, 0, 0.1);
+  --shadow-text-strong: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  
+  /* ========== TRANSITIONS ========== */
+  --transition-fast: 150ms ease;
+  --transition-base: 250ms ease;
+  --transition-slow: 350ms ease;
+  
+  /* ========== Z-INDEX ========== */
+  --z-navbar: 100;
+  --z-modal: 200;
+  --z-tooltip: 300;
+}

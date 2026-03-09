@@ -1,0 +1,57 @@
+/* ===========================================
+   WhyUsAlt Component Styles
+   =========================================== */
+
+.why-us-alt .section-header {
+  margin-bottom: var(--space-xl);
+}
+
+.why-us-alt__list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xl);
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.why-us-alt__item {
+  display: flex;
+  gap: var(--space-lg);
+  align-items: flex-start;
+}
+
+.why-us-alt__icon {
+  font-size: 2rem;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  background-color: var(--color-bg-light);
+  border-radius: 50%;
+}
+
+.why-us-alt__content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.why-us-alt__content .heading {
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-wide);
+}
+
+/* ========== RESPONSIVE ========== */
+@media (max-width: 768px) {
+  .why-us-alt__item {
+    gap: var(--space-md);
+  }
+  
+  .why-us-alt__icon {
+    font-size: 1.5rem;
+    width: 40px;
+    height: 40px;
+  }
+}

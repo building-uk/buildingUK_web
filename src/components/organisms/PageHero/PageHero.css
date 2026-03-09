@@ -1,0 +1,41 @@
+/* ===========================================
+   PageHero Component Styles
+   =========================================== */
+
+.page-hero {
+  position: relative;
+  min-height: 350px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  padding: var(--space-4xl) 0;
+}
+
+.page-hero__overlay {
+  position: absolute;
+  inset: 0;
+  background-color: rgba(62, 62, 62, 0.85);
+}
+
+.page-hero__content {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+}
+
+.page-hero__content .heading {
+  font-size: clamp(2.5rem, 6vw, 4rem);
+  font-weight: var(--font-regular);
+  letter-spacing: 0.05em;
+}
+
+/* ========== RESPONSIVE ========== */
+@media (max-width: 768px) {
+  .page-hero {
+    min-height: 250px;
+    padding: var(--space-3xl) 0;
+  }
+}

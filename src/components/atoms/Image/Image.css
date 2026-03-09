@@ -1,0 +1,34 @@
+/* ===========================================
+   Image Component Styles
+   =========================================== */
+
+.image {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+}
+
+.image img {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* ========== OBJECT FIT ========== */
+.image--cover img {
+  object-fit: cover;
+}
+
+.image--contain img {
+  object-fit: contain;
+}
+
+/* ========== OVERLAY ========== */
+.image--overlay::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--gradient-card);
+  pointer-events: none;
+}

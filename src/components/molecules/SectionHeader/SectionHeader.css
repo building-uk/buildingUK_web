@@ -1,0 +1,21 @@
+/* ===========================================
+   SectionHeader Component Styles
+   =========================================== */
+
+.section-header {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+  margin-bottom: var(--space-xl);
+}
+
+/* ========== ALIGNMENT ========== */
+.section-header--center {
+  align-items: center;
+  text-align: center;
+}
+
+.section-header--left {
+  align-items: flex-start;
+  text-align: left;
+}

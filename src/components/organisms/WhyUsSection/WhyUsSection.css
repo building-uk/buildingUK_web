@@ -1,0 +1,78 @@
+/* ===========================================
+   WhyUsSection Component Styles
+   =========================================== */
+
+.why-us__container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.why-us__content .section-header {
+  margin-bottom: var(--space-3xl);
+  text-align: center;
+}
+
+/* ========== PROCESS LIST ========== */
+.why-us__list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2xl);
+}
+
+.why-us__item {
+  display: flex;
+  gap: var(--space-xl);
+  align-items: flex-start;
+}
+
+.why-us__icon-wrapper {
+  flex-shrink: 0;
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.why-us__icon-image {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
+.why-us__item-content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.why-us__item-content .heading {
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-size: var(--text-lg);
+  color: var(--color-text-dark);
+}
+
+/* ========== IMAGE ========== */
+.why-us__image {
+  display: none;
+}
+
+/* ========== RESPONSIVE ========== */
+@media (max-width: 768px) {
+  .why-us__item {
+    gap: var(--space-md);
+  }
+}
+
+@media (max-width: 768px) {
+  .why-us__item {
+    gap: var(--space-md);
+  }
+  
+  .why-us__icon {
+    font-size: 2rem;
+    width: 40px;
+    height: 40px;
+  }
+}
