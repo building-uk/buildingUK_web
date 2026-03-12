@@ -405,8 +405,31 @@ export const cmsService = {
   },
 
   async submitContactForm(formData) {
-    console.log('📧 Form logic:', formData)
-    return { success: true, message: 'Message sent successfully!' }
+    const payload = {
+      access_key: '1a647e64-6482-4f49-a1ad-e0b15037a3c3',
+      subject: `New Contact Form Submission from ${formData.name}`,
+      from_name: 'BuildingUK Website',
+      name: formData.name,
+      email: formData.email,
+      message: formData.message,
+    }
+
+    const response = await fetch('https://api.web3forms.com/submit', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+      },
+      body: JSON.stringify(payload),
+    })
+
+    const data = await response.json()
+
+    if (data.success) {
+      return { success: true, message: 'Message sent successfully!' }
+    } else {
+      throw new Error(data.message || 'Failed to send message. Please try again.')
+    }
   },
 
   async subscribeNewsletter(email) {
