@@ -9,6 +9,7 @@ export default defineConfig({
 
   projectId: 'ibnvorrn',
   dataset: 'production',
+  basePath: '/studio',
 
   plugins: [
     structureTool({
