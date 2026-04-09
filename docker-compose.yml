@@ -1,0 +1,13 @@
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        VITE_SANITY_PROJECT_ID: ${VITE_SANITY_PROJECT_ID}
+        VITE_SANITY_DATASET: ${VITE_SANITY_DATASET}
+        VITE_SANITY_API_VERSION: ${VITE_SANITY_API_VERSION}
+        VITE_WEB3FORMS_ACCESS_KEY: ${VITE_WEB3FORMS_ACCESS_KEY}
+    ports:
+      - "5173:80"
+    restart: always

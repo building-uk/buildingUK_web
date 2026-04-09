@@ -406,7 +406,7 @@ export const cmsService = {
 
   async submitContactForm(formData) {
     const payload = {
-      access_key: '1a647e64-6482-4f49-a1ad-e0b15037a3c3',
+      access_key: import.meta.env.VITE_WEB3FORMS_ACCESS_KEY,
       subject: `New Contact Form Submission from ${formData.name}`,
       from_name: 'BuildingUK Website',
       name: formData.name,

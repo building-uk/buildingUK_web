@@ -7,7 +7,7 @@ import Button from '@atoms/Button'
 import Image from '@atoms/Image'
 import Skeleton from '@atoms/Skeleton'
 import ContactInfo from '@molecules/ContactInfo'
-import { emailService } from '../../../services/emailService'
+import { cmsService } from '../../../services/cmsService'
 import './ContactSection.css'
 
 /**
@@ -38,7 +38,7 @@ function ContactSection({ contactData = {}, loading = false }) {
     setFormState({ submitting: true, error: null, success: false })
 
     try {
-      await emailService.sendContactForm(formData)
+      await cmsService.submitContactForm(formData)
       setFormState({ submitting: false, error: null, success: true })
       setFormData({ name: '', email: '', message: '' })
       setTimeout(() => setFormState(prev => ({ ...prev, success: false })), 5000)

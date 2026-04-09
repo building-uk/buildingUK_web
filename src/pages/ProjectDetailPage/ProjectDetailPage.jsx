@@ -118,7 +118,7 @@ function ProjectDetailPage() {
                     </div>
                   </div>
 
-                  <Button href="#contact" variant="primary" size="md">
+                  <Button href="/contact" variant="primary" size="md">
                     Get in Touch
                   </Button>
                 </div>

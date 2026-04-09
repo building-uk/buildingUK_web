@@ -29,7 +29,4 @@ buildinguk/node_modules/
 buildinguk/dist/
 buildinguk/.sanity/
 
-# Docker
-.dockerignore
-Dockerfile
-docker-compose.yml
+

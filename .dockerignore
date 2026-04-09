@@ -1,0 +1,14 @@
+node_modules
+dist
+.git
+.gitignore
+README.md
+Dockerfile
+docker-compose.yml
+.env
+.vscode
+wordpress
+reset-wp.sh
+start-wp.sh
+buildinguk/node_modules
+buildinguk/dist

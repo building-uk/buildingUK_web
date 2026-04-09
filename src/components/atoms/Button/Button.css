@@ -75,6 +75,15 @@
   color: var(--color-text-white);
 }
 
+/* ========== DISABLED STATE ========== */
+.btn:disabled,
+.btn[disabled] {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+  transform: none;
+}
+
 /* ========== RESPONSIVE ========== */
 @media (max-width: 768px) {
   .btn--lg {

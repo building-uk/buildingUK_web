@@ -3,7 +3,7 @@
  * Sends contact form submissions to the configured email address
  */
 
-const WEB3FORMS_ACCESS_KEY = '1a647e64-6482-4f49-a1ad-e0b15037a3c3'
+const WEB3FORMS_ACCESS_KEY = import.meta.env.VITE_WEB3FORMS_ACCESS_KEY
 const WEB3FORMS_ENDPOINT = 'https://api.web3forms.com/submit'
 
 export const emailService = {

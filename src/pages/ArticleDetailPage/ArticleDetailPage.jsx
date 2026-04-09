@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import Navbar from '@organisms/Navbar'
 import Footer from '@organisms/Footer'
@@ -41,6 +41,8 @@ function ArticleDetailPage() {
   const [article, setArticle] = useState(null)
   const [relatedArticles, setRelatedArticles] = useState([])
   const [loading, setLoading] = useState(true)
+  const [shareMessage, setShareMessage] = useState(null)
+  const relatedGridRef = useRef(null)
 
   useEffect(() => {
     const fetchData = async () => {
@@ -83,6 +85,47 @@ function ArticleDetailPage() {
     fetchData()
   }, [id, navigate])
 
+  // Share article
+  const handleShare = async () => {
+    const shareData = {
+      title: article.title,
+      text: article.excerpt || article.title,
+      url: window.location.href
+    }
+
+    try {
+      if (navigator.share) {
+        await navigator.share(shareData)
+      } else {
+        await navigator.clipboard.writeText(window.location.href)
+        setShareMessage('Link copied!')
+        setTimeout(() => setShareMessage(null), 2500)
+      }
+    } catch (err) {
+      // User cancelled share or clipboard failed — try fallback
+      if (err.name !== 'AbortError') {
+        try {
+          await navigator.clipboard.writeText(window.location.href)
+          setShareMessage('Link copied!')
+          setTimeout(() => setShareMessage(null), 2500)
+        } catch {
+          setShareMessage('Copy the URL from the address bar')
+          setTimeout(() => setShareMessage(null), 3000)
+        }
+      }
+    }
+  }
+
+  // Scroll related articles
+  const scrollRelated = (direction) => {
+    if (!relatedGridRef.current) return
+    const scrollAmount = relatedGridRef.current.offsetWidth * 0.8
+    relatedGridRef.current.scrollBy({
+      left: direction === 'next' ? scrollAmount : -scrollAmount,
+      behavior: 'smooth'
+    })
+  }
+
   if (loading) {
     return (
       <div className="loading">
@@ -123,9 +166,19 @@ function ArticleDetailPage() {
               <div className="article-detail__meta-right">
                 <span className="article-detail__author">By {article.author}</span>
                 <span className="article-detail__date">{article.date}</span>
-                <Button variant="ghost" size="sm" className="article-detail__share-btn">
-                  SHARE ↗
-                </Button>
+                <div className="article-detail__share-wrapper">
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    className="article-detail__share-btn"
+                    onClick={handleShare}
+                  >
+                    SHARE ↗
+                  </Button>
+                  {shareMessage && (
+                    <span className="article-detail__share-toast">{shareMessage}</span>
+                  )}
+                </div>
               </div>
             </div>
 
@@ -144,12 +197,20 @@ function ArticleDetailPage() {
             <div className="related-articles__header">
               <Heading level={2} variant="section">Related Articles</Heading>
               <div className="related-articles__nav">
-                <button className="related-articles__nav-btn">←</button>
-                <button className="related-articles__nav-btn">→</button>
+                <button
+                  className="related-articles__nav-btn"
+                  onClick={() => scrollRelated('prev')}
+                  aria-label="Previous related articles"
+                >←</button>
+                <button
+                  className="related-articles__nav-btn"
+                  onClick={() => scrollRelated('next')}
+                  aria-label="Next related articles"
+                >→</button>
               </div>
             </div>
 
-            <div className="related-articles__grid">
+            <div className="related-articles__grid" ref={relatedGridRef}>
               {relatedArticles.map(item => (
                 <ArticleCard key={item.id} article={item} />
               ))}
@@ -164,3 +225,4 @@ function ArticleDetailPage() {
 }
 
 export default ArticleDetailPage
+
