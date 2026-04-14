@@ -11,6 +11,10 @@ export default defineConfig({
   dataset: 'production',
   basePath: '/studio',
 
+  cors: {
+    origins: ['http://localhost:3000', 'https://buildinguk-web.sliplane.app']
+  },
+
   plugins: [
     structureTool({
       structure: (S) =>
