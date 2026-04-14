@@ -60,27 +60,8 @@ COPY --from=frontend-build /app/dist /usr/share/nginx/html
 # Copy Sanity Studio build under /studio
 COPY --from=studio-build /app/dist /usr/share/nginx/html/studio
 
-# Custom Nginx config: SPA routing for both frontend and studio
-RUN cat > /etc/nginx/conf.d/default.conf << 'EOF'
-server {
-    listen 80;
-    server_name _;
-
-    # Frontend - SPA routing
-    location / {
-        root /usr/share/nginx/html;
-        index index.html;
-        try_files $uri $uri/ /index.html;
-    }
-
-    # Sanity Studio - SPA routing
-    location /studio {
-        alias /usr/share/nginx/html/studio;
-        index index.html;
-        try_files $uri $uri/ /studio/index.html;
-    }
-}
-EOF
+# Copy custom nginx configuration
+COPY nginx.conf /etc/nginx/conf.d/default.conf
 
 EXPOSE 80
 
