@@ -1,0 +1,9 @@
+node_modules
+static
+dist
+.git
+.gitignore
+README.md
+Dockerfile
+.env
+.vscode

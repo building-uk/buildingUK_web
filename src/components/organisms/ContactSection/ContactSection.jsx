@@ -4,7 +4,6 @@ import Heading from '@atoms/Heading'
 import Text from '@atoms/Text'
 import Input from '@atoms/Input'
 import Button from '@atoms/Button'
-import Image from '@atoms/Image'
 import Skeleton from '@atoms/Skeleton'
 import ContactInfo from '@molecules/ContactInfo'
 import { cmsService } from '../../../services/cmsService'
@@ -49,8 +48,7 @@ function ContactSection({ contactData = {}, loading = false }) {
 
   const {
     address = {},
-    contact = {},
-    sideImage = '/images/contact-side.jpg'
+    contact = {}
   } = contactData || {}
 
   if (loading) {
@@ -144,9 +142,26 @@ function ContactSection({ contactData = {}, loading = false }) {
 
         {/* Right side - Image + Info */}
         <div className="contact__right">
-          <div className="contact__image">
-            <Image src={sideImage} alt="Contact BuildingUK" />
-          </div>
+          <a
+            href="https://www.google.com/maps/place/167-169+Great+Portland+St,+London+W1W+5PF,+UK"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="contact__map-link"
+            aria-label="Open office location in Google Maps"
+          >
+            <div className="contact__image">
+              <iframe
+                title="BuildingUK Office Location"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2482.4!2d-0.1437!3d51.5218!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x48761ad44a2e9c25%3A0x2a8044db4c7b3e0!2s167-169+Great+Portland+St%2C+London+W1W+5PF%2C+UK!5e0!3m2!1sen!2suk!4v1713400000000"
+                width="100%"
+                height="100%"
+                style={{ border: 0, pointerEvents: 'none' }}
+                allowFullScreen=""
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+              />
+            </div>
+          </a>
 
           <div className="contact__info">
             <ContactInfo

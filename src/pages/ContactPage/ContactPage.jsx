@@ -8,7 +8,7 @@ import Text from '@atoms/Text'
 import Input from '@atoms/Input'
 import Button from '@atoms/Button'
 import Icon from '@atoms/Icon'
-import Image from '@atoms/Image'
+
 import { cmsService } from '../../services/cmsService'
 import { useFormValidation, validators } from '../../hooks'
 import { usePageTitle } from '../../hooks'
@@ -212,7 +212,24 @@ function ContactPage() {
 
         {/* Full Width Map */}
         <section className="contact-map">
-          <Image src={mapImage || "/images/contact-map-full.jpg"} alt="Our Location" />
+          <a
+            href="https://www.google.com/maps/place/167-169+Great+Portland+St,+London+W1W+5PF,+UK"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="contact-map__link"
+            aria-label="Open office location in Google Maps"
+          >
+            <iframe
+              title="BuildingUK Office Location"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2482.4!2d-0.1437!3d51.5218!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x48761ad44a2e9c25%3A0x2a8044db4c7b3e0!2s167-169+Great+Portland+St%2C+London+W1W+5PF%2C+UK!5e0!3m2!1sen!2suk!4v1713400000000"
+              width="100%"
+              height="100%"
+              style={{ border: 0, pointerEvents: 'none' }}
+              allowFullScreen=""
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+            />
+          </a>
         </section>
 
         <FaqSection />
