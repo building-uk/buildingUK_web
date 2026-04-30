@@ -8,6 +8,8 @@ import { aboutPage } from './aboutPage'
 import { landingPage } from './landingPage'
 import { testimonial } from './testimonial'
 import { siteSettings } from './siteSettings'
+import { contactPage } from './contactPage'
+import { legalPage } from './legalPage'
 
 export const schemaTypes = [
   blog,
@@ -20,4 +22,6 @@ export const schemaTypes = [
   landingPage,
   testimonial,
   siteSettings,
+  contactPage,
+  legalPage,
 ]

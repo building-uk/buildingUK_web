@@ -191,6 +191,19 @@ export const cmsService = {
     return client.fetch(query)
   },
 
+  // Projects by category
+  async getProjectsByCategory(category, limit = 4) {
+    const query = `*[_type == "projects" && category == $category] | order(_createdAt desc)[0...${limit}] {
+      "id": slug.current,
+      title,
+      category,
+      location,
+      "image": coverImage.asset->url,
+      "shortDescription": summary
+    }`
+    return client.fetch(query, { category })
+  },
+
   // Featured Projects
   async getFeaturedProjects(limit = 3) {
     const query = `*[_type == "landingPage"][0].featuredProjects[]-> {
@@ -288,6 +301,17 @@ export const cmsService = {
     return client.fetch(query, { id })
   },
 
+  // Legal Pages
+  async getLegalPageBySlug(slug) {
+    const query = `*[_type == "legalPage" && slug.current == $slug][0] {
+      title,
+      "content": content,
+      "backgroundImage": heroImage.asset->url,
+      lastUpdated
+    }`
+    return client.fetch(query, { slug })
+  },
+
   // Testimonials
   async getTestimonials() {
     const query = `*[_type == "testimonial"] {
@@ -298,6 +322,18 @@ export const cmsService = {
       rating
     }`
     return client.fetch(query)
+  },
+
+  // FAQs
+  async getFaqs() {
+    const query = `*[_type == "contactPage"][0] {
+      faqs[] {
+        question,
+        answer
+      }
+    }`
+    const result = await client.fetch(query)
+    return result?.faqs || []
   },
 
   // Processes (Why Us)
@@ -362,21 +398,25 @@ export const cmsService = {
 
   async getContactInfo() {
     const settings = await cmsService.getSiteSettings()
+    const landing = await client.fetch(`*[_type == "landingPage"][0] { contactIntro }`)
     const contactInfo = settings?.contactInfo
 
     return {
       address: {
-        lines: contactInfo?.addressLines || ["5th Floor, 167-169 Great Portland Street", "London W1W 5PF"]
+        lines: contactInfo?.addressLines || ["18 Spring Street", "London, W2 3RA"]
       },
       contact: {
         lines: contactInfo?.phoneNumbers && contactInfo?.emails ?
           [...contactInfo.phoneNumbers, ...contactInfo.emails] :
-          ["+44 787 920 8628", "info@building.uk.com"]
+          ["0787 920 8628", "info@building.uk.com"]
       },
       social: contactInfo?.socialLinks || [
-        { platform: 'Instagram', url: 'https://instagram.com' },
-        { platform: 'LinkedIn', url: 'https://linkedin.com' }
+        { platform: 'Instagram', url: 'https://www.instagram.com/buildinguk_ltd' }
       ],
+      intro: {
+        label: landing?.contactIntro?.subtitle || 'Contact Us',
+        headline: landing?.contactIntro?.title || 'Start the conversation'
+      },
       mapImage: settings?.contactMap || "/images/contact-map.png",
       sideImage: settings?.contactSide || "/images/contact-side.jpg",
       heroImage: settings?.defaultPageHero || "/images/contact-hero-bg.jpg"

@@ -3,13 +3,22 @@ import Heading from '@atoms/Heading'
 import Text from '@atoms/Text'
 import './WhyUsAlt.css'
 
-const ProcessIcon = ({ type }) => {
+const ProcessIcon = ({ icon, type }) => {
   const icons = {
-    communicate: '💬',
-    deliver: '🏗️',
-    complete: '✓'
+    communicate: '/images/Communication Skill.png',
+    deliver: '/images/Construction Worker.png',
+    complete: '/images/City.png'
   }
-  return <span className="why-us-alt__icon">{icons[type] || '✓'}</span>
+
+  const src = icon || icons[type]
+
+  if (!src) return <span className="why-us-alt__icon">✓</span>
+
+  return (
+    <div className="why-us-alt__icon-wrapper">
+      <img src={src} alt={type || 'Process Icon'} className="why-us-alt__icon-image" />
+    </div>
+  )
 }
 
 /**
@@ -29,7 +38,7 @@ function WhyUsAlt({ processes = [] }) {
         <div className="why-us-alt__list">
           {processes.map((process) => (
             <div key={process.id} className="why-us-alt__item">
-              <ProcessIcon type={process.type} />
+              <ProcessIcon icon={process.icon} type={process.type} />
               <div className="why-us-alt__content">
                 <Heading level={3} variant="card">{process.title}</Heading>
                 <Text size="sm" color="dark">{process.description}</Text>

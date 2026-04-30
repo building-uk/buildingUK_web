@@ -16,6 +16,7 @@ const ServiceDetailPage = lazy(() => import('./pages/ServiceDetailPage/ServiceDe
 const ArticlesPage = lazy(() => import('./pages/ArticlesPage/ArticlesPage'))
 const ArticleDetailPage = lazy(() => import('./pages/ArticleDetailPage/ArticleDetailPage'))
 const ContactPage = lazy(() => import('./pages/ContactPage/ContactPage'))
+const LegalPage = lazy(() => import('./pages/LegalPage'))
 const NotFoundPage = lazy(() => import('./pages/NotFoundPage'))
 
 function App() {
@@ -73,6 +74,9 @@ function App() {
             <Route path="/articles/:id" element={<ArticleDetailPage />} />
             <Route path="/blog" element={<ArticlesPage />} />
             <Route path="/contact" element={<ContactPage />} />
+            <Route path="/terms" element={<LegalPage />} />
+            <Route path="/privacy" element={<LegalPage />} />
+            <Route path="/health-safety" element={<LegalPage />} />
             <Route path="*" element={<NotFoundPage />} />
           </Routes>
         </Suspense>

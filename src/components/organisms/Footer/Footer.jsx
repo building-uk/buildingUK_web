@@ -26,9 +26,10 @@ function Footer() {
     ],
     contact: {
       email: 'info@building.uk.com',
+      phone: '0787 920 8628',
+      address: ["18 Spring Street", "London, W2 3RA"],
       social: [
-        { platform: 'Instagram', url: 'https://instagram.com' },
-        { platform: 'LinkedIn', url: 'https://linkedin.com' }
+        { platform: 'Instagram', url: 'https://www.instagram.com/buildinguk_ltd' }
       ]
     }
   })
@@ -63,6 +64,8 @@ function Footer() {
             ...prev,
             contact: {
               email: contact.contact?.lines?.[1] || 'info@building.uk.com',
+              phone: contact.contact?.lines?.[0] || '0787 920 8628',
+              address: contact.address?.lines || ["18 Spring Street", "London, W2 3RA"],
               social: contact.social
             }
           }))
@@ -94,9 +97,25 @@ function Footer() {
             {companyInfo?.tagline || "Leading the way in sustainable construction and innovative architectural solutions across the UK."}
           </p>
 
+          {/* Contact Details */}
+          <div className="footer__contact-details">
+            <div className="footer__contact-item">
+              <Icon name="mapPin" size={16} />
+              <span>{footerData.contact.address.join(', ')}</span>
+            </div>
+            <div className="footer__contact-item">
+              <Icon name="phone" size={16} />
+              <a href={`tel:${footerData.contact.phone}`}>{footerData.contact.phone}</a>
+            </div>
+            <div className="footer__contact-item">
+              <Icon name="mail" size={16} />
+              <a href={`mailto:${footerData.contact.email}`}>{footerData.contact.email}</a>
+            </div>
+          </div>
+
           {/* Contact */}
           <div className="footer__social">
-            <span className="footer__social-label">Contact Us</span>
+            <span className="footer__social-label">Follow Us</span>
             <div className="footer__social-icons">
               {footerData.contact.social.map((social, i) => (
                 <a
@@ -109,9 +128,6 @@ function Footer() {
                   <Icon name={social.platform.toLowerCase()} size={20} />
                 </a>
               ))}
-              <a href={`mailto:${footerData.contact.email}`} aria-label="Email">
-                <Icon name="mail" size={20} />
-              </a>
             </div>
           </div>
         </div>

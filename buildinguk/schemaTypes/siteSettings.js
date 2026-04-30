@@ -33,6 +33,14 @@ export const siteSettings = {
             ],
         },
         {
+            name: 'projectCategories',
+            title: 'Project Categories',
+            type: 'array',
+            description: 'Define categories used for filtering projects (e.g., Residential, Commercial).',
+            of: [{ type: 'string' }],
+            initialValue: ['Residential', 'Commercial', 'Restoration'],
+        },
+        {
             name: 'contactMapImage',
             title: 'Contact Section Map',
             type: 'image',

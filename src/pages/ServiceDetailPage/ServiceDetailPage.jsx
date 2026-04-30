@@ -5,6 +5,7 @@ import Footer from '@organisms/Footer'
 import Heading from '@atoms/Heading'
 import Text from '@atoms/Text'
 import Image from '@atoms/Image'
+import ProjectsPreview from '@organisms/ProjectsPreview'
 import { cmsService } from '../../services/cmsService'
 import './ServiceDetailPage.css'
 
@@ -15,6 +16,7 @@ function ServiceDetailPage() {
   const { id } = useParams()
   const navigate = useNavigate()
   const [service, setService] = useState(null)
+  const [projects, setProjects] = useState([])
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
@@ -28,6 +30,16 @@ function ServiceDetailPage() {
         }
 
         setService(serviceData)
+
+        // Try to fetch projects by category (service id usually matches category)
+        let projectsData = await cmsService.getProjectsByCategory(id, 4)
+        
+        // Fallback to featured projects if none found for category
+        if (!projectsData || projectsData.length === 0) {
+          projectsData = await cmsService.getFeaturedProjects(4)
+        }
+        
+        setProjects(projectsData)
       } catch (error) {
         console.error('Error fetching service:', error)
       } finally {
@@ -52,75 +64,79 @@ function ServiceDetailPage() {
     <div className="service-detail-page">
       <Navbar />
 
-      <main className="service-detail section">
-        <div className="container">
-          {/* Back Link */}
-          <Link to="/services" className="service-detail__back">
-            ← Back to all services
-          </Link>
+      <main className="service-detail">
+        <div className="service-detail__top section">
+          <div className="container">
+            {/* Back Link */}
+            <Link to="/services" className="service-detail__back">
+              ← Back to all services
+            </Link>
 
-          {/* Header with Image */}
-          <div className="service-detail__header">
-            <div className="service-detail__intro">
-              <Heading level={1} variant="section" color="primary">
-                {service.title}
-              </Heading>
-              <Text size="base" color="muted">
-                {service.shortDescription}
-              </Text>
+            {/* Header with Image */}
+            <div className="service-detail__header">
+              <div className="service-detail__intro">
+                <Heading level={1} variant="section" color="primary">
+                  {service.title}
+                </Heading>
+                <Text size="base" color="muted">
+                  {service.shortDescription}
+                </Text>
+              </div>
+              <div className="service-detail__hero-image">
+                <Image src={service.heroImage || service.image} alt={service.title} />
+              </div>
             </div>
-            <div className="service-detail__hero-image">
-              <Image src={service.heroImage || service.image} alt={service.title} />
-            </div>
-          </div>
 
-          {/* Content */}
-          <div className="service-detail__content">
-            {/* Main Description */}
-            <div className="service-detail__description">
-              <Heading level={2} variant="card">
-                {service.title}
-              </Heading>
-              {Array.isArray(service.description)
-                ? service.description.map((para, index) => (
-                  <Text key={index} size="base" color="dark">
-                    {para}
-                  </Text>
-                ))
-                : typeof service.description === 'string'
-                  ? service.description.split('\n\n').filter(Boolean).map((para, index) => (
+            {/* Content */}
+            <div className="service-detail__content">
+              {/* Main Description */}
+              <div className="service-detail__description">
+                <Heading level={2} variant="card">
+                  {service.title}
+                </Heading>
+                {Array.isArray(service.description)
+                  ? service.description.map((para, index) => (
                     <Text key={index} size="base" color="dark">
                       {para}
                     </Text>
                   ))
-                  : null}
-            </div>
-
-            {/* Sections */}
-            {service.sections?.map((section, index) => (
-              <div key={index} className="service-detail__section">
-                <Heading level={3} variant="card">
-                  {section.title}
-                </Heading>
-                <Text size="base" color="dark">
-                  {section.content}
-                </Text>
-                {section.list && (
-                  <ul className="service-detail__list">
-                    {section.list.map((item, i) => (
-                      <li key={i}>{item}</li>
-                    ))}
-                  </ul>
-                )}
-                {section.afterContent && (
-                  <Text size="base" color="dark">
-                    {section.afterContent}
-                  </Text>
-                )}
+                  : typeof service.description === 'string'
+                    ? service.description.split('\n\n').filter(Boolean).map((para, index) => (
+                      <Text key={index} size="base" color="dark">
+                        {para}
+                      </Text>
+                    ))
+                    : null}
               </div>
-            ))}
+
+              {/* Sections */}
+              {service.sections?.map((section, index) => (
+                <div key={index} className="service-detail__section">
+                  <Heading level={3} variant="card">
+                    {section.title}
+                  </Heading>
+                  <Text size="base" color="dark">
+                    {section.content}
+                  </Text>
+                  {section.list && (
+                    <ul className="service-detail__list">
+                      {section.list.map((item, i) => (
+                        <li key={i}>{item}</li>
+                      ))}
+                    </ul>
+                  )}
+                  {section.afterContent && (
+                    <Text size="base" color="dark">
+                      {section.afterContent}
+                    </Text>
+                  )}
+                </div>
+              ))}
+            </div>
           </div>
         </div>
+
+        <ProjectsPreview projects={projects} />
       </main>
 
       <Footer />

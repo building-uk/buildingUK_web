@@ -1,10 +1,11 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Label from '@atoms/Label'
 import Heading from '@atoms/Heading'
 import AccordionItem from '@molecules/AccordionItem'
+import { cmsService } from '../../../services/cmsService'
 import './FaqSection.css'
 
-const FAQS = [
+const FALLBACK_FAQS = [
   {
     question: 'How long will my project take?',
     answer: 'Project timelines vary depending on scope and complexity. A typical bathroom renovation might take 2-3 weeks, while a full home refurbishment could take 3-6 months. We provide detailed timelines before starting any work.'
@@ -23,11 +24,34 @@ const FAQS = [
  * FaqSection organism - FAQ section with accordion
  */
 function FaqSection() {
+  const [faqs, setFaqs] = useState([])
   const [openIndex, setOpenIndex] = useState(0)
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    const fetchFaqs = async () => {
+      try {
+        const data = await cmsService.getFaqs()
+        if (data && data.length > 0) {
+          setFaqs(data)
+        } else {
+          setFaqs(FALLBACK_FAQS)
+        }
+      } catch (error) {
+        console.error('Error fetching FAQs:', error)
+        setFaqs(FALLBACK_FAQS)
+      } finally {
+        setLoading(false)
+      }
+    }
+    fetchFaqs()
+  }, [])
   
   const handleToggle = (index) => {
     setOpenIndex(openIndex === index ? -1 : index)
   }
+
+  if (loading) return null // Or a skeleton
   
   return (
     <section className="faq-section section">
@@ -40,7 +64,7 @@ function FaqSection() {
         </div>
         
         <div className="faq-section__content">
-          {FAQS.map((faq, index) => (
+          {faqs.map((faq, index) => (
             <AccordionItem 
               key={index}
               question={faq.question}

@@ -72,7 +72,7 @@ function ContactPage() {
     )
   }
 
-  const { contact, address, mapImage, heroImage, sideImage } = data.contact || {}
+  const { contact, address, mapImage, heroImage, sideImage, intro } = data.contact || {}
 
   return (
     <div className="contact-page">
@@ -80,7 +80,7 @@ function ContactPage() {
 
       <main>
         <PageHero
-          title="Contact Us"
+          title={intro?.headline || "Contact Us"}
           backgroundImage={heroImage || "/images/contact-hero-bg.jpg"}
         />
 
@@ -89,7 +89,7 @@ function ContactPage() {
           <div className="container contact-split__container">
             {/* Left Column: Get in Touch */}
             <div className="contact-split__info">
-              <Heading level={2} variant="section">Get in touch</Heading>
+              <Heading level={2} variant="section">{intro?.headline || "Get in touch"}</Heading>
 
               <Text size="base" color="dark" className="contact-split__desc">
                 Have a project in mind or need more information? Our team is here to help. Whether you're planning a renovation, refurbishment, or simply exploring your options, we'll provide clear guidance and a prompt, professional response.
@@ -104,7 +104,7 @@ function ContactPage() {
                     <strong className="contact-label">Address</strong>
                     {address?.lines?.map((line, i) => (
                       <Text key={i} size="sm" color="dark">{line}</Text>
-                    )) || <Text size="sm" color="dark">5th Floor, 167-169 Great Portland Street, London W1W 5PF</Text>}
+                    )) || <Text size="sm" color="dark">18 Spring Street, London, W2 3RA</Text>}
                   </div>
                 </div>
 
@@ -114,7 +114,7 @@ function ContactPage() {
                   </span>
                   <div>
                     <strong className="contact-label">Phone Number</strong>
-                    <Text size="sm" color="dark">{contact?.lines?.[0] || '+44 787 920 8628'}</Text>
+                    <Text size="sm" color="dark">{contact?.lines?.[0] || '0787 920 8628'}</Text>
                   </div>
                 </div>
 
@@ -145,11 +145,8 @@ function ContactPage() {
                     </a>
                   )) || (
                       <>
-                        <a href="https://instagram.com" className="social-icon" aria-label="Instagram">
+                        <a href="https://www.instagram.com/buildinguk_ltd" className="social-icon" aria-label="Instagram">
                           <Icon name="instagram" size={24} />
-                        </a>
-                        <a href="https://linkedin.com" className="social-icon" aria-label="LinkedIn">
-                          <Icon name="linkedin" size={24} />
                         </a>
                       </>
                     )}
@@ -213,7 +210,7 @@ function ContactPage() {
         {/* Full Width Map */}
         <section className="contact-map">
           <a
-            href="https://www.google.com/maps/place/167-169+Great+Portland+St,+London+W1W+5PF,+UK"
+            href="https://www.google.com/maps/place/18+Spring+St,+London+W2+3RA,+UK"
             target="_blank"
             rel="noopener noreferrer"
             className="contact-map__link"
@@ -221,7 +218,7 @@ function ContactPage() {
           >
             <iframe
               title="BuildingUK Office Location"
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2482.4!2d-0.1437!3d51.5218!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x48761ad44a2e9c25%3A0x2a8044db4c7b3e0!2s167-169+Great+Portland+St%2C+London+W1W+5PF%2C+UK!5e0!3m2!1sen!2suk!4v1713400000000"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2482.5!2d-0.176!3d51.516!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x48761ab2a7b8e1a1%3A0x2f8b5c9c9c9c9c9c!2s18+Spring+St%2C+London+W2+3RA%2C+UK!5e0!3m2!1sen!2suk!4v1713400000000"
               width="100%"
               height="100%"
               style={{ border: 0, pointerEvents: 'none' }}

@@ -4,7 +4,20 @@
 
 .stats-bar {
   background-color: var(--color-bg-light);
-  padding: var(--space-xl) 0;
+  padding: var(--space-2xl) 0;
+}
+
+.stats-bar__header {
+  margin-bottom: var(--space-xl);
+}
+
+.stats-bar__supporting {
+  font-family: var(--font-display);
+  font-size: var(--text-sm);
+  font-weight: var(--font-semibold);
+  color: var(--color-primary);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-wide);
 }
 
 .stats-bar__container {

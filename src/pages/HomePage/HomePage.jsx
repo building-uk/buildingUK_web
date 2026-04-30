@@ -3,6 +3,7 @@ import {
   Navbar,
   HeroSection,
   AboutSection,
+  TestimonialsSection,
   ServicesSection,
   ProjectsSection,
   WhyUsSection,
@@ -24,6 +25,7 @@ function HomePage() {
     hero: null,
     about: null,
     services: [],
+    testimonials: [],
     projects: [],
     processes: [],
     articles: [],
@@ -33,6 +35,7 @@ function HomePage() {
     hero: true,
     about: true,
     services: true,
+    testimonials: true,
     projects: true,
     processes: true,
     articles: true,
@@ -55,7 +58,16 @@ function HomePage() {
     // Parallel fetch all sections
     fetchSection('hero', () => cmsService.getHeroContent())
     fetchSection('about', () => cmsService.getAboutContent())
-    fetchSection('services', () => cmsService.getServices())
+    fetchSection('services', async () => {
+      const services = await cmsService.getServices()
+      const order = ['residential', 'renovation', 'commercial']
+      return services.sort((a, b) => {
+        const indexA = order.findIndex(o => a.id.toLowerCase().includes(o))
+        const indexB = order.findIndex(o => b.id.toLowerCase().includes(o))
+        return (indexA === -1 ? 99 : indexA) - (indexB === -1 ? 99 : indexB)
+      })
+    })
+    fetchSection('testimonials', () => cmsService.getTestimonials())
     fetchSection('projects', () => cmsService.getFeaturedProjects(3))
     fetchSection('processes', () => cmsService.getProcesses())
     fetchSection('articles', () => cmsService.getLatestArticles(3))
@@ -70,13 +82,24 @@ function HomePage() {
         <HeroSection
           title={data.hero?.title}
           subtitle={data.hero?.subtitle}
-          ctaText={data.hero?.ctaText}
-          ctaLink={data.hero?.ctaLink}
+          ctaText={data.hero?.ctaText || 'BOOK A CONSULTATION'}
+          ctaLink={data.hero?.ctaLink || '#contact'}
           images={data.hero?.images?.length ? data.hero.images : []}
           loading={loading.hero}
         />
 
-        <AboutSection data={data.about} loading={loading.about} />
+        <AboutSection
+          data={{
+            ...data.about,
+            ctaLink: '/about'
+          }}
+          loading={loading.about}
+        />
+
+        <TestimonialsSection
+          testimonials={data.testimonials}
+          loading={loading.testimonials}
+        />
 
         <ServicesSection services={data.services} loading={loading.services} />
 

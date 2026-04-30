@@ -32,10 +32,17 @@ function ServicesPage() {
       try {
         const fullData = await cmsService.getServicesFullPage()
 
+        const order = ['residential', 'renovation', 'commercial']
+        const sortedServices = (fullData.services || []).sort((a, b) => {
+          const indexA = order.findIndex(o => a.id.toLowerCase().includes(o))
+          const indexB = order.findIndex(o => b.id.toLowerCase().includes(o))
+          return (indexA === -1 ? 99 : indexA) - (indexB === -1 ? 99 : indexB)
+        })
+
         setData({
           hero: fullData.hero,
           intro: fullData.intro,
-          services: fullData.services,
+          services: sortedServices,
           stats: fullData.stats,
           whyUs: fullData.whyUs,
           projects: await cmsService.getFeaturedProjects(4),
@@ -69,7 +76,10 @@ function ServicesPage() {
           backgroundImage={data.hero?.backgroundImage}
         />
 
-        <ServicesIntro services={data.services} />
+        <ServicesIntro 
+          services={data.services} 
+          intro={data.intro}
+        />
 
         <StatsBar stats={data.stats} />
 

@@ -84,17 +84,17 @@ function AboutSection({ data, loading = false }) {
               {ctaText}
             </Button>
           </div>
+        </div>
 
-          {/* Stats Grid - Now correctly showing after CTA as requested */}
-          <div className="about__stats">
-            {stats.map((stat, index) => (
-              <StatCard
-                key={index}
-                value={stat.value}
-                description={stat.label}
-              />
-            ))}
-          </div>
+        {/* Stats Grid - Moved outside content to span more width */}
+        <div className="about__stats">
+          {stats.map((stat, index) => (
+            <StatCard
+              key={index}
+              value={stat.value}
+              description={stat.label}
+            />
+          ))}
         </div>
       </div>
     </section>

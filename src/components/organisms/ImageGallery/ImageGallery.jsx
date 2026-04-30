@@ -10,12 +10,12 @@ import './ImageGallery.css';
 const ImageGallery = ({ images = [] }) => {
     if (!images || images.length === 0) return null;
 
-    // Take the first 3 images as requested
-    const galleryImages = images.slice(0, 3);
+    // Take the first 4 images as requested
+    const galleryImages = images.slice(0, 4);
 
     return (
         <section className="image-gallery">
-            <div className="image-gallery__grid">
+            <div className={`image-gallery__grid image-gallery__grid--${galleryImages.length}`}>
                 {galleryImages.map((src, index) => (
                     <div key={index} className="image-gallery__item">
                         <Image src={src} alt={`Gallery image ${index + 1}`} />

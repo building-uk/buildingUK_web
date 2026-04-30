@@ -4,6 +4,10 @@
     width: 100%;
 }
 
+.image-gallery__grid--4 {
+    grid-template-columns: repeat(4, 1fr);
+}
+
 .image-gallery__item {
     height: 450px;
     width: 100%;

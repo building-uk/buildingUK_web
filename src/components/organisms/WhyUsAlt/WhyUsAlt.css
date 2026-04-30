@@ -20,7 +20,8 @@
   align-items: flex-start;
 }
 
-.why-us-alt__icon {
+.why-us-alt__icon,
+.why-us-alt__icon-wrapper {
   font-size: 2rem;
   width: 50px;
   height: 50px;
@@ -30,6 +31,13 @@
   flex-shrink: 0;
   background-color: var(--color-bg-light);
   border-radius: 50%;
+  overflow: hidden;
+}
+
+.why-us-alt__icon-image {
+  width: 60%;
+  height: 60%;
+  object-fit: contain;
 }
 
 .why-us-alt__content {

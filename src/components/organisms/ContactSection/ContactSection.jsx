@@ -48,7 +48,11 @@ function ContactSection({ contactData = {}, loading = false }) {
 
   const {
     address = {},
-    contact = {}
+    contact = {},
+    intro = {
+      label: 'Contact Us',
+      headline: 'Start the conversation'
+    }
   } = contactData || {}
 
   if (loading) {
@@ -83,9 +87,9 @@ function ContactSection({ contactData = {}, loading = false }) {
       <div className="contact__container container">
         {/* Left side - Form */}
         <div className="contact__left">
-          <Label color="dark">Contact Us</Label>
+          <Label color="dark">{intro.label}</Label>
           <Heading level={2} variant="section" color="dark">
-            Your Dream Space Starts Here!
+            {intro.headline}
           </Heading>
 
           {formState.success && (
@@ -143,7 +147,7 @@ function ContactSection({ contactData = {}, loading = false }) {
         {/* Right side - Image + Info */}
         <div className="contact__right">
           <a
-            href="https://www.google.com/maps/place/167-169+Great+Portland+St,+London+W1W+5PF,+UK"
+            href="https://www.google.com/maps/place/18+Spring+St,+London+W2+3RA,+UK"
             target="_blank"
             rel="noopener noreferrer"
             className="contact__map-link"
@@ -152,7 +156,7 @@ function ContactSection({ contactData = {}, loading = false }) {
             <div className="contact__image">
               <iframe
                 title="BuildingUK Office Location"
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2482.4!2d-0.1437!3d51.5218!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x48761ad44a2e9c25%3A0x2a8044db4c7b3e0!2s167-169+Great+Portland+St%2C+London+W1W+5PF%2C+UK!5e0!3m2!1sen!2suk!4v1713400000000"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2482.5!2d-0.176!3d51.516!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x48761ab2a7b8e1a1%3A0x2f8b5c9c9c9c9c9c!2s18+Spring+St%2C+London+W2+3RA%2C+UK!5e0!3m2!1sen!2suk!4v1713400000000"
                 width="100%"
                 height="100%"
                 style={{ border: 0, pointerEvents: 'none' }}
@@ -166,11 +170,11 @@ function ContactSection({ contactData = {}, loading = false }) {
           <div className="contact__info">
             <ContactInfo
               title="Location"
-              lines={address?.lines || ['5th Floor, 167-169 Great Portland Street', 'London W1W 5PF']}
+              lines={address?.lines || ['18 Spring Street', 'London, W2 3RA']}
             />
             <ContactInfo
               title="Contact Us"
-              lines={contact?.lines || ['+44 787 920 8628', 'info@building.uk.com']}
+              lines={contact?.lines || ['0787 920 8628', 'info@building.uk.com']}
             />
           </div>
         </div>

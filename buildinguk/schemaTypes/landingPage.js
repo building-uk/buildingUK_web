@@ -76,5 +76,14 @@ export const landingPage = {
             type: 'array',
             of: [{ type: 'reference', to: { type: 'testimonial' } }],
         },
+        {
+            name: 'contactIntro',
+            title: 'Contact Section Intro',
+            type: 'object',
+            fields: [
+                { name: 'subtitle', title: 'Subtitle', type: 'string', initialValue: 'Contact Us' },
+                { name: 'title', title: 'Headline', type: 'string', initialValue: 'Start the conversation' },
+            ],
+        },
     ],
 }
