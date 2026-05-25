@@ -2,7 +2,7 @@ import { defineConfig } from 'sanity'
 import { structureTool } from 'sanity/structure'
 import { visionTool } from '@sanity/vision'
 import { media } from 'sanity-plugin-media'
-import { seoPane } from 'sanity-plugin-seo-pane'
+import { SEOPane } from 'sanity-plugin-seo-pane'
 import { schemaTypes } from './schemaTypes'
 
 export default defineConfig({
@@ -98,7 +98,7 @@ export default defineConfig({
           return S.document().views([
             S.view.form(),
             S.view
-              .component(seoPane)
+              .component(SEOPane)
               .options({
                 // Required: These are used for better SEO analysis
                 keywords: `seo.keywords`,
