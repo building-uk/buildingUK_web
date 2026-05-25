@@ -11,7 +11,7 @@ COPY package*.json ./
 # Install dependencies
 RUN npm config set fetch-retry-maxtimeout 600000 && \
     npm config set fetch-retry-mintimeout 100000 && \
-    npm ci
+    npm ci --legacy-peer-deps
 
 # Copy frontend source code (buildinguk/ excluded by stage context)
 COPY index.html ./
@@ -41,7 +41,7 @@ COPY buildinguk/package*.json ./
 # Install dependencies
 RUN npm config set fetch-retry-maxtimeout 600000 && \
     npm config set fetch-retry-mintimeout 100000 && \
-    npm ci
+    npm ci --legacy-peer-deps
 
 # Copy Sanity source
 COPY buildinguk/ .
