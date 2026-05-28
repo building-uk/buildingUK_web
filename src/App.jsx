@@ -20,25 +20,12 @@ const LegalPage = lazy(() => import('./pages/LegalPage'))
 const NotFoundPage = lazy(() => import('./pages/NotFoundPage'))
 
 function App() {
-  const [seoConfig, setSeoConfig] = useState(null)
-
   useEffect(() => {
     const fetchSEO = async () => {
       try {
         const settings = await cmsService.getSiteSettings()
         if (settings?.seo) {
-          const { metaTitle, metaDescription, favicon } = settings.seo
-
-          if (metaTitle) {
-            document.title = metaTitle
-          }
-
-          if (metaDescription) {
-            const metaDescriptionTag = document.querySelector('meta[name="description"]')
-            if (metaDescriptionTag) {
-              metaDescriptionTag.setAttribute('content', metaDescription)
-            }
-          }
+          const { favicon } = settings.seo
 
           if (favicon) {
             const faviconTag = document.querySelector('link[rel="icon"]')
@@ -46,8 +33,6 @@ function App() {
               faviconTag.setAttribute('href', favicon)
             }
           }
-
-          setSeoConfig(settings.seo)
         }
       } catch (error) {
         console.error('Error fetching SEO settings:', error)

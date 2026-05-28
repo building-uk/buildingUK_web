@@ -6,6 +6,7 @@ import Heading from '@atoms/Heading'
 import Text from '@atoms/Text'
 import Button from '@atoms/Button'
 import Image from '@atoms/Image'
+import { SEO } from '@atoms'
 import { cmsService } from '../../services/cmsService'
 import { PortableText } from '@portabletext/react'
 import './ProjectDetailPage.css'
@@ -67,6 +68,12 @@ function ProjectDetailPage() {
 
   return (
     <div className="project-detail-page">
+      <SEO 
+        title={`${project.title} | Projects`}
+        description={project.shortDescription || `Case study detailing BuildingUK's work on ${project.title} in ${project.location || 'London'}. Learn more about our craftsmanship.`}
+        image={project.image}
+        keywords={[project.title.toLowerCase(), project.category?.toLowerCase() || 'construction', 'london builders', 'project case study']}
+      />
       <Navbar />
 
       <main className="project-detail">

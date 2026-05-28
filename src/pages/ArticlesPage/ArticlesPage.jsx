@@ -6,6 +6,7 @@ import {
   ContactSection,
   Footer
 } from '@organisms/index'
+import { SEO } from '@atoms'
 import { cmsService } from '../../services/cmsService'
 import './ArticlesPage.css'
 
@@ -50,6 +51,11 @@ function ArticlesPage() {
 
   return (
     <div className="articles-page">
+      <SEO 
+        title="Latest Articles & Construction Insights"
+        description="Stay updated with the latest news, expert guides, home renovation advice, and commercial design trends from BuildingUK."
+        keywords={['construction blog london', 'building contractor tips', 'renovation guides', 'BuildingUK news']}
+      />
       <Navbar />
 
       <main>

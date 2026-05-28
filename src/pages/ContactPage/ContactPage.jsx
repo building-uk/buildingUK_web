@@ -8,10 +8,10 @@ import Text from '@atoms/Text'
 import Input from '@atoms/Input'
 import Button from '@atoms/Button'
 import Icon from '@atoms/Icon'
+import { SEO } from '@atoms'
 
 import { cmsService } from '../../services/cmsService'
 import { useFormValidation, validators } from '../../hooks'
-import { usePageTitle } from '../../hooks'
 import './ContactPage.css'
 
 const contactFormRules = {
@@ -24,7 +24,6 @@ const contactFormRules = {
  * ContactPage - Contact Us page
  */
 function ContactPage() {
-  usePageTitle('Contact Us')
 
   const [data, setData] = useState({
     contact: null
@@ -76,6 +75,11 @@ function ContactPage() {
 
   return (
     <div className="contact-page">
+      <SEO 
+        title="Contact Us"
+        description="Get in touch with BuildingUK for professional construction, commercial fit-outs, or residential renovations in London. Request a callback or send a message today."
+        keywords={['contact buildinguk', 'construction consultation london', 'request building quote', 'london builders contact']}
+      />
       <Navbar />
 
       <main>
