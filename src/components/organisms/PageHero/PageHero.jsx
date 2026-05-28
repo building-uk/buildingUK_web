@@ -1,4 +1,5 @@
 import Heading from '@atoms/Heading'
+import { optimizeImage } from '../../../utils/optimizeImage'
 import './PageHero.css'
 
 /**
@@ -12,7 +13,8 @@ function PageHero({
   backgroundImage
 }) {
   const defaultBg = '/images/page-hero-bg.jpg'
-  const bgStyle = backgroundImage ? { backgroundImage: `url(${backgroundImage})` } : { backgroundImage: `url(${defaultBg})` }
+  const bgStyle = backgroundImage ? { backgroundImage: `url(${optimizeImage(backgroundImage)})` } : { backgroundImage: `url(${defaultBg})` }
+
 
   return (
     <section

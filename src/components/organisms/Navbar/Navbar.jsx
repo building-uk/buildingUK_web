@@ -41,7 +41,7 @@ function Navbar({ transparent = true }) {
         }
       } catch (error) {
         console.error('Error fetching navbar data:', error)
-        setCompanyInfo({ name: 'BuildingUK', logo: '/images/DSC_6758.JPG' })
+        setCompanyInfo({ name: 'BuildingUK', logo: '/images/DSC_6758.webp' })
       }
     }
     fetchData()

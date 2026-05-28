@@ -15,11 +15,11 @@ function PageLoader() {
         if (settings?.logo) {
           setLogo(settings.logo)
         } else {
-          setLogo('/images/DSC_6758.JPG')
+          setLogo('/images/DSC_6758.webp')
         }
       } catch (error) {
         console.error('Error fetching loader logo:', error)
-        setLogo('/images/DSC_6758.JPG')
+        setLogo('/images/DSC_6758.webp')
       }
     }
     fetchLogo()
