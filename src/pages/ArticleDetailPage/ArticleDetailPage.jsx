@@ -137,6 +137,27 @@ function ArticleDetailPage() {
 
   if (!article) return null
 
+  const articleSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'BlogPosting',
+    'headline': article.title,
+    'image': article.image,
+    'author': {
+      '@type': 'Person',
+      'name': article.author || 'BuildingUK Team'
+    },
+    'publisher': {
+      '@type': 'Organization',
+      'name': 'BuildingUK',
+      'logo': {
+        '@type': 'ImageObject',
+        'url': 'https://building.uk.com/images/BuildingUK-LogoMark.png'
+      }
+    },
+    'datePublished': article.date,
+    'description': article.excerpt
+  }
+
   return (
     <div className="article-detail-page">
       <SEO 
@@ -145,6 +166,7 @@ function ArticleDetailPage() {
         image={article.image}
         type="article"
         keywords={[article.title.toLowerCase(), article.category?.toLowerCase() || 'construction', 'building company blog']}
+        schema={articleSchema}
       />
       <Navbar />
 
