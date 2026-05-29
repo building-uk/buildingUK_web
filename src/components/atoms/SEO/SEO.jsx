@@ -47,6 +47,10 @@ export default function SEO({ title, description, keywords, image, url, type = '
     }
   }
 
+  // Dynamically resolve canonical URL
+  const currentPath = typeof window !== 'undefined' ? window.location.pathname : ''
+  const canonicalUrl = url || `https://building.uk.com${currentPath}`
+
   return (
     <Helmet>
       {/* Basic Meta Tags */}
@@ -54,13 +58,14 @@ export default function SEO({ title, description, keywords, image, url, type = '
       {description && <meta name="description" content={description} />}
       {finalKeywords && <meta name="keywords" content={finalKeywords} />}
       {noindex && <meta name="robots" content="noindex, nofollow" />}
+      <link rel="canonical" href={canonicalUrl} />
 
       {/* Open Graph / Facebook */}
       <meta property="og:type" content={type} />
       <meta property="og:title" content={siteTitle} />
       {description && <meta property="og:description" content={description} />}
       {image && <meta property="og:image" content={image} />}
-      {url && <meta property="og:url" content={url} />}
+      <meta property="og:url" content={canonicalUrl} />
 
       {/* Twitter Cards */}
       <meta name="twitter:card" content={image ? 'summary_large_image' : 'summary'} />
