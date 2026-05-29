@@ -3,6 +3,7 @@ import SectionHeader from '@molecules/SectionHeader'
 import Heading from '@atoms/Heading'
 import Text from '@atoms/Text'
 import Image from '@atoms/Image'
+import { optimizeImage } from '../../../utils/optimizeImage'
 import './TestimonialsAlt.css'
 
 /**
@@ -27,7 +28,7 @@ function TestimonialsAlt({ testimonials = [], backgroundImage = '/images/testimo
   return (
     <section
       className="testimonials-alt section"
-      style={{ backgroundImage: `url(${backgroundImage})` }}
+      style={{ backgroundImage: `url(${optimizeImage(backgroundImage)})` }}
     >
       <div className="testimonials-alt__overlay"></div>
       <div className="container testimonials-alt__inner">

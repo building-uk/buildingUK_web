@@ -5,8 +5,8 @@ import Footer from '@organisms/Footer'
 import PageHero from '@organisms/PageHero'
 import Heading from '@atoms/Heading'
 import Text from '@atoms/Text'
+import { SEO } from '@atoms'
 import { cmsService } from '../../services/cmsService'
-import { usePageTitle } from '../../hooks'
 import './LegalPage.css'
 
 function LegalPage() {
@@ -14,8 +14,6 @@ function LegalPage() {
   const slug = pathname.replace('/', '')
   const [data, setData] = useState(null)
   const [loading, setLoading] = useState(true)
-
-  usePageTitle(data?.title || 'Legal')
 
   useEffect(() => {
     const fetchData = async () => {
@@ -49,6 +47,11 @@ function LegalPage() {
 
   return (
     <div className="legal-page">
+      <SEO 
+        title={data.title}
+        description={`Read the official ${data.title} page of BuildingUK. We are dedicated to providing clear terms, transparency, and safety compliance in our construction operations.`}
+        keywords={[(data.title || '').toLowerCase(), 'terms', 'privacy policy london', 'construction legal info']}
+      />
       <Navbar />
       
       <main>

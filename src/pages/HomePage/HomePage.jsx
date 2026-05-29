@@ -11,15 +11,14 @@ import {
   ContactSection,
   Footer
 } from '@organisms/index'
+import { SEO } from '@atoms'
 import { cmsService } from '../../services/cmsService'
-import { usePageTitle } from '../../hooks'
 import './HomePage.css'
 
 /**
  * HomePage - Landing page composing all sections
  */
 function HomePage() {
-  usePageTitle('Home')
 
   const [data, setData] = useState({
     hero: null,
@@ -76,6 +75,11 @@ function HomePage() {
 
   return (
     <div className="home-page">
+      <SEO 
+        title="High-End Construction & Renovations"
+        description="BuildingUK delivers premier residential construction, high-end extensions, commercial fit-outs, and complete renovations. Contact us today for a consultation in London."
+        keywords={['construction', 'renovation', 'residential builder', 'commercial construction', 'house extension', 'london builder', 'BuildingUK']}
+      />
       <Navbar />
 
       <main>

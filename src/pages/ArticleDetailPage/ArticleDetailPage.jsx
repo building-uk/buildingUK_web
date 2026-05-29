@@ -7,6 +7,7 @@ import Heading from '@atoms/Heading'
 import Text from '@atoms/Text'
 import Button from '@atoms/Button'
 import Image from '@atoms/Image'
+import { SEO } from '@atoms'
 import { PortableText } from '@portabletext/react'
 import { cmsService } from '../../services/cmsService'
 import { urlFor } from '../../sanityClient'
@@ -136,8 +137,37 @@ function ArticleDetailPage() {
 
   if (!article) return null
 
+  const articleSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'BlogPosting',
+    'headline': article.title,
+    'image': article.image,
+    'author': {
+      '@type': 'Person',
+      'name': article.author || 'BuildingUK Team'
+    },
+    'publisher': {
+      '@type': 'Organization',
+      'name': 'BuildingUK',
+      'logo': {
+        '@type': 'ImageObject',
+        'url': 'https://building.uk.com/images/BuildingUK-LogoMark.png'
+      }
+    },
+    'datePublished': article.date,
+    'description': article.excerpt
+  }
+
   return (
     <div className="article-detail-page">
+      <SEO 
+        title={`${article.title} | Articles`}
+        description={article.excerpt || `Read our article on ${article.title} published by ${article.author}. Learn more about construction updates with BuildingUK.`}
+        image={article.image}
+        type="article"
+        keywords={[article.title.toLowerCase(), article.category?.toLowerCase() || 'construction', 'building company blog']}
+        schema={articleSchema}
+      />
       <Navbar />
 
       <main>

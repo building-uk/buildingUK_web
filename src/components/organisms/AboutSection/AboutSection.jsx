@@ -68,7 +68,7 @@ function AboutSection({ data, loading = false }) {
             </div>
           ) : (
             <div className="about__image about__image--single">
-              <Image src="/images/DSC_6758.JPG" alt="BuildingUK Work" />
+              <Image src="/images/DSC_6758.webp" alt="BuildingUK Work" />
             </div>
           )}
         </div>

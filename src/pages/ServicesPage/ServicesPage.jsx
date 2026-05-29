@@ -9,6 +9,7 @@ import {
   ContactSection,
   Footer
 } from '@organisms/index'
+import { SEO } from '@atoms'
 import { cmsService } from '../../services/cmsService'
 import './ServicesPage.css'
 
@@ -68,6 +69,11 @@ function ServicesPage() {
 
   return (
     <div className="services-page">
+      <SEO 
+        title="Our Services"
+        description="Explore our range of professional construction and building services at BuildingUK. We specialize in high-end residential extensions, complete home renovations, and commercial fit-outs."
+        keywords={['building services', 'construction services london', 'residential renovation', 'commercial building work', 'renovations company london']}
+      />
       <Navbar />
 
       <main>

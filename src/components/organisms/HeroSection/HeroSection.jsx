@@ -3,6 +3,7 @@ import Heading from '@atoms/Heading'
 import Text from '@atoms/Text'
 import Button from '@atoms/Button'
 import { useParallax } from '../../../hooks'
+import { optimizeImage } from '../../../utils/optimizeImage'
 import './HeroSection.css'
 
 /**
@@ -21,7 +22,7 @@ function HeroSection({
   images = []
 }) {
   // Use local fallback if no images provided from CMS
-  const displayImages = images?.length > 0 ? images : ['/images/DSC_6758.JPG']
+  const displayImages = images?.length > 0 ? images : ['/images/DSC_6758.webp']
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
   const parallaxRef = useParallax(0.5)
 
@@ -45,7 +46,7 @@ function HeroSection({
           key={img}
           className={`hero__bg ${index === currentImageIndex ? 'active' : ''}`}
           style={{
-            backgroundImage: `url(${img})`,
+            backgroundImage: `url(${optimizeImage(img)})`,
             zIndex: index === currentImageIndex ? 0 : -1
           }}
           ref={index === currentImageIndex ? parallaxRef : null}

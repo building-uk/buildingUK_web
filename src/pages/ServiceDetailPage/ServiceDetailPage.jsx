@@ -5,6 +5,7 @@ import Footer from '@organisms/Footer'
 import Heading from '@atoms/Heading'
 import Text from '@atoms/Text'
 import Image from '@atoms/Image'
+import { SEO } from '@atoms'
 import ProjectsPreview from '@organisms/ProjectsPreview'
 import { cmsService } from '../../services/cmsService'
 import './ServiceDetailPage.css'
@@ -62,6 +63,12 @@ function ServiceDetailPage() {
 
   return (
     <div className="service-detail-page">
+      <SEO 
+        title={`${service.title} | Services`}
+        description={service.shortDescription || `Explore our high-quality ${service.title} services, delivered with meticulous craftsmanship and expert project management in London.`}
+        image={service.heroImage || service.image}
+        keywords={[service.title.toLowerCase(), 'construction services', 'building service london', 'professional builder']}
+      />
       <Navbar />
 
       <main className="service-detail">

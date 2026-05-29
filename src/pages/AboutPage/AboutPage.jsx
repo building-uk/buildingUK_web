@@ -10,6 +10,7 @@ import {
   ContactSection,
   Footer
 } from '@organisms/index'
+import { SEO } from '@atoms'
 import { cmsService } from '../../services/cmsService'
 import './AboutPage.css'
 
@@ -41,7 +42,8 @@ function AboutPage() {
             whyChooseUs: fullData.whyChooseUs,
             team: fullData.team,
             testimonials: fullData.testimonials || [],
-            contact: fullData.contact
+            contact: fullData.contact,
+            testimonialsBackground: fullData.testimonialsBackground
           })
         }
       } catch (error) {
@@ -64,6 +66,11 @@ function AboutPage() {
 
   return (
     <div className="about-page">
+      <SEO 
+        title="About Us"
+        description="Learn about BuildingUK, a leading London-based construction firm. Discover our commitment to craftsmanship, safety, reliability, and our experienced management team."
+        keywords={['about buildinguk', 'construction company london', 'construction team', 'safe builders london', 'building services london']}
+      />
       <Navbar />
 
       <main>

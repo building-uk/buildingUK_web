@@ -22,11 +22,17 @@ function Image({
   const classes = `image image--${objectFit} ${overlay ? 'image--overlay' : ''} ${className}`.trim()
   
   const style = aspectRatio ? { aspectRatio } : {}
+
+  // Optimize Sanity images automatically
+  let optimizedSrc = src
+  if (src && typeof src === 'string' && src.includes('cdn.sanity.io/images') && !src.includes('?')) {
+    optimizedSrc = `${src}?auto=format&fit=max&q=80&w=1200`
+  }
   
   return (
     <div className={classes} style={style}>
       <img 
-        src={src} 
+        src={optimizedSrc} 
         alt={alt} 
         loading="lazy"
         {...props}

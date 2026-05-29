@@ -4,14 +4,18 @@ import Footer from '@organisms/Footer'
 import Heading from '@atoms/Heading'
 import Text from '@atoms/Text'
 import Button from '@atoms/Button'
-import { usePageTitle } from '../../hooks'
+import { SEO } from '@atoms'
 import './NotFoundPage.css'
 
 function NotFoundPage() {
-  usePageTitle('Page Not Found')
 
   return (
     <div className="not-found-page">
+      <SEO 
+        title="Page Not Found"
+        description="The page you are looking for does not exist on BuildingUK."
+        noindex={true}
+      />
       <Navbar />
       
       <main className="not-found__content container">
