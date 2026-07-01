@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useLocation } from 'react-router-dom'
+import { PortableText } from '@portabletext/react'
 import Navbar from '@organisms/Navbar'
 import Footer from '@organisms/Footer'
 import PageHero from '@organisms/PageHero'
@@ -67,12 +68,7 @@ function LegalPage() {
               
               {Array.isArray(data.content) ? (
                 <div className="rich-text">
-                  {/* Ideally use @portabletext/react here, but for now we'll handle simple blocks */}
-                  {data.content.map((block, i) => (
-                    <Text key={i} size="base" color="dark" className="mb-md">
-                      {block.children?.map(child => child.text).join('')}
-                    </Text>
-                  ))}
+                  <PortableText value={data.content} />
                 </div>
               ) : (
                 <Text size="base" color="dark">

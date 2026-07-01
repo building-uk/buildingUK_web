@@ -23,6 +23,7 @@ function Footer() {
       { to: '/terms', label: 'Terms and conditions' },
       { to: '/privacy', label: 'Privacy Policy' },
       { to: '/health-safety', label: 'Health & Safety' },
+      { to: '/our-commitments', label: 'Our Commitments' },
     ],
     contact: {
       email: 'info@building.uk.com',
