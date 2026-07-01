@@ -439,7 +439,8 @@ export const cmsService = {
       info: (footerLinks?.infoLinks || [
         { to: '/terms', label: 'Terms and conditions' },
         { to: '/privacy', label: 'Privacy Policy' },
-        { to: '/health-safety', label: 'Health & Safety' }
+        { to: '/health-safety', label: 'Health & Safety' },
+        { to: '/our-commitments', label: 'Our Commitments' }
       ]).map(item => ({ ...item, to: item.path || item.to }))
     }
   },

@@ -62,6 +62,7 @@ function App() {
             <Route path="/terms" element={<LegalPage />} />
             <Route path="/privacy" element={<LegalPage />} />
             <Route path="/health-safety" element={<LegalPage />} />
+            <Route path="/our-commitments" element={<LegalPage />} />
             <Route path="*" element={<NotFoundPage />} />
           </Routes>
         </Suspense>

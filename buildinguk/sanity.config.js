@@ -2,7 +2,8 @@ import { defineConfig } from 'sanity'
 import { structureTool } from 'sanity/structure'
 import { visionTool } from '@sanity/vision'
 import { media } from 'sanity-plugin-media'
-import { SEOPane } from 'sanity-plugin-seo-pane'
+
+
 import { schemaTypes } from './schemaTypes'
 
 export default defineConfig({
@@ -93,24 +94,7 @@ export default defineConfig({
               (listItem) => !['siteSettings', 'landingPage', 'aboutPage', 'projectsPage', 'servicesPage', 'articlesPage', 'contactPage'].includes(listItem.getId())
             ),
           ]),
-      defaultDocumentNode: (S, { schemaType }) => {
-        if (['blog', 'projects', 'service', 'landingPage', 'aboutPage', 'projectsPage', 'servicesPage', 'articlesPage', 'contactPage'].includes(schemaType)) {
-          return S.document().views([
-            S.view.form(),
-            S.view
-              .component(SEOPane)
-              .options({
-                // Required: These are used for better SEO analysis
-                keywords: `seo.keywords`,
-                synonyms: `seo.synonyms`,
-                url: (doc) => `https://building-uk.com/${doc?.slug?.current || ''}`,
-              })
-              .title('SEO Preview'),
-          ])
-        }
 
-        return S.document().views([S.view.form()])
-      },
     }),
     visionTool(),
     media(),
