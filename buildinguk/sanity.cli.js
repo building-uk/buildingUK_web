@@ -5,6 +5,16 @@ export default defineCliConfig({
     projectId: 'ibnvorrn',
     dataset: 'production',
   },
+  vite: (config) => {
+    return {
+      ...config,
+      resolve: {
+        ...config.resolve,
+        alias: {
+          ...config.resolve?.alias,
+          'inherits': 'inherits/inherits_browser.js',
+        },
+      },
+    }
+  }
 })
-
-
