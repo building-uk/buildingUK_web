@@ -1,7 +1,7 @@
 # ============================================
 # Stage 1: Build the Frontend (Vite + React)
 # ============================================
-FROM node:20-alpine AS frontend-build
+FROM node:22-alpine AS frontend-build
 
 WORKDIR /app
 
@@ -31,7 +31,7 @@ RUN npm run build
 # ============================================
 # Stage 2: Build Sanity Studio
 # ============================================
-FROM node:20-alpine AS studio-build
+FROM node:22-alpine AS studio-build
 
 WORKDIR /app
 
