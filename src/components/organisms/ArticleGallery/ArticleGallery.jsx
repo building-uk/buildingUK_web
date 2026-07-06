@@ -22,18 +22,27 @@ function ArticleGallery({ articles = [] }) {
   const [activeCategory, setActiveCategory] = useState('all')
   const [currentPage, setCurrentPage] = useState(1)
   const itemsPerPage = 6
-  
+
   const filteredArticles = activeCategory === 'all'
     ? articles
-    : articles.filter(a => a.category === activeCategory)
-    
+    : articles.filter(a => {
+      // Sanity Stega injects invisible zero-width characters into strings for Visual Editing.
+      // We must strip them out before comparing categories!
+      const cleanItemCat = String(a?.category || '')
+        .replace(/[\u200B-\u200D\uFEFF]/g, '')
+        .trim()
+        .toLowerCase()
+      const cleanTargetCat = String(activeCategory).trim().toLowerCase()
+      return cleanItemCat === cleanTargetCat
+    })
+
   const totalPages = Math.ceil(filteredArticles.length / itemsPerPage)
-  
+
   const currentArticles = filteredArticles.slice(
     (currentPage - 1) * itemsPerPage,
     currentPage * itemsPerPage
   )
-  
+
   return (
     <section className="article-gallery section">
       <div className="container">
@@ -44,7 +53,7 @@ function ArticleGallery({ articles = [] }) {
             Discover our latest guides, tips, and project highlights.
           </Heading>
         </div>
-        
+
         {/* Filters */}
         <div className="article-gallery__filters">
           {CATEGORIES.map(cat => (
@@ -60,25 +69,25 @@ function ArticleGallery({ articles = [] }) {
             </button>
           ))}
         </div>
-        
+
         {/* Grid */}
         <div className="article-gallery__grid">
           {currentArticles.map(article => (
             <ArticleCard key={article.id} article={article} />
           ))}
         </div>
-        
+
         {/* Pagination */}
         {totalPages > 1 && (
           <div className="article-gallery__pagination">
-            <button 
+            <button
               className="article-gallery__page-btn"
               disabled={currentPage === 1}
               onClick={() => setCurrentPage(prev => prev - 1)}
             >
               &lt;
             </button>
-            
+
             {Array.from({ length: totalPages }, (_, i) => i + 1).map(page => (
               <button
                 key={page}
@@ -88,8 +97,8 @@ function ArticleGallery({ articles = [] }) {
                 {page}
               </button>
             ))}
-            
-            <button 
+
+            <button
               className="article-gallery__page-btn"
               disabled={currentPage === totalPages}
               onClick={() => setCurrentPage(prev => prev + 1)}
