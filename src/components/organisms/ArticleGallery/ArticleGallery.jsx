@@ -26,9 +26,14 @@ function ArticleGallery({ articles = [] }) {
   const filteredArticles = activeCategory === 'all'
     ? articles
     : articles.filter(a => {
-        const itemCat = String(a?.category || '').trim().toLowerCase()
-        const targetCat = String(activeCategory).trim().toLowerCase()
-        return itemCat === targetCat
+        // Sanity Stega injects invisible zero-width characters into strings for Visual Editing.
+        // We must strip them out before comparing categories!
+        const cleanItemCat = String(a?.category || '')
+          .replace(/[\u200B-\u200D\uFEFF]/g, '')
+          .trim()
+          .toLowerCase()
+        const cleanTargetCat = String(activeCategory).trim().toLowerCase()
+        return cleanItemCat === cleanTargetCat
       })
     
   const totalPages = Math.ceil(filteredArticles.length / itemsPerPage)
