@@ -25,7 +25,11 @@ function ArticleGallery({ articles = [] }) {
   
   const filteredArticles = activeCategory === 'all'
     ? articles
-    : articles.filter(a => a.category === activeCategory)
+    : articles.filter(a => {
+        const itemCat = String(a?.category || '').trim().toLowerCase()
+        const targetCat = String(activeCategory).trim().toLowerCase()
+        return itemCat === targetCat
+      })
     
   const totalPages = Math.ceil(filteredArticles.length / itemsPerPage)
   
