@@ -135,6 +135,36 @@
   color: var(--color-text-muted);
 }
 
+/* Accreditations */
+.footer__accreditations {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-xl);
+  margin-bottom: var(--space-xl);
+  width: 100%;
+}
+
+.footer__accreditation img {
+  height: 110px;
+  width: 110px;
+  background-color: #ffffff;
+  border-radius: 50%;
+  padding: 12px;
+  opacity: 0.9;
+  transition: opacity var(--transition-base), transform var(--transition-base), box-shadow var(--transition-base);
+  object-fit: contain;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.footer__accreditation a:hover img,
+.footer__accreditation:hover img {
+  opacity: 1;
+  transform: translateY(-3px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
+}
+
 /* ========== RESPONSIVE ========== */
 @media (max-width: 1024px) {
   .footer__container {
