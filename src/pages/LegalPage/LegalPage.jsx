@@ -8,6 +8,7 @@ import Heading from '@atoms/Heading'
 import Text from '@atoms/Text'
 import { SEO } from '@atoms'
 import { cmsService } from '../../services/cmsService'
+import { urlFor } from '../../sanityClient'
 import './LegalPage.css'
 
 function LegalPage() {
@@ -68,7 +69,50 @@ function LegalPage() {
               
               {Array.isArray(data.content) ? (
                 <div className="rich-text">
-                  <PortableText value={data.content} />
+                  <PortableText 
+                    value={data.content} 
+                    components={{
+                      types: {
+                        image: ({ value }) => {
+                          if (!value?.asset?._ref) return null
+                          return (
+                            <div className="legal-page__image-wrapper" style={{ margin: '2rem auto', maxWidth: '600px', textAlign: 'center' }}>
+                              <img
+                                alt={value.alt || ' '}
+                                loading="lazy"
+                                src={urlFor(value).width(600).fit('max').auto('format').url()}
+                                style={{ width: '100%', height: 'auto', boxShadow: '0 4px 12px rgba(0,0,0,0.05)' }}
+                              />
+                            </div>
+                          )
+                        },
+                        imageGallery: ({ value }) => {
+                          if (!value?.images || value.images.length === 0) return null
+                          return (
+                            <div className="legal-page__gallery-wrapper" style={{ 
+                              display: 'grid', 
+                              gridTemplateColumns: `repeat(auto-fit, minmax(250px, 1fr))`, 
+                              gap: '1.5rem', 
+                              margin: '2.5rem 0' 
+                            }}>
+                              {value.images.map((img, i) => {
+                                if (!img?.asset?._ref) return null
+                                return (
+                                  <img
+                                    key={i}
+                                    alt={img.alt || `Gallery image ${i + 1}`}
+                                    loading="lazy"
+                                    src={urlFor(img).width(500).height(400).fit('crop').auto('format').url()}
+                                    style={{ width: '100%', height: '350px', objectFit: 'cover', boxShadow: '0 4px 12px rgba(0,0,0,0.05)' }}
+                                  />
+                                )
+                              })}
+                            </div>
+                          )
+                        }
+                      }
+                    }} 
+                  />
                 </div>
               ) : (
                 <Text size="base" color="dark">

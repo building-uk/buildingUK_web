@@ -41,6 +41,11 @@ export const cmsService = {
       mainNavigation,
       footerLinks,
       contactInfo,
+      accreditations[] {
+        "logo": logo.asset->url,
+        altText,
+        url
+      },
       seo {
         metaTitle,
         metaDescription,
@@ -99,6 +104,7 @@ export const cmsService = {
         "title": title,
         "backgroundImage": heroImage.asset->url
       },
+      "gallery": gallery[].asset->url,
       "intro": {
         "label": introSubtitle,
         "headline": introTitle,

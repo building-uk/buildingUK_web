@@ -165,6 +165,37 @@ export const siteSettings = {
             ],
         },
         {
+            name: 'accreditations',
+            title: 'Accreditations',
+            type: 'array',
+            description: 'Logos of accreditations to display in the footer.',
+            of: [
+                {
+                    type: 'object',
+                    fields: [
+                        {
+                            name: 'logo',
+                            title: 'Logo',
+                            type: 'image',
+                            options: { hotspot: true },
+                        },
+                        {
+                            name: 'altText',
+                            title: 'Alternative Text',
+                            type: 'string',
+                            description: 'Description of the accreditation for accessibility',
+                        },
+                        {
+                            name: 'url',
+                            title: 'URL',
+                            type: 'url',
+                            description: 'Optional link to the accreditation body',
+                        }
+                    ],
+                },
+            ],
+        },
+        {
             name: 'seo',
             title: 'SEO & Metadata',
             type: 'object',

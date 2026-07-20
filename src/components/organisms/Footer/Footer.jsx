@@ -32,7 +32,8 @@ function Footer() {
       social: [
         { platform: 'Instagram', url: 'https://www.instagram.com/buildinguk_ltd' }
       ]
-    }
+    },
+    accreditations: []
   })
 
   useEffect(() => {
@@ -57,6 +58,13 @@ function Footer() {
             ...prev,
             links: links.main,
             infoLinks: links.info
+          }))
+        }
+
+        if (settings?.accreditations) {
+          setFooterData(prev => ({
+            ...prev,
+            accreditations: settings.accreditations
           }))
         }
 
@@ -157,6 +165,26 @@ function Footer() {
           </ul>
         </div>
       </div>
+
+      {/* Accreditations - Above Divider */}
+      {footerData.accreditations?.length > 0 && (
+        <div className="container">
+          <div className="footer__accreditations">
+            {footerData.accreditations.map((acc, i) => {
+              const content = <img src={acc.logo} alt={acc.altText || 'Accreditation'} />;
+              return acc.url ? (
+                <a key={i} href={acc.url} target="_blank" rel="noopener noreferrer" className="footer__accreditation">
+                  {content}
+                </a>
+              ) : (
+                <div key={i} className="footer__accreditation">
+                  {content}
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      )}
 
       <div className="footer__bottom container">
         <span className="footer__copyright">
