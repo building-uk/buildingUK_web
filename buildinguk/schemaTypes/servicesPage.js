@@ -16,6 +16,13 @@ export const servicesPage = {
             options: { hotspot: true },
         },
         {
+            name: 'gallery',
+            title: 'Top Gallery',
+            type: 'array',
+            description: 'Images to display in the gallery at the top of the services page',
+            of: [{ type: 'image', options: { hotspot: true } }]
+        },
+        {
             name: 'introSubtitle',
             title: 'Intro Subtitle',
             type: 'string',

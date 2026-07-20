@@ -104,6 +104,7 @@ export const cmsService = {
         "title": title,
         "backgroundImage": heroImage.asset->url
       },
+      "gallery": gallery[].asset->url,
       "intro": {
         "label": introSubtitle,
         "headline": introTitle,
