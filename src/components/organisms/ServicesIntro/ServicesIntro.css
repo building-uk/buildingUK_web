@@ -20,19 +20,15 @@
 
 .services-intro__cards {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   gap: var(--space-lg);
 }
 
 /* ========== RESPONSIVE ========== */
-@media (max-width: 1024px) {
-  .services-intro__cards {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
 @media (max-width: 768px) {
   .services-intro__cards {
     grid-template-columns: 1fr;
   }
 }
+
+
