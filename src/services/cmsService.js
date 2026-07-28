@@ -151,7 +151,7 @@ export const cmsService = {
       "shortDescription": summary,
       "image": mainImage.asset->url,
       "heroImage": mainImage.asset->url,
-      "description": array::join(content[].children[].text, "\n\n"),
+      "description": content,
       sections
     }`
     return client.fetch(query, { id })

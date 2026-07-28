@@ -7,8 +7,32 @@ import Text from '@atoms/Text'
 import Image from '@atoms/Image'
 import { SEO } from '@atoms'
 import ProjectsPreview from '@organisms/ProjectsPreview'
+import { PortableText } from '@portabletext/react'
 import { cmsService } from '../../services/cmsService'
 import './ServiceDetailPage.css'
+
+/**
+ * Portable Text components — maps Sanity block types to styled HTML
+ */
+const ptComponents = {
+  block: {
+    normal: ({ children }) => <p className="service-detail__para">{children}</p>,
+    h2: ({ children }) => <h2 className="service-detail__rich-h2">{children}</h2>,
+    h3: ({ children }) => <h3 className="service-detail__rich-h3">{children}</h3>,
+  },
+  list: {
+    bullet: ({ children }) => <ul className="service-detail__list">{children}</ul>,
+    number: ({ children }) => <ol className="service-detail__list service-detail__list--numbered">{children}</ol>,
+  },
+  listItem: {
+    bullet: ({ children }) => <li>{children}</li>,
+    number: ({ children }) => <li>{children}</li>,
+  },
+  marks: {
+    strong: ({ children }) => <strong>{children}</strong>,
+    em: ({ children }) => <em>{children}</em>,
+  },
+}
 
 /**
  * ServiceDetailPage - Individual service detail page
@@ -97,21 +121,12 @@ function ServiceDetailPage() {
             {/* Content */}
             <div className="service-detail__content">
               {/* Main Description */}
-              <div className="service-detail__description">
-                <Heading level={2} variant="card">
-                  {service.title}
-                </Heading>
-                {Array.isArray(service.description)
-                  ? service.description.map((para, index) => (
-                    <Text key={index} size="base" color="dark">
-                      {para}
-                    </Text>
-                  ))
+              <div className="service-detail__rich-text">
+                {Array.isArray(service.description) && service.description.length > 0
+                  ? <PortableText value={service.description} components={ptComponents} />
                   : typeof service.description === 'string'
                     ? service.description.split('\n\n').filter(Boolean).map((para, index) => (
-                      <Text key={index} size="base" color="dark">
-                        {para}
-                      </Text>
+                      <Text key={index} size="base" color="dark">{para}</Text>
                     ))
                     : null}
               </div>
