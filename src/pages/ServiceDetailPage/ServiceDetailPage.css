@@ -78,6 +78,37 @@
   margin-bottom: var(--space-xs);
 }
 
+/* ========== RICH TEXT (Portable Text) ========== */
+.service-detail__rich-text {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.service-detail__para {
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  color: var(--color-text-dark);
+  line-height: var(--leading-relaxed);
+  margin: 0;
+}
+
+.service-detail__rich-h2 {
+  font-family: var(--font-display);
+  font-size: var(--text-md);
+  color: var(--color-text-dark);
+  font-weight: var(--font-semibold);
+  margin-top: var(--space-sm);
+}
+
+.service-detail__rich-h3 {
+  font-family: var(--font-display);
+  font-size: var(--text-base);
+  color: var(--color-text-dark);
+  font-weight: var(--font-semibold);
+  margin-top: var(--space-xs);
+}
+
 /* ========== LIST ========== */
 .service-detail__list {
   list-style: disc;
@@ -87,11 +118,19 @@
   gap: var(--space-xs);
 }
 
+.service-detail__list--numbered {
+  list-style: decimal;
+}
+
 .service-detail__list li {
   font-family: var(--font-body);
   font-size: var(--text-base);
   color: var(--color-text-dark);
   line-height: var(--leading-relaxed);
+}
+
+.service-detail__list li strong {
+  font-weight: var(--font-semibold);
 }
 
 /* ========== RESPONSIVE ========== */

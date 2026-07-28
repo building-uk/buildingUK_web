@@ -59,7 +59,7 @@ function HomePage() {
     fetchSection('about', () => cmsService.getAboutContent())
     fetchSection('services', async () => {
       const services = await cmsService.getServices()
-      const order = ['residential', 'renovation', 'commercial']
+      const order = ['refurbishment', 'fire', 'restoration', 'commercial']
       return services.sort((a, b) => {
         const indexA = order.findIndex(o => a.id.toLowerCase().includes(o))
         const indexB = order.findIndex(o => b.id.toLowerCase().includes(o))

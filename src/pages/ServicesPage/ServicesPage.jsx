@@ -42,7 +42,7 @@ function ServicesPage() {
       try {
         const fullData = await cmsService.getServicesFullPage()
 
-        const order = ['residential', 'renovation', 'commercial']
+        const order = ['refurbishment', 'fire', 'restoration', 'commercial']
         const sortedServices = (fullData.services || []).sort((a, b) => {
           const indexA = order.findIndex(o => a.id.toLowerCase().includes(o))
           const indexB = order.findIndex(o => b.id.toLowerCase().includes(o))
