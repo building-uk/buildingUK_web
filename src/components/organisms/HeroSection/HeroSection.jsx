@@ -1,4 +1,5 @@
 import { useRef, useState, useEffect } from 'react'
+import gsap from 'gsap'
 import Heading from '@atoms/Heading'
 import Text from '@atoms/Text'
 import Button from '@atoms/Button'
@@ -25,6 +26,7 @@ function HeroSection({
   const displayImages = images?.length > 0 ? images : ['/images/DSC_6758.webp']
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
   const parallaxRef = useParallax(0.5)
+  const contentRef = useRef(null)
 
   useEffect(() => {
     if (!displayImages || displayImages.length <= 1) return
@@ -35,6 +37,16 @@ function HeroSection({
 
     return () => clearInterval(interval)
   }, [displayImages])
+
+  useEffect(() => {
+    if (contentRef.current) {
+      gsap.fromTo(
+        contentRef.current.children,
+        { opacity: 0, y: 30 },
+        { opacity: 1, y: 0, stagger: 0.3, duration: 1.4, ease: 'power3.out', delay: 0.4 }
+      )
+    }
+  }, [])
 
   // Split title by newlines for proper rendering
   const titleLines = title.split('\n')
@@ -49,11 +61,10 @@ function HeroSection({
             backgroundImage: `url(${optimizeImage(img)})`,
             zIndex: index === currentImageIndex ? 0 : -1
           }}
-          ref={index === currentImageIndex ? parallaxRef : null}
         />
       ))}
       <div className="hero__overlay"></div>
-      <div className="hero__content">
+      <div className="hero__content" ref={contentRef}>
         <Heading level={1} variant="hero" color="light">
           {titleLines.map((line, index) => (
             <span key={index}>

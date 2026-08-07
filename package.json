@@ -15,6 +15,7 @@
     "@sanity/image-url": "^2.1.1",
     "@sanity/react-loader": "^2.0.9",
     "@sanity/visual-editing": "^5.3.4",
+    "gsap": "^3.15.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-helmet-async": "^3.0.0",

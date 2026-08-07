@@ -4,6 +4,7 @@ import { UIProvider } from './context/UIContext'
 import Notification from './components/atoms/Notification'
 import ScrollToTop from './components/atoms/ScrollToTop'
 import PageLoader from './components/atoms/PageLoader'
+import SmoothScrollWrapper from './components/atoms/SmoothScrollWrapper'
 import { cmsService } from './services/cmsService'
 
 // Lazy load pages for performance
@@ -46,26 +47,28 @@ function App() {
       <Router>
         <ScrollToTop />
         <Notification />
-        <Suspense fallback={<PageLoader />}>
-          <Routes>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/about" element={<AboutPage />} />
-            <Route path="/company" element={<AboutPage />} />
-            <Route path="/projects" element={<ProjectsPage />} />
-            <Route path="/projects/:id" element={<ProjectDetailPage />} />
-            <Route path="/services" element={<ServicesPage />} />
-            <Route path="/services/:id" element={<ServiceDetailPage />} />
-            <Route path="/articles" element={<ArticlesPage />} />
-            <Route path="/articles/:id" element={<ArticleDetailPage />} />
-            <Route path="/blog" element={<ArticlesPage />} />
-            <Route path="/contact" element={<ContactPage />} />
-            <Route path="/terms" element={<LegalPage />} />
-            <Route path="/privacy" element={<LegalPage />} />
-            <Route path="/health-safety" element={<LegalPage />} />
-            <Route path="/our-commitments" element={<LegalPage />} />
-            <Route path="*" element={<NotFoundPage />} />
-          </Routes>
-        </Suspense>
+        <SmoothScrollWrapper>
+          <Suspense fallback={<PageLoader />}>
+            <Routes>
+              <Route path="/" element={<HomePage />} />
+              <Route path="/about" element={<AboutPage />} />
+              <Route path="/company" element={<AboutPage />} />
+              <Route path="/projects" element={<ProjectsPage />} />
+              <Route path="/projects/:id" element={<ProjectDetailPage />} />
+              <Route path="/services" element={<ServicesPage />} />
+              <Route path="/services/:id" element={<ServiceDetailPage />} />
+              <Route path="/articles" element={<ArticlesPage />} />
+              <Route path="/articles/:id" element={<ArticleDetailPage />} />
+              <Route path="/blog" element={<ArticlesPage />} />
+              <Route path="/contact" element={<ContactPage />} />
+              <Route path="/terms" element={<LegalPage />} />
+              <Route path="/privacy" element={<LegalPage />} />
+              <Route path="/health-safety" element={<LegalPage />} />
+              <Route path="/our-commitments" element={<LegalPage />} />
+              <Route path="*" element={<NotFoundPage />} />
+            </Routes>
+          </Suspense>
+        </SmoothScrollWrapper>
       </Router>
     </UIProvider>
   )

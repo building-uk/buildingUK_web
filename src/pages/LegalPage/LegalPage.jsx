@@ -196,7 +196,11 @@ function LegalPage() {
                                 onClick={(e) => {
                                   e.preventDefault()
                                   const target = document.getElementById(anchor.slice(1))
-                                  if (target) {
+                                  if (!target) return
+                                  if (window.smoother) {
+                                    // Use GSAP smoother for buttery scroll
+                                    window.smoother.scrollTo(target, true)
+                                  } else {
                                     target.scrollIntoView({ behavior: 'smooth', block: 'start' })
                                   }
                                 }}

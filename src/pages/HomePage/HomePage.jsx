@@ -13,12 +13,14 @@ import {
 } from '@organisms/index'
 import { SEO } from '@atoms'
 import { cmsService } from '../../services/cmsService'
+import { useScrollReveal } from '../../hooks'
 import './HomePage.css'
 
 /**
  * HomePage - Landing page composing all sections
  */
 function HomePage() {
+  useScrollReveal('.gsap-reveal')
 
   const [data, setData] = useState({
     hero: null,
@@ -92,32 +94,46 @@ function HomePage() {
           loading={loading.hero}
         />
 
-        <AboutSection
-          data={{
-            ...data.about,
-            ctaLink: '/about'
-          }}
-          loading={loading.about}
-        />
+        <div className="gsap-reveal">
+          <AboutSection
+            data={{
+              ...data.about,
+              ctaLink: '/about'
+            }}
+            loading={loading.about}
+          />
+        </div>
 
-        <TestimonialsSection
-          testimonials={data.testimonials}
-          loading={loading.testimonials}
-        />
+        <div className="gsap-reveal">
+          <TestimonialsSection
+            testimonials={data.testimonials}
+            loading={loading.testimonials}
+          />
+        </div>
 
-        <ServicesSection services={data.services} loading={loading.services} />
+        <div className="gsap-reveal">
+          <ServicesSection services={data.services} loading={loading.services} />
+        </div>
 
-        <ProjectsSection projects={data.projects} loading={loading.projects} />
+        <div className="gsap-reveal">
+          <ProjectsSection projects={data.projects} loading={loading.projects} />
+        </div>
 
-        <WhyUsSection
-          processes={data.processes?.processes}
-          image={data.processes?.image}
-          loading={loading.processes}
-        />
+        <div className="gsap-reveal">
+          <WhyUsSection
+            processes={data.processes?.processes}
+            image={data.processes?.image}
+            loading={loading.processes}
+          />
+        </div>
 
-        <ArticlesSection articles={data.articles} loading={loading.articles} />
+        <div className="gsap-reveal">
+          <ArticlesSection articles={data.articles} loading={loading.articles} />
+        </div>
 
-        <ContactSection contactData={data.contact} loading={loading.contact} />
+        <div className="gsap-reveal">
+          <ContactSection contactData={data.contact} loading={loading.contact} />
+        </div>
       </main>
 
       <Footer />
