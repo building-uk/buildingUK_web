@@ -16,6 +16,7 @@
   margin-top: var(--space-xl);
   margin-bottom: var(--space-md);
   color: var(--color-text-black);
+  scroll-margin-top: 100px;
 }
 
 .rich-text p {

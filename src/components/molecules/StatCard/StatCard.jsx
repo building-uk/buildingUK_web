@@ -14,11 +14,11 @@ function StatCard({
   className = '',
   ...props
 }) {
-  const animatedValue = useCountUp(value)
+  const { value: animatedValue, ref } = useCountUp(value)
   const classes = `stat-card ${className}`.trim()
 
   return (
-    <div className={classes} {...props}>
+    <div ref={ref} className={classes} {...props}>
       <span className="stat-card__value">{animatedValue}</span>
       <span className="stat-card__description">{description}</span>
     </div>

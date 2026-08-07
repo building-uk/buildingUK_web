@@ -1,37 +1,49 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
+import gsap from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+
+gsap.registerPlugin(ScrollTrigger)
 
 /**
- * useCountUp hook - Animates a number from 0 to a target value
- * @param {string} value - The target value string (e.g., "25+")
- * @param {number} duration - Animation duration in ms (default 2000)
- * @returns {string} The current animated value
+ * useCountUp hook - Animates a number from 0 to target value when scrolled into view via GSAP ScrollTrigger
+ * @param {string} value - Target value string (e.g., "250+", "98%")
+ * @param {number} duration - Animation duration in seconds (default 2)
+ * @returns {{ count: string, ref: React.RefObject }} The current animated string value and the ref to attach to the element
  */
-export const useCountUp = (value, duration = 2000) => {
-    const [count, setCount] = useState(0)
+export const useCountUp = (value = '', duration = 2) => {
+  const [count, setCount] = useState(0)
+  const ref = useRef(null)
 
-    // Extract numeric part and suffix
-    const numericValue = parseInt(value.replace(/[^0-9]/g, ''), 10) || 0
-    const suffix = value.replace(/[0-9]/g, '')
+  // Extract numeric part and non-numeric suffix/prefix
+  const numericValue = parseInt(value.replace(/[^0-9]/g, ''), 10) || 0
+  const suffix = value.replace(/[0-9]/g, '')
 
-    useEffect(() => {
-        let startTime = null
-        let animationFrameId
+  useEffect(() => {
+    if (!ref.current || !numericValue) return
 
-        const animate = (timestamp) => {
-            if (!startTime) startTime = timestamp
-            const progress = Math.min((timestamp - startTime) / duration, 1)
+    const counterObj = { val: 0 }
 
-            setCount(Math.floor(progress * numericValue))
+    const trigger = ScrollTrigger.create({
+      trigger: ref.current,
+      start: 'top 85%',
+      onEnter: () => {
+        gsap.to(counterObj, {
+          val: numericValue,
+          duration: duration,
+          ease: 'power2.out',
+          onUpdate: () => {
+            setCount(Math.floor(counterObj.val))
+          },
+        })
+      },
+      once: true,
+    })
 
-            if (progress < 1) {
-                animationFrameId = requestAnimationFrame(animate)
-            }
-        }
+    return () => trigger.kill()
+  }, [numericValue, duration])
 
-        animationFrameId = requestAnimationFrame(animate)
-
-        return () => cancelAnimationFrame(animationFrameId)
-    }, [numericValue, duration])
-
-    return `${count}${suffix}`
+  return {
+    value: `${count}${suffix}`,
+    ref,
+  }
 }
