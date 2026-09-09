@@ -188,7 +188,7 @@ function Footer() {
 
       <div className="footer__bottom container">
         <span className="footer__copyright">
-          {currentYear} All rights reserved
+          {currentYear} All rights reserved | Company Registration No: 08129683 in England and Wales
         </span>
       </div>
     </footer >
