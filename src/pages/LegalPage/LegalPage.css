@@ -46,3 +46,18 @@
   color: var(--color-primary);
   text-decoration: underline;
 }
+
+.rich-text p[id] {
+  scroll-margin-top: 100px;
+}
+
+.legal-page__toc-link {
+  color: var(--color-text-dark);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.legal-page__toc-link:hover {
+  color: var(--color-primary);
+  text-decoration: underline;
+}

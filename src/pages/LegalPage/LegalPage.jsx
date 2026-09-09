@@ -12,15 +12,20 @@ import { urlFor } from '../../sanityClient'
 import './LegalPage.css'
 
 /**
- * Converts a PortableText block value into a URL-safe anchor id.
- * e.g. "1. Introduction" → "1-introduction"
+ * Converts a string or PortableText block value into a URL-safe anchor id.
+ * e.g. "1. Introduction and Definitions 1" → "1-introduction-and-definitions"
  */
 function slugifyHeading(blockValue) {
-  if (!blockValue?.children) return ''
-  const text = blockValue.children
-    .map(child => child.text || '')
-    .join('')
-    .trim()
+  let text = ''
+  if (typeof blockValue === 'string') {
+    text = blockValue
+  } else if (blockValue?.children) {
+    text = blockValue.children
+      .map(child => child.text || '')
+      .join('')
+  }
+  // Strip trailing page number / tab numbers
+  text = text.trim().replace(/[\t\s]*\d+\s*$/, '').trim()
   return text
     .toLowerCase()
     .replace(/[^a-z0-9\s-]/g, '')
@@ -30,30 +35,59 @@ function slugifyHeading(blockValue) {
 }
 
 /**
- * Derives an in-page anchor from the link's display text (React children).
- * The link mark in Sanity wraps both the section title AND the page number
- * (e.g. "1. Introduction" + "1"), so we strip trailing numbers before slugifying.
+ * Helper to smoothly scroll to a DOM target element or heading.
  */
-function googleDocLinkToAnchor(children) {
-  // Flatten React children tree to plain text
+function scrollToElementId(elementId, rawText = '') {
+  let target = document.getElementById(elementId)
+
+  // Fallback 1: Match by number prefix e.g. "1-" if elementId starts with a number
+  if (!target && elementId) {
+    const numPrefix = elementId.match(/^(\d+)-/)?.[1]
+    if (numPrefix) {
+      const allElements = document.querySelectorAll('[id]')
+      for (const el of allElements) {
+        if (el.id.startsWith(`${numPrefix}-`)) {
+          target = el
+          break
+        }
+      }
+    }
+  }
+
+  // Fallback 2: Search headings/paragraphs containing matching text or number
+  if (!target) {
+    const headings = document.querySelectorAll('.rich-text h1, .rich-text h2, .rich-text h3, .rich-text h4, .rich-text p[id]')
+    const numMatch = rawText.match(/^(\d+)\./)?.[1]
+    for (const el of headings) {
+      const elText = el.textContent.trim()
+      if (numMatch && (elText.startsWith(`${numMatch}.`) || elText.startsWith(`${numMatch} `))) {
+        target = el
+        break
+      }
+    }
+  }
+
+  if (!target) return
+
+  if (window.smoother) {
+    window.smoother.scrollTo(target, true)
+  } else {
+    target.scrollIntoView({ behavior: 'smooth', block: 'start' })
+  }
+}
+
+/**
+ * Derives an in-page anchor from display text or node content.
+ */
+function textToAnchorId(nodeOrText) {
   const extractText = (node) => {
     if (typeof node === 'string') return node
     if (Array.isArray(node)) return node.map(extractText).join('')
     if (node?.props?.children) return extractText(node.props.children)
     return ''
   }
-  const raw = extractText(children).trim()
-  // Strip trailing tab + page-number (e.g. "1. Introduction\t1" or "1. Introduction1")
-  const text = raw
-    .replace(/[\t\s]*\d+\s*$/, '')  // remove trailing whitespace/tabs and numbers
-    .trim()
-  const slug = text
-    .toLowerCase()
-    .replace(/[^a-z0-9\s-]/g, '')
-    .replace(/\s+/g, '-')
-    .replace(/-+/g, '-')
-    .replace(/^-|-$/g, '')
-  return `#${slug}`
+  const raw = extractText(nodeOrText)
+  return { id: slugifyHeading(raw), raw }
 }
 
 function LegalPage() {
@@ -174,10 +208,33 @@ function LegalPage() {
                           return <h4 id={id}>{children}</h4>
                         },
                         normal: ({ children, value }) => {
-                          // Also add IDs to strong-only normal blocks that act as section titles
+                          const fullText = value?.children?.map(c => c.text || '').join('').trim() || ''
+                          
+                          // Check if block is a TOC item starting with e.g. "1. Introduction" or "10. Liability"
+                          const isTocItem = /^\d+\.\s+[A-Za-z]/.test(fullText)
+                          if (isTocItem) {
+                            const { id: targetId, raw } = textToAnchorId(fullText)
+                            return (
+                              <p className="legal-page__toc-item">
+                                <a
+                                  href={`#${targetId}`}
+                                  className="legal-page__toc-link"
+                                  onClick={(e) => {
+                                    e.preventDefault()
+                                    scrollToElementId(targetId, raw)
+                                  }}
+                                >
+                                  {children}
+                                </a>
+                              </p>
+                            )
+                          }
+
+                          // Also add IDs to strong-only normal blocks or numbered paragraphs that act as section titles
+                          const isNumberedHeading = /^\d+\.\s+/.test(fullText)
                           const isAllStrong = value?.children?.length > 0 &&
                             value.children.every(child => child.marks?.includes('strong') || child.text?.trim() === '')
-                          if (isAllStrong) {
+                          if (isAllStrong || isNumberedHeading) {
                             const id = slugifyHeading(value)
                             return id ? <p id={id}>{children}</p> : <p>{children}</p>
                           }
@@ -187,22 +244,19 @@ function LegalPage() {
                       marks: {
                         link: ({ children, value }) => {
                           const href = value?.href || ''
-                          // Convert Google Doc heading links to in-page anchors
-                          if (href.includes('docs.google.com')) {
-                            const anchor = googleDocLinkToAnchor(children)
+                          const isAnchor = href.startsWith('#') || href.includes('docs.google.com')
+                          
+                          if (isAnchor) {
+                            const { id: targetId, raw } = href.startsWith('#')
+                              ? { id: href.slice(1), raw: '' }
+                              : textToAnchorId(children)
+                            
                             return (
                               <a
-                                href={anchor}
+                                href={`#${targetId}`}
                                 onClick={(e) => {
                                   e.preventDefault()
-                                  const target = document.getElementById(anchor.slice(1))
-                                  if (!target) return
-                                  if (window.smoother) {
-                                    // Use GSAP smoother for buttery scroll
-                                    window.smoother.scrollTo(target, true)
-                                  } else {
-                                    target.scrollIntoView({ behavior: 'smooth', block: 'start' })
-                                  }
+                                  scrollToElementId(targetId, raw)
                                 }}
                               >
                                 {children}
