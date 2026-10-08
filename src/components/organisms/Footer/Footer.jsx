@@ -33,7 +33,13 @@ function Footer() {
         { platform: 'Instagram', url: 'https://www.instagram.com/buildinguk_ltd' }
       ]
     },
-    accreditations: []
+    accreditations: [
+      {
+        logo: '/images/which-trusted-trader.svg',
+        altText: 'Which? Trusted Trader',
+        url: 'https://trustedtraders.which.co.uk/businesses/buildinguk-ltd/'
+      }
+    ]
   })
 
   useEffect(() => {
@@ -61,10 +67,25 @@ function Footer() {
           }))
         }
 
-        if (settings?.accreditations) {
+        const whichTraderAccreditation = {
+          logo: '/images/which-trusted-trader.svg',
+          altText: 'Which? Trusted Trader',
+          url: 'https://trustedtraders.which.co.uk/businesses/buildinguk-ltd/'
+        }
+
+        if (settings?.accreditations && settings.accreditations.length > 0) {
+          // Ensure Which? Trusted Trader is in accreditations if not already present
+          const hasWhich = settings.accreditations.some(
+            acc => acc.altText?.toLowerCase().includes('which') || acc.logo?.includes('which')
+          )
           setFooterData(prev => ({
             ...prev,
-            accreditations: settings.accreditations
+            accreditations: hasWhich ? settings.accreditations : [...settings.accreditations, whichTraderAccreditation]
+          }))
+        } else {
+          setFooterData(prev => ({
+            ...prev,
+            accreditations: [whichTraderAccreditation]
           }))
         }
 
