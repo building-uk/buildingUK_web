@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 320" width="400" height="320">
+  <ellipse cx="200" cy="160" rx="190" ry="150" fill="none" stroke="#E61825" stroke-width="12"/>
+  <path d="M 68,110 A 170,120 0 0 1 332,110 A 170,120 0 0 1 68,200" fill="none" stroke="#E5E7EB" stroke-width="8"/>
+  <text x="200" y="160" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-weight="900" font-size="64" fill="#000000" text-anchor="middle">Which<tspan fill="#E61825">?</tspan></text>
+  <rect x="270" y="148" width="26" height="12" fill="#E61825"/>
+  <text x="200" y="210" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-weight="800" font-size="44" fill="#000000" text-anchor="middle">Trusted Trader</text>
+</svg>
