@@ -37,7 +37,7 @@ function Footer() {
       {
         logo: '/images/which-trusted-trader.svg',
         altText: 'Which? Trusted Trader',
-        url: '#'
+        url: 'https://trustedtraders.which.co.uk/businesses/buildinguk-ltd/'
       }
     ]
   })
@@ -70,7 +70,7 @@ function Footer() {
         const whichTraderAccreditation = {
           logo: '/images/which-trusted-trader.svg',
           altText: 'Which? Trusted Trader',
-          url: '#'
+          url: 'https://trustedtraders.which.co.uk/businesses/buildinguk-ltd/'
         }
 
         if (settings?.accreditations && settings.accreditations.length > 0) {
