@@ -367,7 +367,7 @@ export const cmsService = {
       "intro": {
         "label": introSection.subtitle,
         "headline": introSection.title,
-        "paragraphs": [introSection.text],
+        "paragraphs": introSection.text,
         "image": introSection.mainImage.asset->url,
         "ctaText": introSection.buttonText,
         "ctaLink": introSection.buttonLink || "/services"
@@ -376,7 +376,7 @@ export const cmsService = {
       "whyChooseUs": {
         "label": reliabilitySection.subtitle,
         "title": reliabilitySection.title,
-        "paragraphs": [reliabilitySection.text]
+        "paragraphs": reliabilitySection.text
       },
       "team": {
         "label": mdSection.subtitle,

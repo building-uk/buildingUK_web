@@ -1,3 +1,7 @@
+// Helper: extract plain text from a portable text block array
+const blockToPlainText = (blocks = []) =>
+    blocks.map(b => (b.children || []).map(c => c.text || '').join('')).join(' ')
+
 export const landingPage = {
     name: 'landingPage',
     title: 'Landing Page',
@@ -34,11 +38,26 @@ export const landingPage = {
             fields: [
                 { name: 'subtitle', title: 'Subtitle', type: 'string', initialValue: 'About Us' },
                 { name: 'title', title: 'Title', type: 'string' },
-                { name: 'text', title: 'Description', type: 'text' },
+                {
+                    name: 'text',
+                    title: 'Description',
+                    type: 'array',
+                    of: [{ type: 'block' }],
+                    description: 'Rich text editor with hyperlinks, bold, lists, etc.'
+                },
                 { name: 'images', title: 'Images', type: 'array', of: [{ type: 'image' }] },
                 { name: 'buttonText', title: 'Button Text', type: 'string', initialValue: 'Learn More' },
                 { name: 'buttonLink', title: 'Button Link', type: 'string', initialValue: '/about' },
             ],
+            preview: {
+                select: { title: 'title', text: 'text' },
+                prepare({ title, text }) {
+                    return {
+                        title: title || 'About Snippet',
+                        subtitle: text ? blockToPlainText(text).slice(0, 80) : ''
+                    }
+                }
+            }
         },
         {
             name: 'featuredServices',

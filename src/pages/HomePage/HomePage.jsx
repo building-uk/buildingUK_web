@@ -78,9 +78,8 @@ function HomePage() {
   return (
     <div className="home-page">
       <SEO 
-        title="High-End Construction & Renovations"
-        description="BuildingUK delivers premier residential construction, high-end extensions, commercial fit-outs, and complete renovations. Contact us today for a consultation in London."
-        keywords={['construction', 'renovation', 'residential builder', 'commercial construction', 'house extension', 'london builder', 'BuildingUK']}
+        title="Home Renovation & Refurbishment Central London"
+        description="Female-led, Which? Trusted Trader builders in Central London. Home renovation and refurbishment from small repairs to full projects, plus fire door services."
       />
       <Navbar />
 

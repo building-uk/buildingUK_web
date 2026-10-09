@@ -1,11 +1,36 @@
+import { PortableText } from '@portabletext/react'
 import Label from '@atoms/Label'
 import Heading from '@atoms/Heading'
-import Text from '@atoms/Text'
 import Button from '@atoms/Button'
 import Image from '@atoms/Image'
 import Skeleton from '@atoms/Skeleton'
 import StatCard from '@molecules/StatCard'
 import './AboutSection.css'
+
+const portableTextComponents = {
+  block: {
+    normal: ({ children }) => <p className="about__paragraph">{children}</p>,
+    h2: ({ children }) => <h2>{children}</h2>,
+    h3: ({ children }) => <h3>{children}</h3>,
+  },
+  marks: {
+    strong: ({ children }) => <strong>{children}</strong>,
+    em: ({ children }) => <em>{children}</em>,
+    link: ({ value, children }) => (
+      <a href={value?.href} target="_blank" rel="noopener noreferrer">
+        {children}
+      </a>
+    ),
+  },
+  list: {
+    bullet: ({ children }) => <ul className="about__list">{children}</ul>,
+    number: ({ children }) => <ol className="about__list">{children}</ol>,
+  },
+  listItem: {
+    bullet: ({ children }) => <li>{children}</li>,
+    number: ({ children }) => <li>{children}</li>,
+  },
+}
 
 /**
  * AboutSection organism - About us section with stats
@@ -77,7 +102,19 @@ function AboutSection({ data, loading = false }) {
         <div className="about__content">
           <Label color="primary">{label || 'About Us'}</Label>
           <Heading level={2} variant="section" color="dark">{title}</Heading>
-          <Text size="base" color="dark" className="about__description">{description}</Text>
+          <div className="about__description">
+            {Array.isArray(description) ? (
+              description.length > 0 && typeof description[0] === 'string' ? (
+                description.map((para, index) => (
+                  <p key={index} className="about__paragraph">{para}</p>
+                ))
+              ) : (
+                <PortableText value={description} components={portableTextComponents} />
+              )
+            ) : typeof description === 'string' ? (
+              <p className="about__paragraph">{description}</p>
+            ) : null}
+          </div>
 
           <div className="about__cta">
             <Button href={ctaLink} variant="primary" size="lg">

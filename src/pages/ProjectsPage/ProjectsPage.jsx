@@ -56,9 +56,8 @@ function ProjectsPage() {
   return (
     <div className="projects-page">
       <SEO 
-        title="Featured Projects & Case Studies"
-        description="Browse our portfolio of completed projects. Discover BuildingUK's high-quality craftsmanship across residential, commercial, and renovation developments in London."
-        keywords={['building case studies', 'construction portfolio london', 'commercial projects', 'residential renovation cases']}
+        title="Featured Projects"
+        description="Browse our portfolio of completed projects. Discover BuildingUK's quality craftsmanship across residential refurbishment and renovation developments in Central London."
       />
       <Navbar />
 

@@ -81,8 +81,7 @@ function ServicesPage() {
     <div className="services-page">
       <SEO 
         title="Our Services"
-        description="Explore our range of professional construction and building services at BuildingUK. We specialize in high-end residential extensions, complete home renovations, and commercial fit-outs."
-        keywords={['building services', 'construction services london', 'residential renovation', 'commercial building work', 'renovations company london']}
+        description="Explore building and refurbishment services by BuildingUK. We specialise in residential refurbishment, home renovations, and certified fire door services in Central London."
       />
       <Navbar />
 

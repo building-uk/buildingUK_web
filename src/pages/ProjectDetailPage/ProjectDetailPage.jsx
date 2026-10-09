@@ -74,10 +74,10 @@ function ProjectDetailPage() {
     'description': project.shortDescription,
     'locationCreated': {
       '@type': 'Place',
-      'name': project.location || 'London, UK'
+      'name': project.location || 'Central London, UK'
     },
     'provider': {
-      '@type': 'LocalBusiness',
+      '@type': 'Organization',
       'name': 'BuildingUK'
     }
   }
@@ -85,10 +85,9 @@ function ProjectDetailPage() {
   return (
     <div className="project-detail-page">
       <SEO 
-        title={`${project.title} | Projects`}
-        description={project.shortDescription || `Case study detailing BuildingUK's work on ${project.title} in ${project.location || 'London'}. Learn more about our craftsmanship.`}
+        title={`${project.title}`}
+        description={project.shortDescription || `Case study detailing BuildingUK's work on ${project.title} in ${project.location || 'Central London'}. Learn more about our craftsmanship.`}
         image={project.image}
-        keywords={[project.title.toLowerCase(), project.category?.toLowerCase() || 'construction', 'london builders', 'project case study']}
         schema={projectSchema}
       />
       <Navbar />

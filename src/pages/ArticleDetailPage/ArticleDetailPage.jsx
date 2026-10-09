@@ -151,7 +151,7 @@ function ArticleDetailPage() {
       'name': 'BuildingUK',
       'logo': {
         '@type': 'ImageObject',
-        'url': 'https://building.uk.com/images/BuildingUK-LogoMark.png'
+        'url': 'https://www.building.uk.com/images/BuildingUK-LogoMark.png'
       }
     },
     'datePublished': article.date,
@@ -161,11 +161,10 @@ function ArticleDetailPage() {
   return (
     <div className="article-detail-page">
       <SEO 
-        title={`${article.title} | Articles`}
-        description={article.excerpt || `Read our article on ${article.title} published by ${article.author}. Learn more about construction updates with BuildingUK.`}
+        title={`${article.title}`}
+        description={article.excerpt || `Read our article on ${article.title} published by ${article.author}. Learn more about home renovation and refurbishment insights with BuildingUK.`}
         image={article.image}
         type="article"
-        keywords={[article.title.toLowerCase(), article.category?.toLowerCase() || 'construction', 'building company blog']}
         schema={articleSchema}
       />
       <Navbar />

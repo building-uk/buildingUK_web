@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://building.uk.com/sitemap.xml
+Sitemap: https://www.building.uk.com/sitemap.xml
