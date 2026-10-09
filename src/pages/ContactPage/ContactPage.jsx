@@ -77,8 +77,7 @@ function ContactPage() {
     <div className="contact-page">
       <SEO 
         title="Contact Us"
-        description="Get in touch with BuildingUK for professional construction, commercial fit-outs, or residential renovations in London. Request a callback or send a message today."
-        keywords={['contact buildinguk', 'construction consultation london', 'request building quote', 'london builders contact']}
+        description="Contact BuildingUK for residential renovation, refurbishment, or fire door services in Central London. Request a callback or send a message today."
       />
       <Navbar />
 

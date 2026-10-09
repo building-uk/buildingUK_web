@@ -52,9 +52,8 @@ function ArticlesPage() {
   return (
     <div className="articles-page">
       <SEO 
-        title="Latest Articles & Construction Insights"
-        description="Stay updated with the latest news, expert guides, home renovation advice, and commercial design trends from BuildingUK."
-        keywords={['construction blog london', 'building contractor tips', 'renovation guides', 'BuildingUK news']}
+        title="Articles & Insights"
+        description="Stay updated with news, expert renovation advice, and fire door compliance guides from BuildingUK builders in Central London."
       />
       <Navbar />
 

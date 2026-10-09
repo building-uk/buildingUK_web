@@ -68,8 +68,7 @@ function AboutPage() {
     <div className="about-page">
       <SEO 
         title="About Us"
-        description="Learn about BuildingUK, a leading London-based construction firm. Discover our commitment to craftsmanship, safety, reliability, and our experienced management team."
-        keywords={['about buildinguk', 'construction company london', 'construction team', 'safe builders london', 'building services london']}
+        description="Learn about BuildingUK, a female-led, Which? Trusted Trader builder specialising in residential refurbishment and fire door services in Central London."
       />
       <Navbar />
 

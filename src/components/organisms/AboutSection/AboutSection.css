@@ -50,6 +50,43 @@
   color: var(--color-text-muted);
 }
 
+/* ========== PORTABLE TEXT ========== */
+.about__description .about__paragraph {
+  font-size: var(--text-base, 1rem);
+  color: var(--color-text-dark);
+  line-height: 1.75;
+  margin: 0 0 var(--space-sm);
+}
+
+.about__description .about__paragraph:last-child {
+  margin-bottom: 0;
+}
+
+.about__description .about__list {
+  padding-left: var(--space-lg);
+  margin: var(--space-xs) 0 var(--space-sm);
+  color: var(--color-text-dark);
+  line-height: 1.75;
+}
+
+.about__description .about__list li {
+  margin-bottom: var(--space-xs);
+}
+
+.about__description a {
+  color: var(--color-primary, #a0522d);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.about__description strong {
+  font-weight: 600;
+}
+
+.about__description em {
+  font-style: italic;
+}
+
 /* ========== RESPONSIVE ========== */
 @media (max-width: 1024px) {
   .about__container {

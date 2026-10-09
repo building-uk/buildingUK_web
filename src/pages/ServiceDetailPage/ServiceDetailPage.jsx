@@ -88,10 +88,9 @@ function ServiceDetailPage() {
   return (
     <div className="service-detail-page">
       <SEO 
-        title={`${service.title} | Services`}
-        description={service.shortDescription || `Explore our high-quality ${service.title} services, delivered with meticulous craftsmanship and expert project management in London.`}
+        title={`${service.title}`}
+        description={service.shortDescription || `Explore our professional ${service.title} services, delivered with meticulous craftsmanship and expert project management in Central London.`}
         image={service.heroImage || service.image}
-        keywords={[service.title.toLowerCase(), 'construction services', 'building service london', 'professional builder']}
       />
       <Navbar />
 

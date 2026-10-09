@@ -130,8 +130,7 @@ function LegalPage() {
     <div className="legal-page">
       <SEO 
         title={data.title}
-        description={`Read the official ${data.title} page of BuildingUK. We are dedicated to providing clear terms, transparency, and safety compliance in our construction operations.`}
-        keywords={[(data.title || '').toLowerCase(), 'terms', 'privacy policy london', 'construction legal info']}
+        description={`Read the official ${data.title} page for BuildingUK. We are dedicated to providing clear terms, transparency, and safety compliance across our services.`}
       />
       <Navbar />
       

@@ -184,3 +184,46 @@ body {
   padding: var(--space-md);
   z-index: 1;
 }
+
+/* ===========================================
+   Rich Text (Portable Text) Shared Styles
+   =========================================== */
+.rich-text__paragraph {
+  font-size: var(--text-base, 1rem);
+  line-height: 1.75;
+  color: var(--color-text-dark);
+  margin: 0 0 var(--space-sm);
+}
+
+.rich-text__paragraph:last-child {
+  margin-bottom: 0;
+}
+
+.rich-text__list {
+  padding-left: var(--space-lg, 1.5rem);
+  margin: var(--space-xs, 0.5rem) 0 var(--space-sm, 0.75rem);
+  color: var(--color-text-dark);
+  line-height: 1.75;
+}
+
+.rich-text__list li {
+  margin-bottom: var(--space-xs, 0.5rem);
+}
+
+.about-intro__text a,
+.why-choose-us__content a,
+.behind-build__description a,
+.about__description a {
+  color: var(--color-primary);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  transition: opacity 0.2s ease;
+}
+
+.about-intro__text a:hover,
+.why-choose-us__content a:hover,
+.behind-build__description a:hover,
+.about__description a:hover {
+  opacity: 0.75;
+}
+
