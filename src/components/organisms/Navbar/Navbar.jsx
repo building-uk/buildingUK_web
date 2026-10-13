@@ -27,23 +27,6 @@ function Navbar({ transparent = true }) {
   const headerRef = useRef(null)
 
   useEffect(() => {
-    if (!headerRef.current) return
-
-    const trigger = ScrollTrigger.create({
-      start: 'top -50',
-      onUpdate: (self) => {
-        if (self.direction === 1 && self.scroll() > 50) {
-          headerRef.current?.classList.add('navbar--scrolled')
-        } else if (self.scroll() <= 50) {
-          headerRef.current?.classList.remove('navbar--scrolled')
-        }
-      },
-    })
-
-    return () => trigger.kill()
-  }, [])
-
-  useEffect(() => {
     const fetchData = async () => {
       try {
         const [settings, links] = await Promise.all([

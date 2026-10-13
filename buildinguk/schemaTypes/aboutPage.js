@@ -1,6 +1,8 @@
-// Helper: extract plain text from a portable text block array
-const blockToPlainText = (blocks = []) =>
-    blocks.map(b => (b.children || []).map(c => c.text || '').join('')).join(' ')
+// Helper: extract plain text from a portable text block array or string
+const blockToPlainText = (blocks = []) => {
+    if (!Array.isArray(blocks)) return typeof blocks === 'string' ? blocks : ''
+    return blocks.map(b => (b.children || []).map(c => c.text || '').join('')).join(' ')
+}
 
 export const aboutPage = {
     name: 'aboutPage',
@@ -119,6 +121,21 @@ export const aboutPage = {
                     }
                 }
             }
+        },
+        {
+            name: 'stats',
+            title: 'Statistics',
+            type: 'array',
+            description: 'Custom stats for the About Page (e.g. Years of Experience).',
+            of: [
+                {
+                    type: 'object',
+                    fields: [
+                        { name: 'value', title: 'Value', type: 'string' },
+                        { name: 'label', title: 'Label', type: 'string' }
+                    ]
+                }
+            ]
         },
         {
             name: 'featuredTestimonials',

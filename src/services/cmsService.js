@@ -376,7 +376,8 @@ export const cmsService = {
       "whyChooseUs": {
         "label": reliabilitySection.subtitle,
         "title": reliabilitySection.title,
-        "paragraphs": reliabilitySection.text
+        "paragraphs": reliabilitySection.text,
+        "stats": coalesce(reliabilitySection.stats, stats)
       },
       "team": {
         "label": mdSection.subtitle,
@@ -393,10 +394,11 @@ export const cmsService = {
     }`
     const result = await client.fetch(query)
     const settings = await cmsService.getSiteSettings()
+    const pageStats = result?.whyChooseUs?.stats?.length ? result.whyChooseUs.stats : stats
 
     return {
       ...result,
-      whyChooseUs: { ...result?.whyChooseUs, stats },
+      whyChooseUs: { ...result?.whyChooseUs, stats: pageStats },
       testimonialsBackground: settings?.testimonialsBackground,
       contact: await cmsService.getContactInfo()
     }
