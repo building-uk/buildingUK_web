@@ -1,6 +1,8 @@
-// Helper: extract plain text from a portable text block array
-const blockToPlainText = (blocks = []) =>
-    blocks.map(b => (b.children || []).map(c => c.text || '').join('')).join(' ')
+// Helper: extract plain text from a portable text block array or string
+const blockToPlainText = (blocks = []) => {
+    if (!Array.isArray(blocks)) return typeof blocks === 'string' ? blocks : ''
+    return blocks.map(b => (b.children || []).map(c => c.text || '').join('')).join(' ')
+}
 
 export const landingPage = {
     name: 'landingPage',
