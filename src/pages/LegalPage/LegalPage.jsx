@@ -40,23 +40,35 @@ function slugifyHeading(blockValue) {
 function scrollToElementId(elementId, rawText = '') {
   let target = document.getElementById(elementId)
 
-  // Fallback 1: Match by number prefix e.g. "1-" if elementId starts with a number
+  // Fallback 1: Match by section number prefix e.g. "10-" from "10-liability-and-insurance"
   if (!target && elementId) {
     const numPrefix = elementId.match(/^(\d+)-/)?.[1]
     if (numPrefix) {
-      const allElements = document.querySelectorAll('[id]')
-      for (const el of allElements) {
-        if (el.id.startsWith(`${numPrefix}-`)) {
-          target = el
-          break
+      const headings = document.querySelectorAll(
+        '.rich-text h1, .rich-text h2, .rich-text h3, .rich-text h4, .rich-text p[id]'
+      )
+      for (const el of headings) {
+        const text = el.textContent.trim()
+        if (
+          text.startsWith(`${numPrefix}.`) ||
+          text.startsWith(`${numPrefix} `) ||
+          el.id === elementId ||
+          el.id.startsWith(`${numPrefix}-`)
+        ) {
+          if (!/^\d+\.\d+/.test(text) || text.startsWith(`${numPrefix}.`)) {
+            target = el
+            break
+          }
         }
       }
     }
   }
 
   // Fallback 2: Search headings/paragraphs containing matching text or number
-  if (!target) {
-    const headings = document.querySelectorAll('.rich-text h1, .rich-text h2, .rich-text h3, .rich-text h4, .rich-text p[id]')
+  if (!target && rawText) {
+    const headings = document.querySelectorAll(
+      '.rich-text h1, .rich-text h2, .rich-text h3, .rich-text h4, .rich-text p[id]'
+    )
     const numMatch = rawText.match(/^(\d+)\./)?.[1]
     for (const el of headings) {
       const elText = el.textContent.trim()
@@ -69,10 +81,36 @@ function scrollToElementId(elementId, rawText = '') {
 
   if (!target) return
 
-  if (window.smoother) {
-    window.smoother.scrollTo(target, true)
+  // Smooth scroll with proper header offset
+  const headerOffset = 100
+  const elementPosition = target.getBoundingClientRect().top
+  const offsetPosition = elementPosition + window.pageYOffset - headerOffset
+
+  window.scrollTo({
+    top: Math.max(0, offsetPosition),
+    behavior: 'smooth'
+  })
+}
+
+/**
+ * Smoothly scrolls back to top / Table of Contents
+ */
+function scrollToTop() {
+  const topTarget =
+    document.getElementById('table-of-contents') ||
+    document.getElementById('top') ||
+    document.querySelector('.legal-page__content')
+
+  if (topTarget) {
+    const headerOffset = 80
+    const elementPosition = topTarget.getBoundingClientRect().top
+    const offsetPosition = elementPosition + window.pageYOffset - headerOffset
+    window.scrollTo({
+      top: Math.max(0, offsetPosition),
+      behavior: 'smooth'
+    })
   } else {
-    target.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    window.scrollTo({ top: 0, behavior: 'smooth' })
   }
 }
 
@@ -142,8 +180,10 @@ function LegalPage() {
         
         <section className="section">
           <div className="container">
-            <div className="legal-page__content">
-              <Heading level={2} variant="section" className="mb-lg">{data.title}</Heading>
+            <div className="legal-page__content" id="top">
+              <Heading level={2} variant="section" className="mb-lg" id="table-of-contents">
+                {data.title}
+              </Heading>
               
               {Array.isArray(data.content) ? (
                 <div className="rich-text">
@@ -200,7 +240,30 @@ function LegalPage() {
                         },
                         h3: ({ children, value }) => {
                           const id = slugifyHeading(value)
-                          return <h3 id={id}>{children}</h3>
+                          const fullText = value?.children?.map(c => c.text || '').join('').trim() || ''
+                          const isNumbered = /^\d+\.\s+[A-Za-z]/.test(fullText)
+                          const sectionNum = fullText.match(/^(\d+)\./)?.[1]
+                          const showReturnToTop = isNumbered && parseInt(sectionNum, 10) > 1
+
+                          return (
+                            <>
+                              {showReturnToTop && (
+                                <div className="legal-page__return-to-top-wrapper">
+                                  <a
+                                    href="#table-of-contents"
+                                    className="legal-page__return-to-top"
+                                    onClick={(e) => {
+                                      e.preventDefault()
+                                      scrollToTop()
+                                    }}
+                                  >
+                                    ↑ Return to top
+                                  </a>
+                                </div>
+                              )}
+                              <h3 id={id}>{children}</h3>
+                            </>
+                          )
                         },
                         h4: ({ children, value }) => {
                           const id = slugifyHeading(value)
@@ -213,6 +276,8 @@ function LegalPage() {
                           const isTocItem = /^\d+\.\s+[A-Za-z]/.test(fullText)
                           if (isTocItem) {
                             const { id: targetId, raw } = textToAnchorId(fullText)
+                            // Clean trailing page number suffix (e.g. "10. Liability and Insurance 10" -> "10. Liability and Insurance")
+                            const displayTitle = fullText.replace(/[\t\s]*\d+\s*$/, '').trim()
                             return (
                               <p className="legal-page__toc-item">
                                 <a
@@ -223,7 +288,7 @@ function LegalPage() {
                                     scrollToElementId(targetId, raw)
                                   }}
                                 >
-                                  {children}
+                                  {displayTitle}
                                 </a>
                               </p>
                             )
@@ -277,6 +342,18 @@ function LegalPage() {
                       }
                     }} 
                   />
+                  <div className="legal-page__return-to-top-wrapper legal-page__return-to-top-wrapper--end">
+                    <a
+                      href="#table-of-contents"
+                      className="legal-page__return-to-top"
+                      onClick={(e) => {
+                        e.preventDefault()
+                        scrollToTop()
+                      }}
+                    >
+                      ↑ Return to top
+                    </a>
+                  </div>
                 </div>
               ) : (
                 <Text size="base" color="dark">
