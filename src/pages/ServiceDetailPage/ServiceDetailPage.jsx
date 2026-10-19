@@ -5,6 +5,7 @@ import Footer from '@organisms/Footer'
 import Heading from '@atoms/Heading'
 import Text from '@atoms/Text'
 import Image from '@atoms/Image'
+import Button from '@atoms/Button'
 import { SEO } from '@atoms'
 import ProjectsPreview from '@organisms/ProjectsPreview'
 import { PortableText } from '@portabletext/react'
@@ -31,6 +32,21 @@ const ptComponents = {
   marks: {
     strong: ({ children }) => <strong>{children}</strong>,
     em: ({ children }) => <em>{children}</em>,
+    link: ({ value, children }) => {
+      const href = value?.href || '#'
+      const isExternal = href.startsWith('http') || href.startsWith('//')
+      return (
+        <a
+          href={href}
+          className="service-detail__link"
+          {...(isExternal
+            ? { target: '_blank', rel: 'noopener noreferrer' }
+            : {})}
+        >
+          {children}
+        </a>
+      )
+    },
   },
 }
 
@@ -88,8 +104,8 @@ function ServiceDetailPage() {
   return (
     <div className="service-detail-page">
       <SEO 
-        title={`${service.title}`}
-        description={service.shortDescription || `Explore our professional ${service.title} services, delivered with meticulous craftsmanship and expert project management in Central London.`}
+        title={service.seo?.metaTitle || service.title}
+        description={service.seo?.metaDescription || service.shortDescription || `Explore our professional ${service.title} services, delivered with meticulous craftsmanship and expert project management in Central London.`}
         image={service.heroImage || service.image}
       />
       <Navbar />
@@ -153,6 +169,13 @@ function ServiceDetailPage() {
                   )}
                 </div>
               ))}
+
+              {/* Call to Action */}
+              <div className="service-detail__cta">
+                <Button href="/contact" variant="primary" size="lg">
+                  Contact Us
+                </Button>
+              </div>
             </div>
           </div>
         </div>

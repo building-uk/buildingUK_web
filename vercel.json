@@ -1,4 +1,21 @@
 {
+  "redirects": [
+    {
+      "source": "/services/residential-refurbishment",
+      "destination": "/services/whole-home-refurbishment",
+      "permanent": true
+    },
+    {
+      "source": "/services/restoration-services",
+      "destination": "/services/whole-home-refurbishment",
+      "permanent": true
+    },
+    {
+      "source": "/services/commercial-services",
+      "destination": "/services/home-repairs-maintenance",
+      "permanent": true
+    }
+  ],
   "rewrites": [
     {
       "source": "/(.*)",
