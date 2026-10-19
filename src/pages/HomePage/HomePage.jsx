@@ -61,10 +61,10 @@ function HomePage() {
     fetchSection('about', () => cmsService.getAboutContent())
     fetchSection('services', async () => {
       const services = await cmsService.getServices()
-      const order = ['refurbishment', 'fire', 'restoration', 'commercial']
+      const order = ['whole-home-refurbishment', 'kitchens', 'fire-door-installation', 'home-repairs-maintenance']
       return services.sort((a, b) => {
-        const indexA = order.findIndex(o => a.id.toLowerCase().includes(o))
-        const indexB = order.findIndex(o => b.id.toLowerCase().includes(o))
+        const indexA = order.indexOf(a.id)
+        const indexB = order.indexOf(b.id)
         return (indexA === -1 ? 99 : indexA) - (indexB === -1 ? 99 : indexB)
       })
     })

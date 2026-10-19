@@ -1,5 +1,5 @@
 import { Suspense, lazy, useEffect, useState } from 'react'
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
 import { UIProvider } from './context/UIContext'
 import Notification from './components/atoms/Notification'
 import ScrollToTop from './components/atoms/ScrollToTop'
@@ -55,6 +55,20 @@ function App() {
               <Route path="/company" element={<AboutPage />} />
               <Route path="/projects" element={<ProjectsPage />} />
               <Route path="/projects/:id" element={<ProjectDetailPage />} />
+              {/* Service 301 Redirects */}
+              <Route
+                path="/services/residential-refurbishment"
+                element={<Navigate to="/services/whole-home-refurbishment" replace />}
+              />
+              <Route
+                path="/services/restoration-services"
+                element={<Navigate to="/services/whole-home-refurbishment" replace />}
+              />
+              <Route
+                path="/services/commercial-services"
+                element={<Navigate to="/services/home-repairs-maintenance" replace />}
+              />
+
               <Route path="/services" element={<ServicesPage />} />
               <Route path="/services/:id" element={<ServiceDetailPage />} />
               <Route path="/articles" element={<ArticlesPage />} />

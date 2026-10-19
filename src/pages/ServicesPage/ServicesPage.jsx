@@ -42,10 +42,10 @@ function ServicesPage() {
       try {
         const fullData = await cmsService.getServicesFullPage()
 
-        const order = ['refurbishment', 'fire', 'restoration', 'commercial']
+        const order = ['whole-home-refurbishment', 'kitchens', 'fire-door-installation', 'home-repairs-maintenance']
         const sortedServices = (fullData.services || []).sort((a, b) => {
-          const indexA = order.findIndex(o => a.id.toLowerCase().includes(o))
-          const indexB = order.findIndex(o => b.id.toLowerCase().includes(o))
+          const indexA = order.indexOf(a.id)
+          const indexB = order.indexOf(b.id)
           return (indexA === -1 ? 99 : indexA) - (indexB === -1 ? 99 : indexB)
         })
 
@@ -56,6 +56,7 @@ function ServicesPage() {
           services: sortedServices,
           stats: fullData.stats,
           whyUs: fullData.whyUs,
+          seo: fullData.seo,
           projects: await cmsService.getFeaturedProjects(4),
           contact: await cmsService.getContactInfo()
         })
@@ -80,8 +81,8 @@ function ServicesPage() {
   return (
     <div className="services-page">
       <SEO 
-        title="Our Services"
-        description="Explore building and refurbishment services by BuildingUK. We specialise in residential refurbishment, home renovations, and certified fire door services in Central London."
+        title={data.seo?.metaTitle || "Our Services"}
+        description={data.seo?.metaDescription || "Explore building and refurbishment services by BuildingUK. We specialise in residential refurbishment, home renovations, and certified fire door services in Central London."}
       />
       <Navbar />
 

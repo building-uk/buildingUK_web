@@ -126,6 +126,10 @@ export const cmsService = {
           description,
           "icon": icon.asset->url
         }
+      },
+      "seo": seo {
+        metaTitle,
+        metaDescription
       }
     }`
     const result = await client.fetch(query)
@@ -152,7 +156,8 @@ export const cmsService = {
       "image": mainImage.asset->url,
       "heroImage": mainImage.asset->url,
       "description": content,
-      sections
+      sections,
+      seo
     }`
     return client.fetch(query, { id })
   },

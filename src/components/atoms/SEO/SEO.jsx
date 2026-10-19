@@ -13,7 +13,9 @@ import { Helmet } from 'react-helmet-async'
  * @param {Object|Array<Object>} [props.schema] - Optional page-specific Schema.org structured data (e.g. Article)
  */
 export default function SEO({ title, description, image, url, type = 'website', noindex = false, schema }) {
-  const siteTitle = title ? `${title} | BuildingUK` : 'Home Renovation & Refurbishment Central London | BuildingUK'
+  const siteTitle = title 
+    ? (title.includes('BuildingUK') ? title : `${title} | BuildingUK`)
+    : 'Home Renovation & Refurbishment Central London | BuildingUK'
   const siteDescription = description || 'Female-led, Which? Trusted Trader builders in Central London. Home renovation and refurbishment from small repairs to full projects, plus fire door services.'
 
   // Build clean canonical and og:url without query strings
