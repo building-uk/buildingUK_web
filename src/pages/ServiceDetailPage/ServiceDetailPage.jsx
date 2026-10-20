@@ -107,6 +107,7 @@ function ServiceDetailPage() {
         title={service.seo?.metaTitle || service.title}
         description={service.seo?.metaDescription || service.shortDescription || `Explore our professional ${service.title} services, delivered with meticulous craftsmanship and expert project management in Central London.`}
         image={service.heroImage || service.image}
+        url={`https://www.building.uk.com/services/${service.id || id}`}
       />
       <Navbar />
 

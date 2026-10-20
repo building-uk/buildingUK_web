@@ -1,4 +1,5 @@
 import { Helmet } from 'react-helmet-async'
+import { useLocation } from 'react-router-dom'
 
 /**
  * SEO Component - Injects per-page SEO tags dynamically
@@ -13,15 +14,14 @@ import { Helmet } from 'react-helmet-async'
  * @param {Object|Array<Object>} [props.schema] - Optional page-specific Schema.org structured data (e.g. Article)
  */
 export default function SEO({ title, description, image, url, type = 'website', noindex = false, schema }) {
+  const location = useLocation()
   const siteTitle = title 
     ? (title.includes('BuildingUK') ? title : `${title} | BuildingUK`)
     : 'Home Renovation & Refurbishment Central London | BuildingUK'
   const siteDescription = description || 'Female-led, Which? Trusted Trader builders in Central London. Home renovation and refurbishment from small repairs to full projects, plus fire door services.'
 
   // Build clean canonical and og:url without query strings
-  let rawPath = typeof window !== 'undefined' ? window.location.pathname : ''
-  // Strip query string if any
-  rawPath = rawPath.split('?')[0]
+  const rawPath = (location?.pathname || (typeof window !== 'undefined' ? window.location.pathname : '')).split('?')[0]
   // Standardize path format: root '/' stays '/', subpaths strip trailing slashes (e.g. '/about/') -> '/about'
   const cleanPath = (rawPath === '/' || rawPath === '') ? '/' : rawPath.replace(/\/+$|^\/+/g, (m, offset) => offset === 0 ? '/' : '')
   const canonicalUrl = url || `https://www.building.uk.com${cleanPath}`
