@@ -338,3 +338,17 @@
     grid-template-columns: repeat(3, minmax(280px, 1fr));
   }
 }
+
+/* ========== RICH-TEXT LINKS ========== */
+.article-detail__link {
+  color: var(--color-primary, #c9a96e);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: color var(--transition-base, 0.2s ease),
+              opacity var(--transition-base, 0.2s ease);
+}
+
+.article-detail__link:hover {
+  color: var(--color-primary-light, #e0c48a);
+  opacity: 0.85;
+}

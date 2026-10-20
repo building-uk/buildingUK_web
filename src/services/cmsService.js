@@ -277,7 +277,8 @@ export const cmsService = {
       author,
       "image": mainImage.asset->url,
       "excerpt": blurb,
-      "content": body
+      "content": body,
+      seo
     }`
     return client.fetch(query)
   },
@@ -307,6 +308,7 @@ export const cmsService = {
       "image": mainImage.asset->url,
       "excerpt": blurb,
       "content": body,
+      seo,
       "relatedIds": [] // Could be implemented with references
     }`
     return client.fetch(query, { id })

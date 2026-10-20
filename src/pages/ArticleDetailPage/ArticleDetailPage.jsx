@@ -33,7 +33,22 @@ const ptComponents = {
         </div>
       );
     }
-  }
+  },
+  marks: {
+    link: ({ value, children }) => {
+      const href = value?.href || '#'
+      const isExternal = href.startsWith('http') || href.startsWith('//')
+      return (
+        <a
+          href={href}
+          className="article-detail__link"
+          {...(isExternal ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+        >
+          {children}
+        </a>
+      )
+    },
+  },
 };
 
 function ArticleDetailPage() {
@@ -161,8 +176,8 @@ function ArticleDetailPage() {
   return (
     <div className="article-detail-page">
       <SEO 
-        title={`${article.title}`}
-        description={article.excerpt || `Read our article on ${article.title} published by ${article.author}. Learn more about home renovation and refurbishment insights with BuildingUK.`}
+        title={article.seo?.metaTitle || article.title}
+        description={article.seo?.metaDescription || article.excerpt || `Read our article on ${article.title} published by ${article.author}. Learn more about home renovation and refurbishment insights with BuildingUK.`}
         image={article.image}
         type="article"
         schema={articleSchema}
