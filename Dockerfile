@@ -16,6 +16,7 @@ RUN npm config set fetch-retry-maxtimeout 600000 && \
 # Copy frontend source code (buildinguk/ excluded by stage context)
 COPY index.html ./
 COPY vite.config.js ./
+COPY prerender.js ./
 COPY public ./public
 COPY src ./src
 
