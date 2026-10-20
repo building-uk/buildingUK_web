@@ -7,6 +7,12 @@ export const service = {
             name: 'title',
             title: 'Title',
             type: 'string',
+            description: 'Keep between 20–70 characters.',
+            validation: (Rule) => [
+                Rule.required().error('Title is required'),
+                Rule.max(70).warning('Title is over 70 characters — may be truncated in search results'),
+                Rule.min(10).warning('Title seems too short'),
+            ],
         },
         {
             name: 'slug',
@@ -43,6 +49,31 @@ export const service = {
                         { title: 'Quote', value: 'blockquote' },
                     ],
                     lists: [{ title: 'Bullet', value: 'bullet' }],
+                    marks: {
+                        decorators: [
+                            { title: 'Strong', value: 'strong' },
+                            { title: 'Emphasis', value: 'em' },
+                        ],
+                        annotations: [
+                            {
+                                name: 'link',
+                                type: 'object',
+                                title: 'Link',
+                                fields: [
+                                    {
+                                        name: 'href',
+                                        type: 'url',
+                                        title: 'URL',
+                                        validation: (Rule) =>
+                                            Rule.uri({
+                                                allowRelative: true,
+                                                scheme: ['http', 'https', 'mailto', 'tel'],
+                                            }),
+                                    },
+                                ],
+                            },
+                        ],
+                    },
                 },
                 {
                     type: 'image',
@@ -71,9 +102,28 @@ export const service = {
             title: 'SEO & Metadata',
             type: 'object',
             fields: [
-                { name: 'metaTitle', title: 'Meta Title', type: 'string' },
-                { name: 'metaDescription', title: 'Meta Description', type: 'text' },
+                {
+                    name: 'metaTitle',
+                    title: 'Meta Title',
+                    type: 'string',
+                    description: 'Ideal: 30–60 characters. Leave blank to use the page title.',
+                    validation: (Rule) => [
+                        Rule.max(60).warning('Over 60 chars — Google may truncate this'),
+                        Rule.min(10).warning('Too short for a useful meta title'),
+                    ],
+                },
+                {
+                    name: 'metaDescription',
+                    title: 'Meta Description',
+                    type: 'text',
+                    description: 'Ideal: 120–158 characters.',
+                    validation: (Rule) => [
+                        Rule.max(160).warning('Over 160 chars — will be cut off in search results'),
+                        Rule.min(50).warning('Too short — aim for at least 50 characters'),
+                    ],
+                },
             ],
         },
     ],
 }
+

@@ -20,11 +20,15 @@
   "dependencies": {
     "@sanity/vision": "^6.2.0",
     "inherits": "^2.0.4",
-    "react": "^19.1",
-    "react-dom": "^19.1",
+    "react": "19.2.7",
+    "react-dom": "19.2.7",
     "sanity": "^6.19.0",
     "sanity-plugin-media": "^4.1.1",
     "styled-components": "^6.1.18"
+  },
+  "overrides": {
+    "react": "19.2.7",
+    "react-dom": "19.2.7"
   },
   "devDependencies": {
     "@sanity/eslint-config-studio": "^6.0.0",
