@@ -17,7 +17,7 @@ const client = createClient({
   apiVersion: process.env.VITE_SANITY_API_VERSION || '2024-03-01',
 })
 
-// Static pages configuration
+// Static pages — images will be enriched at runtime from Sanity hero images
 const staticPages = [
   {
     path: '/',
@@ -30,24 +30,28 @@ const staticPages = [
     title: 'About Us | BuildingUK',
     description:
       'Learn about BuildingUK, a female-led, Which? Trusted Trader builder specialising in residential refurbishment and fire door services in Central London.',
+    sanityKey: 'about',
   },
   {
     path: '/services',
     title: 'Our Services | BuildingUK',
     description:
       'Considered residential refurbishment, fire door installation, kitchen design, and home maintenance across Central London.',
+    sanityKey: 'services',
   },
   {
     path: '/projects',
     title: 'Our Projects | BuildingUK',
     description:
       'Explore our portfolio of considered residential renovations, refurbishments and restoration projects across Central London.',
+    sanityKey: 'projects',
   },
   {
     path: '/articles',
     title: 'Articles & Insights | BuildingUK',
     description:
       'Expert advice, practical guides and renovation insights from our team of builders in Central London.',
+    sanityKey: 'articles',
   },
   {
     path: '/contact',
@@ -92,11 +96,25 @@ function escapeHtml(str) {
 }
 
 async function fetchDynamicRoutes() {
-  const [services, articles, projects] = await Promise.all([
-    client.fetch('*[_type == "service"] { "slug": slug.current, title, summary, seo }'),
+  const [services, articles, projects, heroImages] = await Promise.all([
+    client.fetch('*[_type == "service"] { "slug": slug.current, title, summary, seo, "image": mainImage.asset->url }'),
     client.fetch('*[_type == "blog"] { "slug": slug.current, title, blurb, seo, author, publishedAt, "image": mainImage.asset->url }'),
-    client.fetch('*[_type == "projects"] { "slug": slug.current, title, summary, seo, location }'),
+    client.fetch('*[_type == "projects"] { "slug": slug.current, title, summary, seo, location, "image": coverImage.asset->url }'),
+    client.fetch(`{
+      "about": *[_type == "aboutPage"][0].heroImage.asset->url,
+      "services": *[_type == "servicesPage"][0].heroImage.asset->url,
+      "projects": *[_type == "projectsPage"][0].heroImage.asset->url,
+      "articles": *[_type == "articlesPage"][0].heroImage.asset->url
+    }`),
   ])
+
+  // Enrich static pages that have Sanity hero images
+  for (const page of staticPages) {
+    if (page.sanityKey && heroImages?.[page.sanityKey]) {
+      page.image = heroImages[page.sanityKey]
+    }
+    delete page.sanityKey
+  }
 
   const dynamicPages = []
 
@@ -113,6 +131,7 @@ async function fetchDynamicRoutes() {
       path: `/services/${s.slug}`,
       title,
       description,
+      image: s.image || undefined,
       schema: {
         '@context': 'https://schema.org',
         '@type': 'Service',
@@ -180,10 +199,29 @@ async function fetchDynamicRoutes() {
       p.summary ||
       `Case study detailing BuildingUK's work on ${p.title} in ${p.location || 'Central London'}.`
     )
+    const projectUrl = `${DOMAIN}/projects/${p.slug}`
     dynamicPages.push({
       path: `/projects/${p.slug}`,
       title,
       description,
+      image: p.image || undefined,
+      schema: {
+        '@context': 'https://schema.org',
+        '@type': 'CreativeWork',
+        name: cleanString(p.title),
+        description,
+        image: p.image || undefined,
+        url: projectUrl,
+        locationCreated: {
+          '@type': 'Place',
+          name: cleanString(p.location) || 'Central London, UK',
+        },
+        provider: {
+          '@type': 'Organization',
+          name: 'BuildingUK',
+          url: DOMAIN,
+        },
+      },
     })
   }
 
