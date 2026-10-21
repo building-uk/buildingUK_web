@@ -58,6 +58,8 @@ function ProjectsPage() {
       <SEO 
         title="Featured Projects"
         description="Browse our portfolio of completed projects. Discover BuildingUK's quality craftsmanship across residential refurbishment and renovation developments in Central London."
+        image={data.hero?.backgroundImage}
+        imageAlt="BuildingUK Featured Projects"
       />
       <Navbar />
 

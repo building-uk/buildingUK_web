@@ -83,6 +83,8 @@ function ServicesPage() {
       <SEO 
         title={data.seo?.metaTitle || "Our Services"}
         description={data.seo?.metaDescription || "Explore building and refurbishment services by BuildingUK. We specialise in residential refurbishment, home renovations, and certified fire door services in Central London."}
+        image={data.hero?.backgroundImage}
+        imageAlt="BuildingUK Services"
       />
       <Navbar />
 

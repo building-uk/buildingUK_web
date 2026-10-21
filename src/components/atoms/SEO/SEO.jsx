@@ -7,13 +7,14 @@ import { useLocation } from 'react-router-dom'
  * @param {Object} props
  * @param {string} props.title - Page title (concatenated with ' | BuildingUK')
  * @param {string} props.description - Meta description
- * @param {string} [props.image] - Custom Open Graph & Twitter image
+ * @param {string} [props.image] - Custom Open Graph & Twitter image (must be an absolute HTTPS URL, ideally 1200x630)
+ * @param {string} [props.imageAlt] - Alt text for og:image and twitter:image. Defaults to the page title.
  * @param {string} [props.url] - Explicit canonical or Open Graph URL link
  * @param {string} [props.type='website'] - Open Graph type (e.g. 'website', 'article')
  * @param {boolean} [props.noindex=false] - If true, injects noindex robots rule
  * @param {Object|Array<Object>} [props.schema] - Optional page-specific Schema.org structured data (e.g. Article)
  */
-export default function SEO({ title, description, image, url, type = 'website', noindex = false, schema }) {
+export default function SEO({ title, description, image, imageAlt, url, type = 'website', noindex = false, schema }) {
   const location = useLocation()
   const siteTitle = title 
     ? (title.includes('BuildingUK') ? title : `${title} | BuildingUK`)
@@ -28,6 +29,8 @@ export default function SEO({ title, description, image, url, type = 'website', 
 
   const defaultImage = 'https://www.building.uk.com/images/og-image.jpg'
   const shareImage = image || defaultImage
+  // Use explicit alt if provided (e.g. project title), otherwise fall back to page title
+  const shareImageAlt = imageAlt || siteTitle
 
   // Process page-specific schema if provided (without duplicating the index.html GeneralContractor schema)
   const schemasToRender = []
@@ -55,12 +58,16 @@ export default function SEO({ title, description, image, url, type = 'website', 
       <meta property="og:description" content={siteDescription} />
       <meta property="og:url" content={canonicalUrl} />
       {shareImage && <meta property="og:image" content={shareImage} />}
+      {shareImage && <meta property="og:image:width" content="1200" />}
+      {shareImage && <meta property="og:image:height" content="630" />}
+      {shareImage && <meta property="og:image:alt" content={shareImageAlt} />}
 
       {/* Twitter Cards */}
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:title" content={siteTitle} />
       <meta name="twitter:description" content={siteDescription} />
       {shareImage && <meta name="twitter:image" content={shareImage} />}
+      {shareImage && <meta name="twitter:image:alt" content={shareImageAlt} />}
 
       {/* Optional Page-Specific Schema.org Structured Data */}
       {schemasToRender.map((s, idx) => (

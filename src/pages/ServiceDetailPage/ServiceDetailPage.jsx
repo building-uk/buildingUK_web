@@ -10,6 +10,7 @@ import { SEO } from '@atoms'
 import ProjectsPreview from '@organisms/ProjectsPreview'
 import { PortableText } from '@portabletext/react'
 import { cmsService } from '../../services/cmsService'
+import { urlFor } from '../../sanityClient'
 import './ServiceDetailPage.css'
 
 /**
@@ -101,12 +102,19 @@ function ServiceDetailPage() {
 
   if (!service) return null
 
+  const seoTitle = service.seo?.metaTitle || service.title
+  const seoDescription = service.seo?.metaDescription || service.shortDescription || ''
+  const ogImageUrl = service.imageRef
+    ? urlFor(service.imageRef).width(1200).height(630).fit('crop').auto('format').url()
+    : (service.heroImage || service.image)
+
   return (
     <div className="service-detail-page">
       <SEO 
-        title={service.seo?.metaTitle || service.title}
-        description={service.seo?.metaDescription || service.shortDescription || `Explore our professional ${service.title} services, delivered with meticulous craftsmanship and expert project management in Central London.`}
-        image={service.heroImage || service.image}
+        title={seoTitle}
+        description={seoDescription}
+        image={ogImageUrl}
+        imageAlt={service.title}
         url={`https://www.building.uk.com/services/${service.id || id}`}
       />
       <Navbar />
