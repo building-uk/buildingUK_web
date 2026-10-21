@@ -154,6 +154,12 @@ function ArticleDetailPage() {
 
   const articleUrl = `https://www.building.uk.com/articles/${article.id || id}`
 
+  const seoTitle = article.seo?.metaTitle || article.title
+  const seoDescription = article.seo?.metaDescription || article.excerpt || ''
+  const ogImageUrl = article.imageRef
+    ? urlFor(article.imageRef).width(1200).height(630).fit('crop').auto('format').url()
+    : article.image
+
   const articleSchema = {
     '@context': 'https://schema.org',
     '@type': 'BlogPosting',
@@ -163,7 +169,7 @@ function ArticleDetailPage() {
       '@type': 'WebPage',
       '@id': articleUrl
     },
-    'image': article.image,
+    'image': ogImageUrl || article.image,
     'author': {
       '@type': 'Person',
       'name': article.author || 'BuildingUK Team'
@@ -177,15 +183,16 @@ function ArticleDetailPage() {
       }
     },
     'datePublished': article.date,
-    'description': article.excerpt
+    'description': seoDescription
   }
 
   return (
     <div className="article-detail-page">
       <SEO 
-        title={article.seo?.metaTitle || article.title}
-        description={article.seo?.metaDescription || article.excerpt || `Read our article on ${article.title} published by ${article.author}. Learn more about home renovation and refurbishment insights with BuildingUK.`}
-        image={article.image}
+        title={seoTitle}
+        description={seoDescription}
+        image={ogImageUrl}
+        imageAlt={article.title}
         url={articleUrl}
         type="article"
         schema={articleSchema}

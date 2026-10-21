@@ -54,6 +54,8 @@ function ArticlesPage() {
       <SEO 
         title="Articles & Insights"
         description="Stay updated with news, expert renovation advice, and fire door compliance guides from BuildingUK builders in Central London."
+        image={data.hero?.backgroundImage}
+        imageAlt="BuildingUK Articles & Insights"
       />
       <Navbar />
 

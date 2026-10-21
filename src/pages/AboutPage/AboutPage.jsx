@@ -69,6 +69,8 @@ function AboutPage() {
       <SEO 
         title="About Us"
         description="Learn about BuildingUK, a female-led, Which? Trusted Trader builder specialising in residential refurbishment and fire door services in Central London."
+        image={data.hero?.backgroundImage}
+        imageAlt="About BuildingUK"
       />
       <Navbar />
 

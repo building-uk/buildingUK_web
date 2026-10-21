@@ -2,6 +2,7 @@ import fs from 'node:fs'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { createClient } from '@sanity/client'
+import { createImageUrlBuilder } from '@sanity/image-url'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const distDir = path.resolve(__dirname, 'dist')
@@ -9,13 +10,20 @@ const indexHtmlPath = path.resolve(distDir, 'index.html')
 
 const DOMAIN = 'https://www.building.uk.com'
 
-// Connect to Sanity
+// Connect to Sanity (useCdn: false — always read published content directly, not from CDN cache)
 const client = createClient({
   projectId: process.env.VITE_SANITY_PROJECT_ID || 'ibnvorrn',
   dataset: process.env.VITE_SANITY_DATASET || 'production',
   useCdn: false,
   apiVersion: process.env.VITE_SANITY_API_VERSION || '2024-03-01',
 })
+
+// Build properly-cropped 1200×630 OG image URLs via the Sanity image API
+const imageUrlBuilder = createImageUrlBuilder(client)
+function ogImageUrl(assetRef) {
+  if (!assetRef) return null
+  return imageUrlBuilder.image(assetRef).width(1200).height(630).fit('crop').auto('format').url()
+}
 
 // Static pages — images will be enriched at runtime from Sanity hero images
 const staticPages = [
@@ -97,21 +105,21 @@ function escapeHtml(str) {
 
 async function fetchDynamicRoutes() {
   const [services, articles, projects, heroImages] = await Promise.all([
-    client.fetch('*[_type == "service"] { "slug": slug.current, title, summary, seo, "image": mainImage.asset->url }'),
-    client.fetch('*[_type == "blog"] { "slug": slug.current, title, blurb, seo, author, publishedAt, "image": mainImage.asset->url }'),
-    client.fetch('*[_type == "projects"] { "slug": slug.current, title, summary, seo, location, "image": coverImage.asset->url }'),
+    client.fetch('*[_type == "service"] { "slug": slug.current, title, summary, seo, "image": mainImage.asset->url, "imageRef": mainImage }'),
+    client.fetch('*[_type == "blog"] { "slug": slug.current, title, blurb, seo, author, publishedAt, "image": mainImage.asset->url, "imageRef": mainImage }'),
+    client.fetch('*[_type == "projects"] { "slug": slug.current, title, summary, seo, location, "image": coverImage.asset->url, "imageRef": coverImage }'),
     client.fetch(`{
-      "about": *[_type == "aboutPage"][0].heroImage.asset->url,
-      "services": *[_type == "servicesPage"][0].heroImage.asset->url,
-      "projects": *[_type == "projectsPage"][0].heroImage.asset->url,
-      "articles": *[_type == "articlesPage"][0].heroImage.asset->url
+      "about": *[_type == "aboutPage"][0].heroImage,
+      "services": *[_type == "servicesPage"][0].heroImage,
+      "projects": *[_type == "projectsPage"][0].heroImage,
+      "articles": *[_type == "articlesPage"][0].heroImage
     }`),
   ])
 
-  // Enrich static pages that have Sanity hero images
+  // Enrich static pages that have Sanity hero images with cropped 1200x630 OG images
   for (const page of staticPages) {
     if (page.sanityKey && heroImages?.[page.sanityKey]) {
-      page.image = heroImages[page.sanityKey]
+      page.image = ogImageUrl(heroImages[page.sanityKey]) || undefined
     }
     delete page.sanityKey
   }
@@ -127,11 +135,13 @@ async function fetchDynamicRoutes() {
       s.summary ||
       `Explore our professional ${s.title} services in Central London with BuildingUK.`
     )
+    const croppedImage = ogImageUrl(s.imageRef)
     dynamicPages.push({
       path: `/services/${s.slug}`,
       title,
       description,
-      image: s.image || undefined,
+      image: croppedImage || s.image || undefined,
+      imageAlt: cleanString(s.title),
       schema: {
         '@context': 'https://schema.org',
         '@type': 'Service',
@@ -155,13 +165,15 @@ async function fetchDynamicRoutes() {
       a.blurb ||
       `Read our article on ${a.title}. Renovation insights from BuildingUK.`
     )
+    const croppedImage = ogImageUrl(a.imageRef)
     const canonicalUrl = `${DOMAIN}/articles/${a.slug}`
     dynamicPages.push({
       path: `/articles/${a.slug}`,
       title,
       description,
       type: 'article',
-      image: a.image,
+      image: croppedImage || a.image,
+      imageAlt: cleanString(a.title),
       schema: {
         '@context': 'https://schema.org',
         '@type': 'BlogPosting',
@@ -171,7 +183,7 @@ async function fetchDynamicRoutes() {
           '@type': 'WebPage',
           '@id': canonicalUrl,
         },
-        image: a.image || undefined,
+        image: croppedImage || a.image || undefined,
         author: {
           '@type': 'Person',
           name: cleanString(a.author) || 'BuildingUK Team',
@@ -194,23 +206,22 @@ async function fetchDynamicRoutes() {
   for (const p of projects || []) {
     if (!p.slug) continue
     const title = cleanString(p.seo?.metaTitle || (p.title.includes('BuildingUK') ? p.title : `${p.title} | BuildingUK`))
-    const description = cleanString(
-      p.seo?.metaDescription ||
-      p.summary ||
-      `Case study detailing BuildingUK's work on ${p.title} in ${p.location || 'Central London'}.`
-    )
+    // Use Sanity SEO fields exclusively — fall back to summary, never hardcoded text
+    const description = cleanString(p.seo?.metaDescription || p.summary || '')
+    const croppedImage = ogImageUrl(p.imageRef)
     const projectUrl = `${DOMAIN}/projects/${p.slug}`
     dynamicPages.push({
       path: `/projects/${p.slug}`,
       title,
       description,
-      image: p.image || undefined,
+      image: croppedImage || p.image || undefined,
+      imageAlt: cleanString(p.title),
       schema: {
         '@context': 'https://schema.org',
         '@type': 'CreativeWork',
         name: cleanString(p.title),
         description,
-        image: p.image || undefined,
+        image: croppedImage || p.image || undefined,
         url: projectUrl,
         locationCreated: {
           '@type': 'Place',
@@ -234,6 +245,8 @@ function renderHtmlForPage(template, page) {
   const siteDesc = escapeHtml(page.description)
   const ogType = page.type || 'website'
   const ogImage = page.image || `${DOMAIN}/images/og-image.jpg`
+  // Use page-specific alt if available (e.g. project title), otherwise page title
+  const ogImageAlt = escapeHtml(page.imageAlt || page.title)
 
   // Strip any pre-existing title, description, canonical, or og tags from template
   let html = template
@@ -245,9 +258,13 @@ function renderHtmlForPage(template, page) {
     .replace(/<meta\s+property=["']og:url["'][^>]*>/gis, '')
     .replace(/<meta\s+property=["']og:type["'][^>]*>/gis, '')
     .replace(/<meta\s+property=["']og:image["'][^>]*>/gis, '')
+    .replace(/<meta\s+property=["']og:image:width["'][^>]*>/gis, '')
+    .replace(/<meta\s+property=["']og:image:height["'][^>]*>/gis, '')
+    .replace(/<meta\s+property=["']og:image:alt["'][^>]*>/gis, '')
     .replace(/<meta\s+name=["']twitter:title["'][^>]*>/gis, '')
     .replace(/<meta\s+name=["']twitter:description["'][^>]*>/gis, '')
     .replace(/<meta\s+name=["']twitter:image["'][^>]*>/gis, '')
+    .replace(/<meta\s+name=["']twitter:image:alt["'][^>]*>/gis, '')
 
   // Build clean SEO tags block (GUARANTEED exactly ONE canonical tag)
   const seoHeadTags = [
@@ -259,9 +276,13 @@ function renderHtmlForPage(template, page) {
     `  <meta property="og:title" content="${siteTitle}" />`,
     `  <meta property="og:description" content="${siteDesc}" />`,
     `  <meta property="og:image" content="${ogImage}" />`,
+    `  <meta property="og:image:width" content="1200" />`,
+    `  <meta property="og:image:height" content="630" />`,
+    `  <meta property="og:image:alt" content="${ogImageAlt}" />`,
     `  <meta name="twitter:title" content="${siteTitle}" />`,
     `  <meta name="twitter:description" content="${siteDesc}" />`,
     `  <meta name="twitter:image" content="${ogImage}" />`,
+    `  <meta name="twitter:image:alt" content="${ogImageAlt}" />`,
   ]
 
   if (page.schema) {

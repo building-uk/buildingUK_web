@@ -8,6 +8,7 @@ import Button from '@atoms/Button'
 import Image from '@atoms/Image'
 import { SEO } from '@atoms'
 import { cmsService } from '../../services/cmsService'
+import { urlFor } from '../../sanityClient'
 import { PortableText } from '@portabletext/react'
 import './ProjectDetailPage.css'
 
@@ -66,12 +67,21 @@ function ProjectDetailPage() {
 
   const nextProject = getNextProject()
 
+  // Derive head tag values entirely from Sanity — no hardcoded strings
+  const seoTitle = project.seo?.metaTitle || project.title
+  const seoDescription = project.seo?.metaDescription || project.shortDescription || ''
+
+  // Build a 1200×630 cropped OG image URL via the Sanity image URL builder
+  const ogImageUrl = project.imageRef
+    ? urlFor(project.imageRef).width(1200).height(630).fit('crop').auto('format').url()
+    : project.image // plain url fallback if imageRef not available
+
   const projectSchema = {
     '@context': 'https://schema.org',
     '@type': 'CreativeWork',
     'name': project.title,
-    'image': project.image,
-    'description': project.shortDescription,
+    'image': ogImageUrl || project.image,
+    'description': seoDescription,
     'locationCreated': {
       '@type': 'Place',
       'name': project.location || 'Central London, UK'
@@ -85,9 +95,10 @@ function ProjectDetailPage() {
   return (
     <div className="project-detail-page">
       <SEO 
-        title={`${project.title}`}
-        description={project.shortDescription || `Case study detailing BuildingUK's work on ${project.title} in ${project.location || 'Central London'}. Learn more about our craftsmanship.`}
-        image={project.image}
+        title={seoTitle}
+        description={seoDescription}
+        image={ogImageUrl}
+        imageAlt={project.title}
         url={`https://www.building.uk.com/projects/${project.id || id}`}
         schema={projectSchema}
       />

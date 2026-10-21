@@ -154,6 +154,7 @@ export const cmsService = {
       title,
       "shortDescription": summary,
       "image": mainImage.asset->url,
+      "imageRef": mainImage,
       "heroImage": mainImage.asset->url,
       "description": content,
       sections,
@@ -238,9 +239,11 @@ export const cmsService = {
       location,
       services,
       "image": coverImage.asset->url,
+      "imageRef": coverImage,
       "images": gallery[].asset->url,
       "shortDescription": summary,
-      "description": description
+      "description": description,
+      seo
     }`
     return client.fetch(query, { id })
   },
@@ -306,6 +309,7 @@ export const cmsService = {
       "date": publishedAt,
       author,
       "image": mainImage.asset->url,
+      "imageRef": mainImage,
       "excerpt": blurb,
       "content": body,
       seo,
