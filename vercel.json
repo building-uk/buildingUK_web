@@ -1,6 +1,17 @@
 {
   "redirects": [
     {
+      "source": "/:path*",
+      "has": [
+        {
+          "type": "host",
+          "value": "building.uk.com"
+        }
+      ],
+      "destination": "https://www.building.uk.com/:path*",
+      "permanent": true
+    },
+    {
       "source": "/services/residential-refurbishment",
       "destination": "/services/whole-home-refurbishment",
       "permanent": true

@@ -152,10 +152,17 @@ function ArticleDetailPage() {
 
   if (!article) return null
 
+  const articleUrl = `https://www.building.uk.com/articles/${article.id || id}`
+
   const articleSchema = {
     '@context': 'https://schema.org',
     '@type': 'BlogPosting',
     'headline': article.title,
+    'url': articleUrl,
+    'mainEntityOfPage': {
+      '@type': 'WebPage',
+      '@id': articleUrl
+    },
     'image': article.image,
     'author': {
       '@type': 'Person',
@@ -179,6 +186,7 @@ function ArticleDetailPage() {
         title={article.seo?.metaTitle || article.title}
         description={article.seo?.metaDescription || article.excerpt || `Read our article on ${article.title} published by ${article.author}. Learn more about home renovation and refurbishment insights with BuildingUK.`}
         image={article.image}
+        url={articleUrl}
         type="article"
         schema={articleSchema}
       />

@@ -88,6 +88,7 @@ function ProjectDetailPage() {
         title={`${project.title}`}
         description={project.shortDescription || `Case study detailing BuildingUK's work on ${project.title} in ${project.location || 'Central London'}. Learn more about our craftsmanship.`}
         image={project.image}
+        url={`https://www.building.uk.com/projects/${project.id || id}`}
         schema={projectSchema}
       />
       <Navbar />
