@@ -34,6 +34,84 @@ export const landingPage = {
             ],
         },
         {
+            name: 'accreditationSection',
+            title: 'Accreditation Section',
+            type: 'object',
+            description: 'Accredited & Vetted section placed right after the Hero, before About Us.',
+            fields: [
+                {
+                    name: 'subtitle',
+                    title: 'Subtitle / Tag',
+                    type: 'string',
+                    initialValue: 'ACCREDITED & VETTED',
+                },
+                {
+                    name: 'title',
+                    title: 'Title',
+                    type: 'string',
+                    initialValue: 'Trusted by Londoners. Backed by the Industry.',
+                },
+                {
+                    name: 'description',
+                    title: 'Description',
+                    type: 'array',
+                    of: [{ type: 'block' }],
+                    description: 'Rich text editor with hyperlinks, bold, etc.',
+                },
+                {
+                    name: 'badges',
+                    title: 'Accreditation Badges',
+                    type: 'array',
+                    of: [
+                        {
+                            type: 'object',
+                            fields: [
+                                {
+                                    name: 'name',
+                                    title: 'Accreditation Name',
+                                    type: 'string',
+                                    description: 'e.g. Which? Trusted Trader',
+                                },
+                                {
+                                    name: 'logo',
+                                    title: 'Badge Image / Logo',
+                                    type: 'image',
+                                    options: { hotspot: true },
+                                },
+                                {
+                                    name: 'caption',
+                                    title: 'Caption / Subtitle',
+                                    type: 'string',
+                                    description: 'e.g. Independently vetted for quality and customer service',
+                                },
+                                {
+                                    name: 'url',
+                                    title: 'Website Link (Optional)',
+                                    type: 'url',
+                                },
+                            ],
+                            preview: {
+                                select: {
+                                    title: 'name',
+                                    subtitle: 'caption',
+                                    media: 'logo',
+                                },
+                            },
+                        },
+                    ],
+                },
+            ],
+            preview: {
+                select: { title: 'title', subtitle: 'subtitle' },
+                prepare({ title, subtitle }) {
+                    return {
+                        title: title || 'Accreditation Section',
+                        subtitle: subtitle || 'ACCREDITED & VETTED',
+                    }
+                },
+            },
+        },
+        {
             name: 'aboutSnippet',
             title: 'About Snippet',
             type: 'object',

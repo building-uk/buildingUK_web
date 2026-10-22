@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import {
   Navbar,
   HeroSection,
+  AccreditationSection,
   AboutSection,
   TestimonialsSection,
   ServicesSection,
@@ -24,6 +25,7 @@ function HomePage() {
 
   const [data, setData] = useState({
     hero: null,
+    accreditation: null,
     about: null,
     services: [],
     testimonials: [],
@@ -34,6 +36,7 @@ function HomePage() {
   })
   const [loading, setLoading] = useState({
     hero: true,
+    accreditation: true,
     about: true,
     services: true,
     testimonials: true,
@@ -58,6 +61,7 @@ function HomePage() {
 
     // Parallel fetch all sections
     fetchSection('hero', () => cmsService.getHeroContent())
+    fetchSection('accreditation', () => cmsService.getAccreditationContent())
     fetchSection('about', () => cmsService.getAboutContent())
     fetchSection('services', async () => {
       const services = await cmsService.getServices()
@@ -92,6 +96,13 @@ function HomePage() {
           images={data.hero?.images?.length ? data.hero.images : []}
           loading={loading.hero}
         />
+
+        <div className="gsap-reveal">
+          <AccreditationSection
+            data={data.accreditation}
+            loading={loading.accreditation}
+          />
+        </div>
 
         <div className="gsap-reveal">
           <AboutSection

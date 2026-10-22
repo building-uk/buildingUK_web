@@ -1,6 +1,7 @@
 // Organisms barrel export
 export { default as Navbar } from './Navbar'
 export { default as HeroSection } from './HeroSection'
+export { default as AccreditationSection } from './AccreditationSection'
 export { default as PageHero } from './PageHero'
 export { default as AboutSection } from './AboutSection'
 export { default as AboutIntro } from './AboutIntro'

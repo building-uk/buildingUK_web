@@ -78,6 +78,22 @@ export const cmsService = {
     }
   },
 
+  // Accreditation Section (Landing)
+  async getAccreditationContent() {
+    const query = `*[_type == "landingPage"][0].accreditationSection {
+      subtitle,
+      title,
+      description,
+      badges[] {
+        name,
+        "logo": logo.asset->url,
+        caption,
+        url
+      }
+    }`
+    return client.fetch(query)
+  },
+
   // About Snippet (Landing)
   async getAboutContent() {
     const stats = await cmsService.getGlobalStats()
